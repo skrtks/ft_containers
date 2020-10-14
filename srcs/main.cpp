@@ -12,7 +12,11 @@
 
 #include <iostream>
 
+#include <list>
+
 int main() {
 	std::cout << "Hello, World!" << std::endl;
+	std::list<int> testList(4, 100);
+
 	return 0;
 }
