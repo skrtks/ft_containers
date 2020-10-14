@@ -32,7 +32,6 @@ private:
 			_previous = obj._previous;
 		}
 	}
-
 };
 
 }

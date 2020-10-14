@@ -15,30 +15,50 @@
 
 #include <memory>
 #include <iterator>
+#include "ListNode.hpp"
+#include "BidirectionalIterator.hpp"
 
 namespace ft {
-	template <class T, class Alloc = std::allocator<T>>
-	class List {
-	public:
-		List();
-		virtual ~List();
-		List(const List& obj);
-		List& operator=(const List& obj);
 
-		// types
-		typedef T value_type;
-		typedef Alloc allocator_type;
-		typedef typename allocator_type::reference reference;
-		typedef typename allocator_type::const_reference const_reference;
-		typedef typename allocator_type::pointer pointer;
-		typedef typename allocator_type::const_pointer const_pointer;
-//		typedef BidirectionalIterator<value_type, node_pointer>			iterator;
-//		typedef ConstBidirectionalIterator<value_type, node_pointer>	const_iterator;
-//		typedef RevBidirectionalIterator<value_type, node_pointer>		reverse_iterator;
-//		typedef ConstRevBidirectionalIterator<value_type, node_pointer>	const_reverse_iterator;
-		typedef reverse_iterator<iterator> reverse_iterator;
-		typedef reverse_iterator<const_iterator> const_reverse_iterator;
+template <class T, class Alloc = std::allocator<T> >
+class List {
+public:
+	// types
+	typedef T										value_type;
+	typedef Alloc									allocator_type;
+	typedef ft::BidirectionalIterator<value_type>	iterator;
+	typedef typename allocator_type::size_type		size_type;
+//	typedef typename allocator_type::reference reference;
+//	typedef typename allocator_type::const_reference const_reference;
+//	typedef typename allocator_type::pointer pointer;
+//	typedef typename allocator_type::const_pointer const_pointer;
+
+
+	List(): _head(0), _node(0) {}
+	virtual ~List() {}
+	List(const List& obj): _node(new ListNode<value_type>(obj)), _head(_node) {}
+	List& operator=(const List& obj) {
+		if (&obj != this) {
+			// Iterate over list and delete
+
+		}
+	}
+
+	iterator begin() {return _head}
+
+
+private:
+	ListNode<value_type>	_node;
+	ListNode<value_type>	_head;
+	ListNode<value_type>	_tail;
+	size_type				_size;
+	allocator_type			_allocator;
+
+	void deepCopy() {
+
 	};
+};
+
 }
 
 #endif //LIST_HPP
