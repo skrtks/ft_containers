@@ -13,8 +13,6 @@
 #ifndef LISTNODE_HPP
 #define LISTNODE_HPP
 
-namespace ft {
-
 template <class T>
 class ListNode {
 	ListNode	*_next;
@@ -25,14 +23,14 @@ public:
 //	explicit ListNode(const T &obj): _next(0), _previous(0), _data(new T(obj)) {}
 	explicit ListNode(T element): _next(0), _previous(0), _data(new T(element)) {}
 	virtual ~ListNode() {};
-//	ListNode& operator=(const ListNode& obj) {
-//		if (&obj != this) {
-//			delete _data;
-//			_data = new T(obj._data);
-//			_next = obj._next;
-//			_previous = obj._previous;
-//		}
-//	}
+	ListNode& operator=(const ListNode& obj) {
+		if (&obj != this) {
+			delete _data;
+			_data = new T(obj._data);
+			_next = obj._next;
+			_previous = obj._previous;
+		}
+	}
 	ListNode* getNext() const {
 		return _next;
 	}
@@ -57,7 +55,5 @@ public:
 		_data = data;
 	}
 };
-
-}
 
 #endif //LISTNODE_HPP

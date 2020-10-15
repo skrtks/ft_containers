@@ -6,10 +6,10 @@
 template <class T>
 class BidirectionalIterator {
 protected:
-	ft::ListNode<T> *_ptr;
+	ListNode<T> *_ptr;
 public:
 	BidirectionalIterator(): _ptr(0) {}
-	explicit BidirectionalIterator(ft::ListNode<T> *node): _ptr(node) {}
+	explicit BidirectionalIterator(ListNode<T> *node): _ptr(node) {}
 	virtual ~BidirectionalIterator() {}
 	BidirectionalIterator(const BidirectionalIterator& obj) { _ptr = obj._ptr;}
 	BidirectionalIterator& operator=(const BidirectionalIterator& obj) {

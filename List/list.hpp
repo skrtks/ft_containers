@@ -43,8 +43,8 @@ public:
 		_node = NULL;
 		_head = new ListNode<value_type>();
 		_tail = new ListNode<value_type>();
-		_head->_next = _tail;
-		_tail->_previous = _head;
+		setHead(_tail);
+		setTail(_head);
 		_size = 0;
 	}
 	virtual ~list() {}
@@ -59,23 +59,42 @@ public:
 //		}
 //	}
 
-	iterator begin() {return iterator(_head->_next);}
+	iterator begin() {return iterator(_head->getNext());}
 
 	void push_back(value_type element) {
+		ListNode<value_type>* tmp;
 		if (!_node) {
 			_node = new ListNode<value_type>(element);
-			_head->setNext(_node);
-			_tail->setPrevious(_node);
+			setHead(_node);
+			setTail(_node);
 			_size++;
 		}
 		else {
 			_node = new ListNode<value_type>(element);
-			_node->setPrevious(_tail->getPrevious());
-			_tail->_previous->_next = _node;
-			_tail->_previous = _node;
-			_tail = _node;
+			_node->setPrevious(getTail());
+			tmp = getTail();
+			tmp->setNext(_node);
+			setTail(_node);
 			_size++;
 		}
+
+
+	}
+
+	ListNode<value_type>* getHead() const {
+		return _head->getNext();
+	}
+
+	ListNode<value_type>* getTail() const {
+		return _tail->getPrevious();
+	}
+
+	void setHead(ListNode<value_type>* node) {
+		_head->setNext(node);
+	}
+
+	void setTail(ListNode<value_type>* node) {
+		_tail->setPrevious(node);
 	}
 
 
