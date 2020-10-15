@@ -12,11 +12,16 @@
 
 #include <iostream>
 
-#include <list>
+#include "list.hpp"
 
 int main() {
 	std::cout << "Hello, World!" << std::endl;
-	std::list<int> testList(4, 100);
+	ft::list<std::string> testlist;
+	std::string str = "Hello, world!";
+	testlist.push_back(str);
+	testlist.push_back("I'm the next King");
 
+	ft::list<std::string>::iterator it = testlist.begin();
+	it++;
 	return 0;
 }

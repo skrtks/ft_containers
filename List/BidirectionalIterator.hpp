@@ -1,21 +1,32 @@
 #ifndef BIDIRECTIONALITERATOR_HPP
 #define BIDIRECTIONALITERATOR_HPP
 
-namespace ft {
-
 #include "ListNode.hpp"
 
 template <class T>
 class BidirectionalIterator {
-	ft::ListNode<T> _head;
-	T _data;
+protected:
+	ft::ListNode<T> *_ptr;
 public:
-	BidirectionalIterator();
-	virtual ~BidirectionalIterator();
-	BidirectionalIterator(const BidirectionalIterator& obj);
-	BidirectionalIterator& operator=(const BidirectionalIterator& obj);
+	BidirectionalIterator(): _ptr(0) {}
+	explicit BidirectionalIterator(ft::ListNode<T> *node): _ptr(node) {}
+	virtual ~BidirectionalIterator() {}
+	BidirectionalIterator(const BidirectionalIterator& obj) { _ptr = obj._ptr;}
+	BidirectionalIterator& operator=(const BidirectionalIterator& obj) {
+		if (&obj != this) {
+			_ptr = obj._ptr;
+		}
+	}
+	BidirectionalIterator	operator++(int) {
+		BidirectionalIterator	out(*this);
+		_ptr = _ptr->getNext();
+		return out;
+	}
+	BidirectionalIterator&	operator++() {
+		_ptr = _ptr->getNext();
+		return *this;
+	}
 };
 
-}
 
 #endif //BIDIRECTIONALITERATOR_HPP
