@@ -55,6 +55,9 @@ namespace ft {
 		bool					operator==(const BidirectionalIterator &obj) {
 			return (_ptr == obj._ptr);
 		}
+		bool					operator!=(const BidirectionalIterator &obj) {
+			return (_ptr != obj._ptr);
+		}
 	};
 }
 

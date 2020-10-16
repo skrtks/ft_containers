@@ -61,4 +61,16 @@ TEST_CASE("Iterator", "[List]") {
 		res = (myIt == myList.begin());
 		REQUIRE(res == false);
 	}
+	SECTION("!= overload") {
+		ft::list<std::string>::iterator myIt = myList.begin();
+		bool res;
+		res = (myIt != myList.end());
+		REQUIRE(res == true);
+		myIt++;
+		myIt++;
+		res = (myIt != myList.begin());
+		REQUIRE(res == true);
+		res = (myIt != myList.end());
+		REQUIRE(res == false);
+	}
 }
