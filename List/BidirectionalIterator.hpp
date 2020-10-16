@@ -3,44 +3,57 @@
 
 #include "Node.hpp"
 
-template <class T>
-class BidirectionalIterator {
-protected:
-	Node<T> *_ptr;
-public:
-	BidirectionalIterator(): _ptr(0) {}
-	explicit BidirectionalIterator(Node<T> *node): _ptr(node) {}
-	virtual ~BidirectionalIterator() {}
-	BidirectionalIterator(const BidirectionalIterator& obj) { _ptr = obj._ptr;}
-	BidirectionalIterator& operator=(const BidirectionalIterator& obj) {
-		if (&obj != this) {
-			_ptr = obj._ptr;
+namespace ft {
+
+	template < typename T, typename N, class Category = std::bidirectional_iterator_tag >
+	class BidirectionalIterator {
+	public:
+		typedef T							value_type;
+		typedef value_type&					reference;
+		typedef value_type*					pointer;
+		typedef N                           node_pointer;
+		typedef size_t						size_type;
+		typedef ptrdiff_t					difference_type;
+		typedef Category					iterator_category;
+		typedef BidirectionalIterator		self_type;
+	protected:
+		Node<T> *_ptr;
+	public:
+		BidirectionalIterator(): _ptr(NULL) {}
+		explicit BidirectionalIterator(Node<T> *node): _ptr(node) {}
+		virtual ~BidirectionalIterator() {}
+		BidirectionalIterator(const BidirectionalIterator& obj) { _ptr = obj._ptr;}
+		BidirectionalIterator& operator=(const BidirectionalIterator& obj) {
+			if (&obj != this) {
+				_ptr = obj._ptr;
+			}
 		}
-	}
-	BidirectionalIterator	operator++(int) { // Overload postfix ++
-		BidirectionalIterator	out(*this);
-		_ptr = _ptr->_next;
-		return out;
-	}
-	BidirectionalIterator&	operator++() { // Overload prefix ++
-		_ptr = _ptr->_next;
-		return *this;
-	}
-	BidirectionalIterator	operator--(int) { // Overload postfix --
-		BidirectionalIterator	out(*this);
-		_ptr = _ptr->_previous;
-		return out;
-	}
-	BidirectionalIterator&	operator--() { // Overload prefix --
-		_ptr = _ptr->_previous;
-		return *this;
-	}
-	T&	operator*() {
-		return *_ptr->_data;
-	}
-//	T*	operator->() {
-//		return &(this->_ptr->_data);
-//	}
-};
+		BidirectionalIterator	operator++(int) { // Overload postfix ++
+			BidirectionalIterator	out(*this);
+			_ptr = _ptr->_next;
+			return out;
+		}
+		BidirectionalIterator&	operator++() { // Overload prefix ++
+			_ptr = _ptr->_next;
+			return *this;
+		}
+		BidirectionalIterator	operator--(int) { // Overload postfix --
+			BidirectionalIterator	out(*this);
+			_ptr = _ptr->_previous;
+			return out;
+		}
+		BidirectionalIterator&	operator--() { // Overload prefix --
+			_ptr = _ptr->_previous;
+			return *this;
+		}
+		reference	operator*() {
+			return *_ptr->_data;
+		}
+		pointer	operator->() {
+			return this->_ptr->_data;
+		}
+
+	};
+}
 
 #endif //BIDIRECTIONALITERATOR_HPP

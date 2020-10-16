@@ -34,7 +34,7 @@ int main() {
 	std::cout << "Sys: " << *sysIt << std::endl;
 	++myIt;
 	++sysIt;
-//	std::cout << "My: " << myIt->data() << std::endl;
+	std::cout << "My: " << myIt->data() << std::endl;
 	std::cout << "Sys: " << sysIt->data() << std::endl;
 	return 0;
 }

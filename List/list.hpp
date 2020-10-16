@@ -33,7 +33,7 @@ public:
 	typedef Node<T>		*node_pointer;
 	typedef ptrdiff_t	difference_type;
 	typedef size_t		size_type;
-	typedef BidirectionalIterator<value_type>			iterator;
+	typedef BidirectionalIterator<value_type, node_pointer>			iterator;
 //	typedef RevBidirectionalIterator<value_type, node_pointer>		reverse_iterator;
 //	typedef ConstRevBidirectionalIterator<value_type, node_pointer>	const_reverse_iterator;
 
