@@ -7,6 +7,7 @@
 TEST_CASE("Iterator", "[List]") {
 	ft::list<std::string> myList;
 	std::list<std::string> sysList;
+	ft::list<int> myIntList;
 	std::string str = "Hello, world!";
 	myList.push_back(str);
 	sysList.push_back(str);
@@ -14,10 +15,10 @@ TEST_CASE("Iterator", "[List]") {
 	sysList.push_back("I'm the next King");
 	myList.push_back("Welcome yourself to the next chapter");
 	sysList.push_back("Welcome yourself to the next chapter");
+	ft::list<std::string>::iterator myIt = myList.begin();
+	std::list<std::string>::iterator sysIt = sysList.begin();
 
 	SECTION("Increment") {
-		ft::list<std::string>::iterator myIt = myList.begin();
-		std::list<std::string>::iterator sysIt = sysList.begin();
 		myIt++;
 		sysIt++;
 		REQUIRE(*myIt == *sysIt);
@@ -26,8 +27,6 @@ TEST_CASE("Iterator", "[List]") {
 		REQUIRE(*myIt == *sysIt);
 	}
 	SECTION("Decrement") {
-		ft::list<std::string>::iterator myIt = myList.begin();
-		std::list<std::string>::iterator sysIt = sysList.begin();
 		myIt++;
 		sysIt++;
 		REQUIRE(*myIt == *sysIt);
@@ -36,21 +35,16 @@ TEST_CASE("Iterator", "[List]") {
 		REQUIRE(*myIt == *sysIt);
 	}
 	SECTION("-> overload") {
-		ft::list<std::string>::iterator myIt = myList.begin();
-		std::list<std::string>::iterator sysIt = sysList.begin();
 		myIt++;
 		sysIt++;
 		REQUIRE(*myIt->data() == *sysIt->data());
 	}
 	SECTION("* overload") {
-		ft::list<std::string>::iterator myIt = myList.begin();
-		std::list<std::string>::iterator sysIt = sysList.begin();
 		myIt++;
 		sysIt++;
 		REQUIRE(*myIt == *sysIt);
 	}
 	SECTION("== overload") {
-		ft::list<std::string>::iterator myIt = myList.begin();
 		bool res;
 		res = (myIt == myList.begin());
 		REQUIRE(res == true);
@@ -62,7 +56,6 @@ TEST_CASE("Iterator", "[List]") {
 		REQUIRE(res == false);
 	}
 	SECTION("!= overload") {
-		ft::list<std::string>::iterator myIt = myList.begin();
 		bool res;
 		res = (myIt != myList.end());
 		REQUIRE(res == true);
@@ -73,4 +66,42 @@ TEST_CASE("Iterator", "[List]") {
 		res = (myIt != myList.end());
 		REQUIRE(res == false);
 	}
+	SECTION("Test (*it)++") {
+		myIntList.push_back(1);
+		ft::list<int>::iterator myIntIt = myIntList.begin();
+		REQUIRE(*myIntIt == 1);
+		(*myIntIt)++;
+		REQUIRE(*myIntIt == 2);
+		*myIntIt++;
+		REQUIRE(*myIntIt == 2);
+	}
+	SECTION("Test (*it)--") {
+		myIntList.push_back(2);
+		ft::list<int>::iterator myIntIt = myIntList.begin();
+		REQUIRE(*myIntIt == 2);
+		(*myIntIt)--;
+		REQUIRE(*myIntIt == 1);
+		*myIntIt--;
+		REQUIRE(*myIntIt == 1);
+	}
+	SECTION("Test assignemt with iterator") {
+		myIntList.push_back(1);
+		myIntList.push_back(8);
+		ft::list<int>::iterator myIntIt = myIntList.begin();
+		REQUIRE(*myIntIt == 1);
+		*myIntIt = 5;
+		REQUIRE(*myIntIt == 5);
+	}
+	SECTION("Test dereference as lvalue") {
+		myIntList.push_back(1);
+		myIntList.push_back(8);
+		ft::list<int>::iterator myIntIt = myIntList.begin();
+		*myIntIt++ = 5;
+		REQUIRE(*myIntIt == 8);
+		myIntIt--;
+		REQUIRE(*myIntIt == 5);
+	}
+//	SECTION("Copy contructor") {
+//		ft::list<int>::iterator myIt = ;
+//	}
 }

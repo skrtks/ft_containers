@@ -22,11 +22,12 @@ namespace ft {
 		BidirectionalIterator(): _ptr(NULL) {}
 		explicit BidirectionalIterator(node_pointer node): _ptr(node) {}
 		virtual ~BidirectionalIterator() {}
-		BidirectionalIterator(const BidirectionalIterator& obj) { _ptr = obj._ptr;}
+		BidirectionalIterator(const BidirectionalIterator& obj) { *this = obj;}
 		BidirectionalIterator& operator=(const BidirectionalIterator& obj) {
 			if (&obj != this) {
 				_ptr = obj._ptr;
 			}
+			return *this;
 		}
 		reference				operator*() {
 			return *_ptr->_data;

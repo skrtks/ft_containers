@@ -17,21 +17,20 @@
 
 int main() {
 	{
-		ft::list<int> myList;
-		myList.push_back(1);
-		ft::list<int>::iterator myIt = myList.begin();
-		std::cout << "My: " << *myIt << std::endl;
-		*myIt++;
-		std::cout << "My: " << *myIt << std::endl;
+		std::list<int> sysList;
+		std::list<int>::iterator sysIt = sysList.begin();
+		std::cout << "Sys: " << *sysIt << std::endl;
+		*sysIt = 5;
+		std::cout << "Sys: " << *sysIt << std::endl;
 	}
 
 	{
-		std::list<int> sysList;
-		sysList.push_back(1);
-		std::list<int>::iterator sysIt = sysList.begin();
-		std::cout << "Sys: " << *sysIt << std::endl;
-		*sysIt++;
-		std::cout << "Sys: " << *sysIt << std::endl;
+		ft::list<int> myList;
+		ft::list<int>::iterator myIt = myList.begin();
+		std::cout << "My: " << *myIt << std::endl;
+		*myIt++ = 5;
+		myIt--;
+		std::cout << "My: " << *myIt << std::endl;
 	}
 	return 0;
 }
