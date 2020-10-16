@@ -35,4 +35,30 @@ TEST_CASE("Iterator", "[List]") {
 		sysIt--;
 		REQUIRE(*myIt == *sysIt);
 	}
+	SECTION("-> overload") {
+		ft::list<std::string>::iterator myIt = myList.begin();
+		std::list<std::string>::iterator sysIt = sysList.begin();
+		myIt++;
+		sysIt++;
+		REQUIRE(*myIt->data() == *sysIt->data());
+	}
+	SECTION("* overload") {
+		ft::list<std::string>::iterator myIt = myList.begin();
+		std::list<std::string>::iterator sysIt = sysList.begin();
+		myIt++;
+		sysIt++;
+		REQUIRE(*myIt == *sysIt);
+	}
+	SECTION("== overload") {
+		ft::list<std::string>::iterator myIt = myList.begin();
+		bool res;
+		res = (myIt == myList.begin());
+		REQUIRE(res == true);
+		myIt++;
+		myIt++;
+		res = (myIt == myList.end());
+		REQUIRE(res == true);
+		res = (myIt == myList.begin());
+		REQUIRE(res == false);
+	}
 }

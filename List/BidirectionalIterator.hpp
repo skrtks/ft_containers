@@ -17,10 +17,10 @@ namespace ft {
 		typedef Category					iterator_category;
 		typedef BidirectionalIterator		self_type;
 	protected:
-		Node<T> *_ptr;
+		node_pointer _ptr;
 	public:
 		BidirectionalIterator(): _ptr(NULL) {}
-		explicit BidirectionalIterator(Node<T> *node): _ptr(node) {}
+		explicit BidirectionalIterator(node_pointer node): _ptr(node) {}
 		virtual ~BidirectionalIterator() {}
 		BidirectionalIterator(const BidirectionalIterator& obj) { _ptr = obj._ptr;}
 		BidirectionalIterator& operator=(const BidirectionalIterator& obj) {
@@ -46,13 +46,15 @@ namespace ft {
 			_ptr = _ptr->_previous;
 			return *this;
 		}
-		reference	operator*() {
+		reference				operator*() {
 			return *_ptr->_data;
 		}
-		pointer	operator->() {
+		pointer					operator->() {
 			return this->_ptr->_data;
 		}
-
+		bool					operator==(const BidirectionalIterator &obj) {
+			return (_ptr == obj._ptr);
+		}
 	};
 }
 
