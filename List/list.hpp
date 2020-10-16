@@ -42,58 +42,40 @@ public:
 		_node = NULL;
 		_head = new Node<value_type>();
 		_tail = new Node<value_type>();
-		setHead(_tail);
-		setTail(_head);
+		_head->_next = _tail;
+		_tail->_previous = _head;
 		_size = 0;
 	}
 	virtual ~list() {}
 
 	// Iterators
 	iterator begin() {
-		if (_size == 0)
-			return iterator(_head);
-		return iterator(getHead());
+		return iterator(_head->_next);
 	}
 	iterator end() {
-		if (_size == 0)
-			return iterator(_tail);
-		return iterator(getTail());
+		return iterator(_tail);
 	}
 
 	void push_back(value_type element) {
 		Node<value_type>* tmp;
 		if (!_node) {
 			_node = new Node<value_type>(element);
-			setHead(_node);
-			setTail(_node);
+			_head->_next = _node;
+			_tail->_previous = _node;
+			_node->_previous = _head;
+			_node->_next = _tail;
 			_size++;
 		}
 		else {
 			_node = new Node<value_type>(element);
-			_node->_previous = getTail();
-			tmp = getTail();
+			_node->_previous = _tail->_previous;
+			tmp = _tail->_previous;
 			tmp->_next = _node;
-			setTail(_node);
+			_tail->_previous = _node;
+			_node->_next = _tail;
 			_size++;
 		}
 	}
-
-	node_pointer getHead() const {
-		return _head->_next;
-	}
-
-	node_pointer getTail() const {
-		return _tail->_previous;
-	}
-
-	void setHead(node_pointer node) {
-		_head->_next = node;
-	}
-
-	void setTail(node_pointer node) {
-		_tail->_previous = node;
-	}
-
 
 private:
 	node_pointer	_node;

@@ -50,6 +50,7 @@ TEST_CASE("Iterator", "[List]") {
 		REQUIRE(res == true);
 		myIt++;
 		myIt++;
+		myIt++;
 		res = (myIt == myList.end());
 		REQUIRE(res == true);
 		res = (myIt == myList.begin());
@@ -63,6 +64,7 @@ TEST_CASE("Iterator", "[List]") {
 		myIt++;
 		res = (myIt != myList.begin());
 		REQUIRE(res == true);
+		myIt++;
 		res = (myIt != myList.end());
 		REQUIRE(res == false);
 	}
@@ -73,7 +75,8 @@ TEST_CASE("Iterator", "[List]") {
 		(*myIntIt)++;
 		REQUIRE(*myIntIt == 2);
 		*myIntIt++;
-		REQUIRE(*myIntIt == 2);
+		bool res = (myIntIt == myIntList.end());
+		REQUIRE(res == true);
 	}
 	SECTION("Test (*it)--") {
 		myIntList.push_back(2);
@@ -82,7 +85,8 @@ TEST_CASE("Iterator", "[List]") {
 		(*myIntIt)--;
 		REQUIRE(*myIntIt == 1);
 		*myIntIt--;
-		REQUIRE(*myIntIt == 1);
+		bool res = (myIntIt != myIntList.begin());
+		REQUIRE(res == true);
 	}
 	SECTION("Test assignemt with iterator") {
 		myIntList.push_back(1);
