@@ -19,8 +19,11 @@ int main() {
 	{
 		std::list<int> sysList;
 		std::list<int>::iterator sysIt = sysList.begin();
+		sysList.push_back(5);
 		std::cout << "Sys: " << *sysIt << std::endl;
-		*sysIt = 5;
+//		*sysIt++ = 5;
+//		sysIt--;
+//		sysIt++;
 		std::cout << "Sys: " << *sysIt << std::endl;
 	}
 

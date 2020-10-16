@@ -18,11 +18,11 @@ class Node {
 public:
 	Node	*_next;
 	Node	*_previous;
-	T		*_data;
+	T		_data;
 
 //	explicit ListNode(const T &obj): _next(0), _previous(0), _data(new T(obj)) {}
-	explicit Node(): _next(NULL), _previous(NULL), _data(NULL) {}
-	explicit Node(T element): _next(NULL), _previous(NULL), _data(new T(element)) {}
+	explicit Node(): _next(NULL), _previous(NULL), _data(T()) {}
+	explicit Node(T element): _next(NULL), _previous(NULL), _data(T(element)) {}
 	virtual ~Node() {};
 	Node& operator=(const Node& obj) {
 		if (&obj != this) {

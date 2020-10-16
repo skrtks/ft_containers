@@ -29,8 +29,9 @@ namespace ft {
 			}
 			return *this;
 		}
+
 		reference				operator*() {
-			return *_ptr->_data;
+			return _ptr->_data;
 		}
 		BidirectionalIterator	operator++(int) { // Overload postfix ++
 			BidirectionalIterator	out(*this);
@@ -59,7 +60,7 @@ namespace ft {
 			return *this;
 		}
 		pointer					operator->() {
-			return this->_ptr->_data;
+			return &this->_ptr->_data;
 		}
 		bool					operator==(const BidirectionalIterator &obj) {
 			return (_ptr == obj._ptr);

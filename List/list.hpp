@@ -49,8 +49,16 @@ public:
 	virtual ~list() {}
 
 	// Iterators
-	iterator begin() {return iterator(getHead());}
-	iterator end() {return iterator(getTail());}
+	iterator begin() {
+		if (_size == 0)
+			return iterator(_head);
+		return iterator(getHead());
+	}
+	iterator end() {
+		if (_size == 0)
+			return iterator(_tail);
+		return iterator(getTail());
+	}
 
 	void push_back(value_type element) {
 		Node<value_type>* tmp;
