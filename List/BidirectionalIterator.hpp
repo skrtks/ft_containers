@@ -28,26 +28,34 @@ namespace ft {
 				_ptr = obj._ptr;
 			}
 		}
+		reference				operator*() {
+			return *_ptr->_data;
+		}
 		BidirectionalIterator	operator++(int) { // Overload postfix ++
 			BidirectionalIterator	out(*this);
-			_ptr = _ptr->_next;
+			if (_ptr->_next) {
+				_ptr = _ptr->_next;
+			}
 			return out;
 		}
 		BidirectionalIterator&	operator++() { // Overload prefix ++
-			_ptr = _ptr->_next;
+			if (_ptr->_next) {
+				_ptr = _ptr->_next;
+			}
 			return *this;
 		}
 		BidirectionalIterator	operator--(int) { // Overload postfix --
 			BidirectionalIterator	out(*this);
-			_ptr = _ptr->_previous;
+			if (_ptr->_previous) {
+				_ptr = _ptr->_previous;
+			}
 			return out;
 		}
 		BidirectionalIterator&	operator--() { // Overload prefix --
-			_ptr = _ptr->_previous;
+			if (_ptr->_previous) {
+				_ptr = _ptr->_previous;
+			}
 			return *this;
-		}
-		reference				operator*() {
-			return *_ptr->_data;
 		}
 		pointer					operator->() {
 			return this->_ptr->_data;
