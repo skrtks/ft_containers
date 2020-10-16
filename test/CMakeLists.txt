@@ -1,5 +1,5 @@
 project(test)
 
 set(CMAKE_CXX_STANDARD 11)
-include_directories(../includes ../srcs)
+include_directories(../List ../srcs)
 add_executable(test test.cpp Catch2.h)

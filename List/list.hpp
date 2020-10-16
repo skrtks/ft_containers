@@ -15,7 +15,7 @@
 
 #include <memory>
 #include <iterator>
-#include "ListNode.hpp"
+#include "Node.hpp"
 #include "BidirectionalIterator.hpp"
 
 namespace ft {
@@ -30,80 +30,69 @@ public:
 	typedef const T		&const_reference;
 	typedef T			*pointer;
 	typedef const T		*const_pointer;
-	typedef ListNode<T>	*node_pointer;
+	typedef Node<T>		*node_pointer;
 	typedef ptrdiff_t	difference_type;
 	typedef size_t		size_type;
 	typedef BidirectionalIterator<value_type>			iterator;
-//	typedef ConstBidirectionalIterator<value_type, node_pointer>	const_iterator;
 //	typedef RevBidirectionalIterator<value_type, node_pointer>		reverse_iterator;
 //	typedef ConstRevBidirectionalIterator<value_type, node_pointer>	const_reverse_iterator;
 
 	// Default constructor
 	explicit list(const allocator_type& alloc = allocator_type()): _allocator(alloc) {
 		_node = NULL;
-		_head = new ListNode<value_type>();
-		_tail = new ListNode<value_type>();
+		_head = new Node<value_type>();
+		_tail = new Node<value_type>();
 		setHead(_tail);
 		setTail(_head);
 		_size = 0;
 	}
 	virtual ~list() {}
 
-//	list(const list& obj) {
-//
-//	}
-//	list& operator=(const list& obj) {
-//		if (&obj != this) {
-//			// Iterate over list and delete
-//
-//		}
-//	}
-
-	iterator begin() {return iterator(_head->getNext());}
+	// Iterators
+	iterator begin() {return iterator(getHead());}
+	iterator end() {return iterator(getTail());}
 
 	void push_back(value_type element) {
-		ListNode<value_type>* tmp;
+		Node<value_type>* tmp;
 		if (!_node) {
-			_node = new ListNode<value_type>(element);
+			_node = new Node<value_type>(element);
 			setHead(_node);
 			setTail(_node);
 			_size++;
 		}
 		else {
-			_node = new ListNode<value_type>(element);
-			_node->setPrevious(getTail());
+			_node = new Node<value_type>(element);
+			_node->_previous = getTail();
 			tmp = getTail();
-			tmp->setNext(_node);
+			tmp->_next = _node;
 			setTail(_node);
 			_size++;
 		}
-
-
 	}
 
-	ListNode<value_type>* getHead() const {
-		return _head->getNext();
+	node_pointer getHead() const {
+		return _head->_next;
 	}
 
-	ListNode<value_type>* getTail() const {
-		return _tail->getPrevious();
+	node_pointer getTail() const {
+		return _tail->_previous;
 	}
 
-	void setHead(ListNode<value_type>* node) {
-		_head->setNext(node);
+	void setHead(node_pointer node) {
+		_head->_next = node;
 	}
 
-	void setTail(ListNode<value_type>* node) {
-		_tail->setPrevious(node);
+	void setTail(node_pointer node) {
+		_tail->_previous = node;
 	}
 
 
 private:
-	ListNode<value_type>	*_node;
-	ListNode<value_type>	*_head;
-	ListNode<value_type>	*_tail;
-	size_type				_size;
-	allocator_type			_allocator;
+	node_pointer	_node;
+	node_pointer	_head;
+	node_pointer	_tail;
+	size_type		_size;
+	allocator_type	_allocator;
 };
 
 }

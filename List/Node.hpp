@@ -10,20 +10,21 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LISTNODE_HPP
-#define LISTNODE_HPP
+#ifndef NODE_HPP
+#define NODE_HPP
 
 template <class T>
-class ListNode {
-	ListNode	*_next;
-	ListNode	*_previous;
-	T			*_data;
+class Node {
 public:
-	ListNode(): _next(0), _previous(0), _data(0) {}
+	Node	*_next;
+	Node	*_previous;
+	T		*_data;
+
 //	explicit ListNode(const T &obj): _next(0), _previous(0), _data(new T(obj)) {}
-	explicit ListNode(T element): _next(0), _previous(0), _data(new T(element)) {}
-	virtual ~ListNode() {};
-	ListNode& operator=(const ListNode& obj) {
+	explicit Node(): _next(NULL), _previous(NULL), _data(NULL) {}
+	explicit Node(T element): _next(NULL), _previous(NULL), _data(new T(element)) {}
+	virtual ~Node() {};
+	Node& operator=(const Node& obj) {
 		if (&obj != this) {
 			delete _data;
 			_data = new T(obj._data);
@@ -31,29 +32,6 @@ public:
 			_previous = obj._previous;
 		}
 	}
-	ListNode* getNext() const {
-		return _next;
-	}
-
-	ListNode* getPrevious() const {
-		return _previous;
-	}
-
-	T* getData() const {
-		return _data;
-	}
-
-	void setNext(ListNode* next) {
-		_next = next;
-	}
-
-	void setPrevious(ListNode* previous) {
-		_previous = previous;
-	}
-
-	void setData(T* data) {
-		_data = data;
-	}
 };
 
-#endif //LISTNODE_HPP
+#endif //NODE_HPP

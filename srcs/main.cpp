@@ -13,15 +13,28 @@
 #include <iostream>
 
 #include "list.hpp"
+#include <list>
 
 int main() {
-	std::cout << "Hello, World!" << std::endl;
-	ft::list<std::string> testlist;
+	ft::list<std::string> myList;
+	std::list<std::string> sysList;
 	std::string str = "Hello, world!";
-	testlist.push_back(str);
-	testlist.push_back("I'm the next King");
+	myList.push_back(str);
+	sysList.push_back(str);
+	myList.push_back("I'm the next King");
+	sysList.push_back("I'm the next King");
+	myList.push_back("I'm the next Queen");
+	sysList.push_back("I'm the next Queen");
 
-	ft::list<std::string>::iterator it = testlist.begin();
-	it++;
+	ft::list<std::string>::iterator myIt = myList.begin();
+	std::list<std::string>::iterator sysIt = sysList.begin();
+	myIt++;
+	sysIt++;
+	std::cout << "My: " << *myIt << std::endl;
+	std::cout << "Sys: " << *sysIt << std::endl;
+	++myIt;
+	++sysIt;
+//	std::cout << "My: " << myIt->data() << std::endl;
+	std::cout << "Sys: " << sysIt->data() << std::endl;
 	return 0;
 }
