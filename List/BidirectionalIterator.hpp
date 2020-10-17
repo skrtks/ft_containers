@@ -255,6 +255,7 @@ namespace ft {
 			return (_ptr != obj._ptr);
 		}
 	};
+
 }
 
 #endif //BIDIRECTIONALITERATOR_HPP

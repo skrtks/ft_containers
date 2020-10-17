@@ -41,13 +41,21 @@ public:
 
 	// Default constructor
 	explicit list(const allocator_type& alloc = allocator_type()): _allocator(alloc) {
-		_node = NULL;
 		_head = new Node<value_type>();
 		_tail = new Node<value_type>();
 		_head->_next = _tail;
 		_tail->_previous = _head;
 		_size = 0;
 	}
+	// Fill constructor
+//	list(size_type n, const value_type& val = value_type(),
+//		 const allocator_type& alloc = allocator_type()): _allocator(alloc) {
+//		_head = new Node<value_type>();
+//		_tail = new Node<value_type>();
+//		_head->_next = _tail;
+//		_tail->_previous = _head;
+//
+//	}
 	virtual ~list() {}
 
 	// Iterators
@@ -61,28 +69,16 @@ public:
 	const_reverse_iterator rend() const {return const_reverse_iterator(_head);}
 
 	void push_back(value_type element) {
-		Node<value_type>* tmp;
-		if (!_node) {
-			_node = new Node<value_type>(element);
-			_head->_next = _node;
-			_tail->_previous = _node;
-			_node->_previous = _head;
-			_node->_next = _tail;
-			_size++;
-		}
-		else {
-			_node = new Node<value_type>(element);
-			_node->_previous = _tail->_previous;
-			tmp = _tail->_previous;
-			tmp->_next = _node;
-			_tail->_previous = _node;
-			_node->_next = _tail;
-			_size++;
-		}
+		Node<value_type>* _node;
+		_node = new Node<value_type>(element);
+		_node->_previous = _tail->_previous;
+		_tail->_previous->_next = _node;
+		_tail->_previous = _node;
+		_node->_next = _tail;
+		_size++;
 	}
 
 private:
-	node_pointer	_node;
 	node_pointer	_head;
 	node_pointer	_tail;
 	size_type		_size;

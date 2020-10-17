@@ -16,13 +16,22 @@
 #include <list>
 
 int main() {
-//	const ft::list<int> mylist;
-//
-//	std::cout << "mylist backwards:";
-//	for (ft::list<int>::const_iterator rit=mylist.begin(); rit!=mylist.end(); ++rit)
-//	{
-//		*rit = 5;
-//		std::cout << ' ' << *rit;
-//	}
+	ft::list<std::string> myList;
+	std::list<std::string> sysList;
+	ft::list<int> myIntList;
+	std::string str = "Hello, world!";
+	myList.push_back(str);
+	sysList.push_back(str);
+	myList.push_back("I'm the next King");
+	sysList.push_back("I'm the next King");
+	myList.push_back("Welcome yourself to the next chapter");
+	sysList.push_back("Welcome yourself to the next chapter");
+	ft::list<std::string>::iterator myIt = myList.begin();
+	std::list<std::string>::iterator sysIt = sysList.begin();
+	(void)sysIt;
+	while (myIt != myList.end()) {
+		std::cout << *myIt << std::endl;
+		myIt++;
+	}
 	return 0;
 }
