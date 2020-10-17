@@ -37,9 +37,8 @@ public:
 	typedef ConstBidirectionalIterator<value_type, node_pointer>	const_iterator;
 	typedef RevBidirectionalIterator<value_type, node_pointer>		reverse_iterator;
 	typedef ConstRevBidirectionalIterator<value_type, node_pointer>	const_reverse_iterator;
-//	Also need const version!
 
-	// Default constructor
+	// Constructors/Destructor:
 	explicit list(const allocator_type& alloc = allocator_type()): _allocator(alloc) {
 		_head = new Node<value_type>();
 		_tail = new Node<value_type>();
@@ -47,7 +46,6 @@ public:
 		_tail->_previous = _head;
 		_size = 0;
 	}
-	// Fill constructor
 //	list(size_type n, const value_type& val = value_type(),
 //		 const allocator_type& alloc = allocator_type()): _allocator(alloc) {
 //		_head = new Node<value_type>();
@@ -64,7 +62,7 @@ public:
 		delete _tail;
 	}
 
-	// Iterators
+	// Iterators:
 	iterator begin() {return iterator(_head->_next);}
 	iterator end() {return iterator(_tail);}
 	const_iterator begin() const {return const_iterator(_head->_next);}
@@ -73,6 +71,28 @@ public:
 	reverse_iterator rend() {return reverse_iterator(_head);}
 	const_reverse_iterator rbegin() const {return const_reverse_iterator(_tail->_previous);}
 	const_reverse_iterator rend() const {return const_reverse_iterator(_head);}
+
+	// Capacity:
+	// todo
+
+	// Element access:
+	// todo
+
+	// Modifiers:
+
+	template <class InputIterator>
+	void assign (InputIterator first, InputIterator last) {
+		while (first != last) {
+			push_back(*first);
+			first++;
+		}
+	}
+
+	void assign (size_type n, const value_type& val) {
+		for (size_type i = 0; i < n; i++) {
+			push_back(val);
+		}
+	}
 
 	void push_back(const value_type &element) {
 		Node<value_type>* node;
@@ -121,6 +141,9 @@ public:
 			pop_back();
 		}
 	}
+
+	// Operations:
+	// todo
 
 private:
 	node_pointer	_head;

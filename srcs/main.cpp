@@ -16,23 +16,13 @@
 #include <list>
 
 int main() {
-	ft::list<int> myList;
+	std::list<int> myList;
+	std::list<std::string> stringList;
 	myList.push_back(1);
 	myList.push_back(2);
 	myList.push_back(3);
-	ft::list<int>::iterator it = myList.begin();
 
-	ft::list<int>::iterator myIt = myList.begin();
-	while (myIt != myList.end()) {
-		std::cout << *myIt << std::endl;
-		myIt++;
-	}
+	stringList.assign(myList.begin(), myList.end());
 
-	myList.pop_front();
-	myIt = myList.begin();
-	while (myIt != myList.end()) {
-		std::cout << *myIt << std::endl;
-		myIt++;
-	}
 	return 0;
 }
