@@ -131,3 +131,14 @@ TEST_CASE("Push-front", "[List]") {
 	REQUIRE(*it == 2);
 }
 
+TEST_CASE("Pop-front", "[List]") {
+	ft::list<int> myList;
+	myList.push_back(1);
+	myList.push_front(2);
+	myList.push_front(26);
+	myList.pop_front();
+	myList.pop_front();
+	ft::list<int>::iterator it = myList.begin();
+	REQUIRE(*it == 1);
+}
+

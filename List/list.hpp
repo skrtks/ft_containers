@@ -56,7 +56,13 @@ public:
 //		_tail->_previous = _head;
 //
 //	}
-	virtual ~list() {}
+	virtual ~list() {
+		while (_size) {
+			pop_front();
+		}
+		delete _head;
+		delete _tail;
+	}
 
 	// Iterators
 	iterator begin() {return iterator(_head->_next);}
@@ -69,23 +75,40 @@ public:
 	const_reverse_iterator rend() const {return const_reverse_iterator(_head);}
 
 	void push_back(const value_type &element) {
-		Node<value_type>* _node;
-		_node = new Node<value_type>(element);
-		_node->_previous = _tail->_previous;
-		_tail->_previous->_next = _node;
-		_tail->_previous = _node;
-		_node->_next = _tail;
+		Node<value_type>* node;
+		node = new Node<value_type>(element);
+		node->_previous = _tail->_previous;
+		_tail->_previous->_next = node;
+		_tail->_previous = node;
+		node->_next = _tail;
 		_size++;
 	}
 
 	void push_front(const value_type &element) {
-		Node<value_type>* _node;
-		_node = new Node<value_type>(element);
-		_node->_previous = _head;
-		_node->_next = _head->_next;
-		_head->_next->_previous = _node;
-		_head->_next = _node;
+		Node<value_type>* node;
+		node = new Node<value_type>(element);
+		node->_previous = _head;
+		node->_next = _head->_next;
+		_head->_next->_previous = node;
+		_head->_next = node;
 		_size++;
+	}
+
+	void pop_front() {
+		if (_size) {
+			Node<value_type>* node;
+			node = _head->_next;
+			_head->_next = node->_next;
+			node->_next->_previous = _head;
+			_size--;
+			delete node;
+		}
+	}
+
+	void	clear() {
+		while (this->length) {
+			pop_front();
+		}
 	}
 
 private:

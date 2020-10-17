@@ -27,7 +27,7 @@ public:
 	Node& operator=(const Node& obj) {
 		if (&obj != this) {
 			delete _data;
-			_data = new T(obj._data);
+			_data = obj._data;
 			_next = obj._next;
 			_previous = obj._previous;
 		}
