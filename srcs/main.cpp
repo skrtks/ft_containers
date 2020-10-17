@@ -18,8 +18,8 @@
 int main() {
 	ft::list<int> myList;
 	myList.push_back(1);
-	myList.push_front(2);
-	myList.push_front(26);
+	myList.push_back(2);
+	myList.push_back(3);
 	ft::list<int>::iterator it = myList.begin();
 
 	ft::list<int>::iterator myIt = myList.begin();
@@ -29,12 +29,10 @@ int main() {
 	}
 
 	myList.pop_front();
-	myList.pop_front();
 	myIt = myList.begin();
 	while (myIt != myList.end()) {
 		std::cout << *myIt << std::endl;
 		myIt++;
 	}
-	myList.pop_front();
 	return 0;
 }

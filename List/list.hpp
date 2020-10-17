@@ -105,9 +105,20 @@ public:
 		}
 	}
 
+	void pop_back() {
+		if (_size) {
+			Node<value_type>* node;
+			node = _tail->_previous;
+			_tail->_previous = node->_previous;
+			node->_previous->_next = _tail;
+			_size--;
+			delete node;
+		}
+	}
+
 	void	clear() {
 		while (this->length) {
-			pop_front();
+			pop_back();
 		}
 	}
 
