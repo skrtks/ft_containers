@@ -68,13 +68,23 @@ public:
 	const_reverse_iterator rbegin() const {return const_reverse_iterator(_tail->_previous);}
 	const_reverse_iterator rend() const {return const_reverse_iterator(_head);}
 
-	void push_back(value_type element) {
+	void push_back(const value_type &element) {
 		Node<value_type>* _node;
 		_node = new Node<value_type>(element);
 		_node->_previous = _tail->_previous;
 		_tail->_previous->_next = _node;
 		_tail->_previous = _node;
 		_node->_next = _tail;
+		_size++;
+	}
+
+	void push_front(const value_type &element) {
+		Node<value_type>* _node;
+		_node = new Node<value_type>(element);
+		_node->_previous = _head;
+		_node->_next = _head->_next;
+		_head->_next->_previous = _node;
+		_head->_next = _node;
 		_size++;
 	}
 

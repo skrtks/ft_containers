@@ -20,12 +20,12 @@ int main() {
 	std::list<std::string> sysList;
 	ft::list<int> myIntList;
 	std::string str = "Hello, world!";
-	myList.push_back(str);
-	sysList.push_back(str);
-	myList.push_back("I'm the next King");
-	sysList.push_back("I'm the next King");
-	myList.push_back("Welcome yourself to the next chapter");
-	sysList.push_back("Welcome yourself to the next chapter");
+	myList.push_front(str);
+	sysList.push_front(str);
+	myList.push_front("I'm the next King");
+	sysList.push_front("I'm the next King");
+	myList.push_front("Welcome yourself to the next chapter");
+	sysList.push_front("Welcome yourself to the next chapter");
 	ft::list<std::string>::iterator myIt = myList.begin();
 	std::list<std::string>::iterator sysIt = sysList.begin();
 	(void)sysIt;
