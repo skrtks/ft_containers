@@ -105,7 +105,18 @@ TEST_CASE("Iterator", "[List]") {
 		myIntIt--;
 		REQUIRE(*myIntIt == 5);
 	}
-//	SECTION("Copy contructor") {
-//		ft::list<int>::iterator myIt = ;
-//	}
+}
+
+TEST_CASE("Reverse iterator", "[List]") {
+	ft::list<int> mylist;
+	for (int i=1; i<=5; ++i) mylist.push_back(i);
+
+	ft::list<int>::reverse_iterator rit=mylist.rbegin();
+	REQUIRE(*rit == 5);
+	rit++;
+	REQUIRE(*rit == 4);
+	rit--;
+	REQUIRE(*rit == 5);
+	*rit = 10;
+	REQUIRE(*rit == 10);
 }
