@@ -71,7 +71,67 @@ namespace ft {
 	};
 
 	template < typename T, typename N, class Category = std::bidirectional_iterator_tag >
-	class revBidirectionalIterator {
+	class ConstBidirectionalIterator {
+		ConstBidirectionalIterator& operator=(const ConstBidirectionalIterator& obj);
+	public:
+		typedef T							value_type;
+		typedef value_type&					reference;
+		typedef const value_type&			constReference;
+		typedef value_type*					pointer;
+		typedef N                           node_pointer;
+		typedef size_t						size_type;
+		typedef ptrdiff_t					difference_type;
+		typedef Category					iterator_category;
+		typedef ConstBidirectionalIterator		self_type;
+	protected:
+		node_pointer _ptr;
+	public:
+		ConstBidirectionalIterator(): _ptr(NULL) {}
+		explicit ConstBidirectionalIterator(node_pointer node): _ptr(node) {}
+		virtual ~ConstBidirectionalIterator() {}
+		ConstBidirectionalIterator(const ConstBidirectionalIterator& obj) { *this = obj;}
+		constReference				operator*() {
+			return _ptr->_data;
+		}
+		ConstBidirectionalIterator	operator++(int) { // Overload postfix ++
+			ConstBidirectionalIterator	out(*this);
+			if (_ptr->_next) {
+				_ptr = _ptr->_next;
+			}
+			return out;
+		}
+		ConstBidirectionalIterator&	operator++() { // Overload prefix ++
+			if (_ptr->_next) {
+				_ptr = _ptr->_next;
+			}
+			return *this;
+		}
+		ConstBidirectionalIterator	operator--(int) { // Overload postfix --
+			ConstBidirectionalIterator	out(*this);
+			if (_ptr->_previous) {
+				_ptr = _ptr->_previous;
+			}
+			return out;
+		}
+		ConstBidirectionalIterator&	operator--() { // Overload prefix --
+			if (_ptr->_previous) {
+				_ptr = _ptr->_previous;
+			}
+			return *this;
+		}
+		pointer					operator->() {
+			return &this->_ptr->_data;
+		}
+		bool					operator==(const ConstBidirectionalIterator &obj) {
+			return (_ptr == obj._ptr);
+		}
+		bool					operator!=(const ConstBidirectionalIterator &obj) {
+			return (_ptr != obj._ptr);
+		}
+	};
+
+	template < typename T, typename N, class Category = std::bidirectional_iterator_tag >
+	class RevBidirectionalIterator {
 	public:
 		typedef T							value_type;
 		typedef value_type&					reference;
@@ -80,15 +140,15 @@ namespace ft {
 		typedef size_t						size_type;
 		typedef ptrdiff_t					difference_type;
 		typedef Category					iterator_category;
-		typedef revBidirectionalIterator		self_type;
+		typedef RevBidirectionalIterator		self_type;
 	protected:
 		node_pointer _ptr;
 	public:
-		revBidirectionalIterator(): _ptr(NULL) {}
-		explicit revBidirectionalIterator(node_pointer node): _ptr(node) {}
-		virtual ~revBidirectionalIterator() {}
-		revBidirectionalIterator(const revBidirectionalIterator& obj) { *this = obj;}
-		revBidirectionalIterator& operator=(const revBidirectionalIterator& obj) {
+		RevBidirectionalIterator(): _ptr(NULL) {}
+		explicit RevBidirectionalIterator(node_pointer node): _ptr(node) {}
+		virtual ~RevBidirectionalIterator() {}
+		RevBidirectionalIterator(const RevBidirectionalIterator& obj) { *this = obj;}
+		RevBidirectionalIterator& operator=(const RevBidirectionalIterator& obj) {
 			if (&obj != this) {
 				_ptr = obj._ptr;
 			}
@@ -98,27 +158,27 @@ namespace ft {
 		reference				operator*() {
 			return _ptr->_data;
 		}
-		revBidirectionalIterator	operator++(int) { // Overload postfix ++
-			revBidirectionalIterator	out(*this);
+		RevBidirectionalIterator	operator++(int) { // Overload postfix ++
+			RevBidirectionalIterator	out(*this);
 			if (_ptr->_previous) {
 				_ptr = _ptr->_previous;
 			}
 			return out;
 		}
-		revBidirectionalIterator&	operator++() { // Overload prefix ++
+		RevBidirectionalIterator&	operator++() { // Overload prefix ++
 			if (_ptr->_previous) {
 				_ptr = _ptr->_previous;
 			}
 			return *this;
 		}
-		revBidirectionalIterator	operator--(int) { // Overload postfix --
-			revBidirectionalIterator	out(*this);
+		RevBidirectionalIterator	operator--(int) { // Overload postfix --
+			RevBidirectionalIterator	out(*this);
 			if (_ptr->_next) {
 				_ptr = _ptr->_next;
 			}
 			return out;
 		}
-		revBidirectionalIterator&	operator--() { // Overload prefix --
+		RevBidirectionalIterator&	operator--() { // Overload prefix --
 			if (_ptr->_next) {
 				_ptr = _ptr->_next;
 			}
@@ -127,10 +187,71 @@ namespace ft {
 		pointer					operator->() {
 			return &this->_ptr->_data;
 		}
-		bool					operator==(const revBidirectionalIterator &obj) {
+		bool					operator==(const RevBidirectionalIterator &obj) {
 			return (_ptr == obj._ptr);
 		}
-		bool					operator!=(const revBidirectionalIterator &obj) {
+		bool					operator!=(const RevBidirectionalIterator &obj) {
+			return (_ptr != obj._ptr);
+		}
+	};
+
+	template < typename T, typename N, class Category = std::bidirectional_iterator_tag >
+	class ConstRevBidirectionalIterator {
+		ConstRevBidirectionalIterator& operator=(const ConstRevBidirectionalIterator& obj);
+	public:
+		typedef T							value_type;
+		typedef value_type&					reference;
+		typedef const value_type&			constReference;
+		typedef value_type*					pointer;
+		typedef N                           node_pointer;
+		typedef size_t						size_type;
+		typedef ptrdiff_t					difference_type;
+		typedef Category					iterator_category;
+		typedef ConstRevBidirectionalIterator		self_type;
+	protected:
+		node_pointer _ptr;
+	public:
+		ConstRevBidirectionalIterator(): _ptr(NULL) {}
+		explicit ConstRevBidirectionalIterator(node_pointer node): _ptr(node) {}
+		virtual ~ConstRevBidirectionalIterator() {}
+		ConstRevBidirectionalIterator(const ConstRevBidirectionalIterator& obj) { *this = obj;}
+
+		constReference					operator*() {
+			return _ptr->_data;
+		}
+		ConstRevBidirectionalIterator	operator++(int) { // Overload postfix ++
+			ConstRevBidirectionalIterator	out(*this);
+			if (_ptr->_previous) {
+				_ptr = _ptr->_previous;
+			}
+			return out;
+		}
+		ConstRevBidirectionalIterator&	operator++() { // Overload prefix ++
+			if (_ptr->_previous) {
+				_ptr = _ptr->_previous;
+			}
+			return *this;
+		}
+		ConstRevBidirectionalIterator	operator--(int) { // Overload postfix --
+			ConstRevBidirectionalIterator	out(*this);
+			if (_ptr->_next) {
+				_ptr = _ptr->_next;
+			}
+			return out;
+		}
+		ConstRevBidirectionalIterator&	operator--() { // Overload prefix --
+			if (_ptr->_next) {
+				_ptr = _ptr->_next;
+			}
+			return *this;
+		}
+		pointer					operator->() {
+			return &this->_ptr->_data;
+		}
+		bool					operator==(const ConstRevBidirectionalIterator &obj) {
+			return (_ptr == obj._ptr);
+		}
+		bool					operator!=(const ConstRevBidirectionalIterator &obj) {
 			return (_ptr != obj._ptr);
 		}
 	};

@@ -34,8 +34,9 @@ public:
 	typedef ptrdiff_t	difference_type;
 	typedef size_t		size_type;
 	typedef BidirectionalIterator<value_type, node_pointer>			iterator;
-	typedef revBidirectionalIterator<value_type, node_pointer>		reverse_iterator;
-//	typedef ConstRevBidirectionalIterator<value_type, node_pointer>	const_reverse_iterator;
+	typedef ConstBidirectionalIterator<value_type, node_pointer>	const_iterator;
+	typedef RevBidirectionalIterator<value_type, node_pointer>		reverse_iterator;
+	typedef ConstRevBidirectionalIterator<value_type, node_pointer>	const_reverse_iterator;
 //	Also need const version!
 
 	// Default constructor
@@ -52,8 +53,12 @@ public:
 	// Iterators
 	iterator begin() {return iterator(_head->_next);}
 	iterator end() {return iterator(_tail);}
+	const_iterator begin() const {return const_iterator(_head->_next);}
+	const_iterator end() const {return const_iterator(_tail);}
 	reverse_iterator rbegin() {return reverse_iterator(_tail->_previous);}
 	reverse_iterator rend() {return reverse_iterator(_head);}
+	const_reverse_iterator rbegin() const {return const_reverse_iterator(_tail->_previous);}
+	const_reverse_iterator rend() const {return const_reverse_iterator(_head);}
 
 	void push_back(value_type element) {
 		Node<value_type>* tmp;

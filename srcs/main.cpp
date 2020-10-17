@@ -16,13 +16,13 @@
 #include <list>
 
 int main() {
-	ft::list<int> mylist;
-	for (int i=1; i<=5; ++i) mylist.push_back(i);
-
-	std::cout << "mylist backwards:";
-	for (ft::list<int>::reverse_iterator rit=mylist.rbegin(); rit!=mylist.rend(); ++rit)
-		std::cout << ' ' << *rit;
-
-	std::cout << '\n';
+//	const ft::list<int> mylist;
+//
+//	std::cout << "mylist backwards:";
+//	for (ft::list<int>::const_iterator rit=mylist.begin(); rit!=mylist.end(); ++rit)
+//	{
+//		*rit = 5;
+//		std::cout << ' ' << *rit;
+//	}
 	return 0;
 }
