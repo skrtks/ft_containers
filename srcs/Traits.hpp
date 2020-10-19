@@ -20,40 +20,65 @@ namespace ft {
 		typedef T type;
 	};
 
+//	template <class T>
+//	struct is_pointer
+//	{
+		template <class U>
+		static char is_ptr(U *);
+
+		template <class X, class Y>
+		static char is_ptr(Y X::*);
+
+		template <class U>
+		static char is_ptr(U (*)());
+
+		static double is_ptr(...);
+
+//		static T t;
+//		enum { value = sizeof(is_ptr(t)) == sizeof(char) };
+//		typedef T type;
+//	};
+
 	template <typename Iterator>
-	struct is_iterator {
+	struct check_category {
 		typedef Iterator type;
-		static const bool value = false;
+		static Iterator t;
+		enum { value = sizeof(is_ptr(t)) == sizeof(char) };
 	};
 
 	template <>
-	struct is_iterator<std::bidirectional_iterator_tag> {
+	struct check_category<std::bidirectional_iterator_tag> {
 		typedef std::bidirectional_iterator_tag type;
-		static const bool value = true;
+		enum { value = true };
 	};
 
 	template <>
-	struct is_iterator<std::forward_iterator_tag> {
+	struct check_category<std::forward_iterator_tag> {
 		typedef std::forward_iterator_tag type;
-		static const bool value = true;
+		enum { value = true };
 	};
 
 	template <>
-	struct is_iterator<std::input_iterator_tag> {
+	struct check_category<std::input_iterator_tag> {
 		typedef std::input_iterator_tag type;
-		static const bool value = true;
+		enum { value = true };
 	};
 
 	template <>
-	struct is_iterator<std::random_access_iterator_tag> {
+	struct check_category<std::random_access_iterator_tag> {
 		typedef std::random_access_iterator_tag type;
-		static const bool value = true;
+		enum { value = true };
 	};
 
 	template <>
-	struct is_iterator<std::output_iterator_tag> {
+	struct check_category<std::output_iterator_tag> {
 		typedef std::output_iterator_tag type;
-		static const bool value = true;
+		enum { value = true };
+	};
+
+	template <typename Iterator>
+	struct is_iterator: public check_category<Iterator> {
+
 	};
 }
 
