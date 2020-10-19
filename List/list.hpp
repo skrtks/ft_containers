@@ -17,6 +17,7 @@
 #include <iterator>
 #include "Node.hpp"
 #include "BidirectionalIterator.hpp"
+#include "Traits.hpp"
 
 namespace ft {
 
@@ -81,7 +82,7 @@ public:
 	// Modifiers:
 
 	template <class InputIterator>
-	void assign (InputIterator first, InputIterator last) {
+	void assign (InputIterator first, InputIterator last, typename enable_if<is_iterator<typename InputIterator::iterator_category>::value, InputIterator>::type * = 0) {
 		while (first != last) {
 			push_back(*first);
 			first++;

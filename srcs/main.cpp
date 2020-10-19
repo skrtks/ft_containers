@@ -15,56 +15,53 @@
 #include "list.hpp"
 #include <list>
 
-template <class T>
-struct is_pointer
-{
-	template <class U>
-	static char is_ptr(U *);
-
-	template <class X, class Y>
-	static char is_ptr(Y X::*);
-
-	template <class U>
-	static char is_ptr(U (*)());
-
-	static double is_ptr(...);
-
-	static T t;
-	enum { value = sizeof(is_ptr(t)) == sizeof(char) };
-};
-
-struct Foo {
-	int bar;
-};
-
-int main(void)
-{
-//	typedef int * IntPtr;
-	typedef int Foo::* FooMemberPtr;
-	typedef int (*FuncPtr)();
-
-	printf("%d\n",is_pointer<int>::value);        // prints 1
-	printf("%d\n",is_pointer<FooMemberPtr>::value);  // prints 1
-	printf("%d\n",is_pointer<FuncPtr>::value);       // prints 1
-}
-
-//int main() {
-//	ft::list<int> myList;
-//	ft::list<int> stringList;
-//	myList.push_back(1);
-//	myList.push_back(2);
-//	myList.push_back(3);
+//template <bool, class T = void> struct enable_if {};
+//template<class T>
+//struct enable_if<true, T> {
+//	typedef T type;
+//};
 //
-//	stringList.assign(myList.begin(), myList.end());
-//	for (ft::list<int>::iterator it = stringList.begin(); it != stringList.end(); it++) {
-//		std::cout << " " << *it;
+//template <typename T>
+//struct is_test {
+//	static const bool value = false;
+//};
+//template<>
+//struct is_test<std::string> {
+//	static const bool value = true;
+//};
+
+//template <class InputIterator>
+//void assign (InputIterator first, InputIterator last) {
+//	while (first != last) {
+//		push_back(*first);
+//		first++;
 //	}
-//	std::cout << std::endl;
-//
-////	stringList.assign(4, 40);
-////	for (ft::list<int>::iterator it = stringList.begin(); it != stringList.end(); it++) {
-////		std::cout << " " << *it;
-////	}
-////	std::cout << std::endl;
-//	return 0;
 //}
+//
+//void assign (size_t n, const value_type& val) {
+//	for (size_t i = 0; i < n; i++) {
+//		std::cout << "Assign(n, val): " << val << std::endl;
+//	}
+//}
+
+int main()
+{
+	ft::list<int>	oneL;
+	ft::list<int>	twoL;
+	twoL.push_back(1);
+	twoL.push_back(2);
+	twoL.push_back(3);
+	
+	oneL.assign(twoL.begin(), twoL.end());
+	for (ft::list<int>::iterator it = oneL.begin(); it != oneL.end(); it++) {
+		std::cout << " " << *it;
+	}
+	std::cout << std::endl;
+
+	oneL.assign(4, 300);
+	for (ft::list<int>::iterator it = oneL.begin(); it != oneL.end(); it++) {
+		std::cout << " " << *it;
+	}
+	std::cout << std::endl;
+	return 0;
+}
