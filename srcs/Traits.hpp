@@ -31,6 +31,30 @@ namespace ft {
 		typedef std::bidirectional_iterator_tag type;
 		static const bool value = true;
 	};
+
+	template <>
+	struct is_iterator<std::forward_iterator_tag> {
+		typedef std::forward_iterator_tag type;
+		static const bool value = true;
+	};
+
+	template <>
+	struct is_iterator<std::input_iterator_tag> {
+		typedef std::input_iterator_tag type;
+		static const bool value = true;
+	};
+
+	template <>
+	struct is_iterator<std::random_access_iterator_tag> {
+		typedef std::random_access_iterator_tag type;
+		static const bool value = true;
+	};
+
+	template <>
+	struct is_iterator<std::output_iterator_tag> {
+		typedef std::output_iterator_tag type;
+		static const bool value = true;
+	};
 }
 
 #endif //TRAITS_HPP

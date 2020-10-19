@@ -46,22 +46,29 @@
 
 int main()
 {
-	ft::list<int>	oneL;
-	ft::list<int>	twoL;
-	twoL.push_back(1);
-	twoL.push_back(2);
-	twoL.push_back(3);
-	
-	oneL.assign(twoL.begin(), twoL.end());
-	for (ft::list<int>::iterator it = oneL.begin(); it != oneL.end(); it++) {
-		std::cout << " " << *it;
-	}
-	std::cout << std::endl;
+//	ft::list<int>	oneL;
+//	ft::list<int>	twoL;
+//	twoL.push_back(1);
+//	twoL.push_back(2);
+//	twoL.push_back(3);
+//
+//	oneL.assign(twoL.begin(), twoL.end());
+//	for (ft::list<int>::iterator it = oneL.begin(); it != oneL.end(); it++) {
+//		std::cout << " " << *it;
+//	}
+//	std::cout << std::endl;
+//
+//	oneL.assign(4, 300);
+//	for (ft::list<int>::iterator it = oneL.begin(); it != oneL.end(); it++) {
+//		std::cout << " " << *it;
+//	}
+//	std::cout << std::endl;
 
-	oneL.assign(4, 300);
-	for (ft::list<int>::iterator it = oneL.begin(); it != oneL.end(); it++) {
-		std::cout << " " << *it;
-	}
-	std::cout << std::endl;
+	std::list<int>	vec;
+	std::list<int>::iterator	vit;
+	int myint[5] = {1, 2, 3, 4, 5};
+	vec.assign(myint, myint + 5);
+	for (vit = vec.begin(); vit != vec.end(); ++vit)
+		std::cout << *vit << std::endl;
 	return 0;
 }
