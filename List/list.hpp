@@ -83,6 +83,7 @@ public:
 
 	template <class InputIterator>
 	void assign (InputIterator first, InputIterator last, typename enable_if<is_iterator<typename InputIterator::iterator_category>::value, InputIterator>::type * = 0) {
+		clear();
 		while (first != last) {
 			push_back(*first);
 			first++;
@@ -90,6 +91,7 @@ public:
 	}
 
 	void assign (size_type n, const value_type& val) {
+		clear();
 		for (size_type i = 0; i < n; i++) {
 			push_back(val);
 		}
@@ -138,7 +140,7 @@ public:
 	}
 
 	void	clear() {
-		while (this->length) {
+		while (_size) {
 			pop_back();
 		}
 	}

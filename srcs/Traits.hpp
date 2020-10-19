@@ -33,5 +33,4 @@ namespace ft {
 	};
 }
 
-
 #endif //TRAITS_HPP
