@@ -31,15 +31,6 @@ namespace ft {
 		typedef std::bidirectional_iterator_tag type;
 		static const bool value = true;
 	};
-
-//	template <typename T>
-//	struct is_test {
-//		static const bool value = false;
-//	};
-//	template<>
-//	struct is_test<std::string> {
-//		static const bool value = true;
-//	};
 }
 
 
