@@ -47,20 +47,40 @@ public:
 		_tail->_previous = _head;
 		_size = 0;
 	}
-//	list(size_type n, const value_type& val = value_type(),
-//		 const allocator_type& alloc = allocator_type()): _allocator(alloc) {
-//		_head = new Node<value_type>();
-//		_tail = new Node<value_type>();
-//		_head->_next = _tail;
-//		_tail->_previous = _head;
-//
-//	}
+	list(size_type n, const value_type& val = value_type(),
+		 const allocator_type& alloc = allocator_type()): _allocator(alloc) {
+		_head = new Node<value_type>();
+		_tail = new Node<value_type>();
+		_head->_next = _tail;
+		_tail->_previous = _head;
+		_size = 0;
+		assign(n, val);
+	}
+	list(list const & x) {
+		_head = new Node<value_type>();
+		_tail = new Node<value_type>();
+		_head->_next = _tail;
+		_tail->_previous = _head;
+		_size = 0;
+		this->assign(x.begin(), x.end());
+	}
+
+	// Todo: range constructor
 	virtual ~list() {
 		while (_size) {
 			pop_front();
 		}
 		delete _head;
 		delete _tail;
+	}
+
+	// assignment operator overload
+	list&	operator=(list const &	x) {
+		clear();
+		_head->_next = _tail;
+		_tail->_previous = _head;
+		this->assign(x.begin(), x.end());
+		return *this;
 	}
 
 	// Iterators:
@@ -182,6 +202,12 @@ public:
 			first++;
 		}
 		return first;
+	}
+
+	void 	swap(list & x) {
+		list	tmp(x);
+		x = *this;
+		*this = tmp;
 	}
 
 	void	clear() {

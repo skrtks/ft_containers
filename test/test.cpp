@@ -240,3 +240,14 @@ TEST_CASE("Erase", "[List]") {
 	REQUIRE(mylist.getSize() == 5);
 }
 
+TEST_CASE("Swap", "[List]") {
+	ft::list<int> first (3,100);   // three ints with a value of 100
+	ft::list<int> second (5,200);  // five ints with a value of 200
+
+	first.swap(second);
+
+	ft::list<int>::iterator it=first.begin();
+	REQUIRE(*it == 200);
+	it = second.begin();
+	REQUIRE(*it == 100);
+}
