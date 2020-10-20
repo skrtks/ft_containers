@@ -56,16 +56,25 @@ public:
 		_size = 0;
 		assign(n, val);
 	}
+	template <class InputIterator>
+	list (InputIterator first, InputIterator last,
+		  const allocator_type& alloc = allocator_type()): _allocator(alloc) {
+		_head = new Node<value_type>();
+		_tail = new Node<value_type>();
+		_head->_next = _tail;
+		_tail->_previous = _head;
+		_size = 0;
+		assign(first, last);
+	}
 	list(list const & x) {
 		_head = new Node<value_type>();
 		_tail = new Node<value_type>();
 		_head->_next = _tail;
 		_tail->_previous = _head;
 		_size = 0;
-		this->assign(x.begin(), x.end());
+		assign(x.begin(), x.end());
 	}
 
-	// Todo: range constructor
 	virtual ~list() {
 		while (_size) {
 			pop_front();
@@ -73,7 +82,6 @@ public:
 		delete _head;
 		delete _tail;
 	}
-
 	// assignment operator overload
 	list&	operator=(list const &	x) {
 		clear();

@@ -19,7 +19,7 @@
 int main()
 {
 	const ft::list<int> first (3,100);   // three ints with a value of 100
-	const ft::list<int> second (5,200);  // five ints with a value of 200
+	const ft::list<int> second (first.begin(), first.end());  // five ints with a value of 200
 
 //	first.swap(second);
 
