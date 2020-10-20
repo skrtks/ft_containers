@@ -47,7 +47,7 @@
 int main()
 {
 	ft::list<int>	oneL;
-	ft::list<int>	twoL;
+	std::list<int>	twoL;
 	twoL.push_back(1);
 	twoL.push_back(2);
 	twoL.push_back(3);
@@ -64,11 +64,11 @@ int main()
 	}
 	std::cout << std::endl;
 
-//	ft::list<int>	vec;
-//	ft::list<int>::iterator	vit;
-//	int myint[5] = {1, 2, 3, 4, 5};
-//	vec.assign(myint, myint + 5);
-//	for (vit = vec.begin(); vit != vec.end(); ++vit)
-//		std::cout << *vit << std::endl;
+	ft::list<int>	vec;
+	ft::list<int>::iterator	vit;
+	int myint[5] = {1, 2, 3, 4, 5};
+	vec.assign(myint, myint + 5);
+	for (vit = vec.begin(); vit != vec.end(); ++vit)
+		std::cout << *vit << std::endl;
 	return 0;
 }

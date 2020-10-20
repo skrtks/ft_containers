@@ -82,7 +82,7 @@ public:
 	// Modifiers:
 
 	template <class InputIterator>
-	void assign (InputIterator first, InputIterator last, typename enable_if<is_iterator<InputIterator>::value, InputIterator>::type * = 0) {
+	void assign (InputIterator first, InputIterator last, typename enable_if<check_category<InputIterator>::value, InputIterator>::type * = 0) {
 		clear();
 		while (first != last) {
 			push_back(*first);
