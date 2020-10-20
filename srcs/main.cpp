@@ -14,61 +14,37 @@
 
 #include "list.hpp"
 #include <list>
-
-//template <bool, class T = void> struct enable_if {};
-//template<class T>
-//struct enable_if<true, T> {
-//	typedef T type;
-//};
-//
-//template <typename T>
-//struct is_test {
-//	static const bool value = false;
-//};
-//template<>
-//struct is_test<std::string> {
-//	static const bool value = true;
-//};
-
-//template <class InputIterator>
-//void assign (InputIterator first, InputIterator last) {
-//	while (first != last) {
-//		push_back(*first);
-//		first++;
-//	}
-//}
-//
-//void assign (size_t n, const value_type& val) {
-//	for (size_t i = 0; i < n; i++) {
-//		std::cout << "Assign(n, val): " << val << std::endl;
-//	}
-//}
+#include <vector>
 
 int main()
 {
-	ft::list<int>	oneL;
-	std::list<int>	twoL;
-	twoL.push_back(1);
-	twoL.push_back(2);
-	twoL.push_back(3);
+	ft::list<int> mylist;
+	ft::list<int>::iterator it1,it2;
 
-	oneL.assign(twoL.begin(), twoL.end());
-	for (ft::list<int>::iterator it = oneL.begin(); it != oneL.end(); it++) {
-		std::cout << " " << *it;
-	}
-	std::cout << std::endl;
+	// set some values:
+	for (int i=1; i<10; ++i) mylist.push_back(i*10);
 
-	oneL.assign(4, 300);
-	for (ft::list<int>::iterator it = oneL.begin(); it != oneL.end(); it++) {
-		std::cout << " " << *it;
-	}
-	std::cout << std::endl;
+										// 10 20 30 40 50 60 70 80 90
+	it1 = it2 = mylist.begin(); 		// ^^
+	advance (it2,6);             // ^                 ^
+	++it1;                  		    //    ^              ^
 
-	ft::list<int>	vec;
-	ft::list<int>::iterator	vit;
-	int myint[5] = {1, 2, 3, 4, 5};
-	vec.assign(myint, myint + 5);
-	for (vit = vec.begin(); vit != vec.end(); ++vit)
-		std::cout << *vit << std::endl;
+	it1 = mylist.erase (it1);   // 10 30 40 50 60 70 80 90
+	//    ^           ^
+
+	it2 = mylist.erase (it2);   // 10 30 40 50 60 80 90
+	//    ^           ^
+
+	++it1;                      //       ^        ^
+	--it2;                      //       ^     ^
+
+	mylist.erase (it1,it2);     // 10 30 60 80 90
+	//        ^
+
+	std::cout << "mylist contains:";
+	for (it1=mylist.begin(); it1!=mylist.end(); ++it1)
+		std::cout << ' ' << *it1;
+	std::cout << '\n';
+
 	return 0;
 }

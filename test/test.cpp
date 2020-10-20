@@ -153,3 +153,59 @@ TEST_CASE("Pop-back", "[List]") {
 	REQUIRE(*it == 1);
 }
 
+TEST_CASE("Assign", "[List]") {
+	ft::list<int>	oneL;
+	std::list<int>	twoL;
+	twoL.push_back(1);
+	twoL.push_back(2);
+	twoL.push_back(3);
+
+	oneL.assign(twoL.begin(), twoL.end());
+	ft::list<int>::iterator it = oneL.begin();
+	REQUIRE(*it == 1);
+	it++;
+	REQUIRE(*it == 2);
+	REQUIRE(oneL.getSize() == 3);
+
+	oneL.assign(4, 300);
+	it = oneL.begin();
+	REQUIRE(*it == 300);
+	it++;
+	REQUIRE(*it == 300);
+	REQUIRE(oneL.getSize() == 4);
+
+	int myint[5] = {1, 2, 3, 4, 5};
+	oneL.assign(myint, myint + 5);
+	it = oneL.begin();
+	REQUIRE(*it == 1);
+	it++;
+	REQUIRE(*it == 2);
+	REQUIRE(oneL.getSize() == 5);
+}
+
+TEST_CASE("Insert", "[List]") {
+	ft::list<int> mylist;
+	ft::list<int>::iterator it;
+
+	// set some initial values:
+	for (int i=1; i<=5; ++i) mylist.push_back(i); // 1 2 3 4 5
+
+	it = mylist.begin();
+	++it;       // it points now to number 2           ^
+	REQUIRE(*it == 2);
+	mylist.insert (it,10);                        // 1 10 2 3 4 5
+	REQUIRE(mylist.getSize() == 6);
+	// "it" still points to number 2                           ^
+	mylist.insert (it,2,20);                      // 1 10 20 20 2 3 4 5
+	REQUIRE(mylist.getSize() == 8);
+	--it;       // it points now to the second 20            ^
+	REQUIRE(*it == 20);
+	std::vector<int> myvector (2,30);
+	mylist.insert (it,myvector.begin(),myvector.end());
+	// 1 10 20 30 30 20 2 3 4 5
+	//               ^
+	it--;
+	REQUIRE(*it == 30);
+	REQUIRE(mylist.getSize() == 10);
+}
+

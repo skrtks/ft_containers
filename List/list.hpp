@@ -98,9 +98,9 @@ public:
 		}
 	}
 
-	void push_back(const value_type &element) {
+	void push_back(const value_type &val) {
 		Node<value_type>* node;
-		node = new Node<value_type>(element);
+		node = new Node<value_type>(val);
 		node->_previous = _tail->_previous;
 		_tail->_previous->_next = node;
 		_tail->_previous = node;
@@ -108,9 +108,20 @@ public:
 		_size++;
 	}
 
-	void push_front(const value_type &element) {
+	void pop_back() {
+		if (_size) {
+			Node<value_type>* node;
+			node = _tail->_previous;
+			_tail->_previous = node->_previous;
+			node->_previous->_next = _tail;
+			_size--;
+			delete node;
+		}
+	}
+
+	void push_front(const value_type &val) {
 		Node<value_type>* node;
-		node = new Node<value_type>(element);
+		node = new Node<value_type>(val);
 		node->_previous = _head;
 		node->_next = _head->_next;
 		_head->_next->_previous = node;
@@ -129,14 +140,29 @@ public:
 		}
 	}
 
-	void pop_back() {
-		if (_size) {
-			Node<value_type>* node;
-			node = _tail->_previous;
-			_tail->_previous = node->_previous;
-			node->_previous->_next = _tail;
-			_size--;
-			delete node;
+	iterator insert (iterator position, const value_type& val) {
+		Node<value_type>* node = new Node<value_type>(val);
+		Node<value_type>* ptr = position.getPtr();
+		node->_previous = ptr->_previous;
+		node->_next = ptr;
+		ptr->_previous = node;
+		node->_previous->_next = node;
+		_size++;
+		return iterator(node);
+	}
+
+	void insert (iterator position, size_type n, const value_type& val) {
+		for (size_type i = 0; i < n; i++) {
+			insert(position, val);
+		}
+	}
+
+	template <class InputIterator>
+	void insert (iterator position, InputIterator first, InputIterator last,
+				 typename ft::check_type<typename ft::iterator_traits<InputIterator>::iterator_category>::type * = 0) {
+		while (first != last) {
+			insert(position, *first);
+			first++;
 		}
 	}
 
@@ -148,6 +174,11 @@ public:
 
 	// Operations:
 	// todo
+
+
+	size_type getSize() const {
+		return _size;
+	}
 
 private:
 	node_pointer	_head;

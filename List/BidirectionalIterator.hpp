@@ -68,6 +68,10 @@ namespace ft {
 		bool					operator!=(const BidirectionalIterator &obj) {
 			return (_ptr != obj._ptr);
 		}
+
+		node_pointer getPtr() const {
+			return _ptr;
+		}
 	};
 
 	template < typename T, typename N, class Category = std::bidirectional_iterator_tag >
@@ -127,6 +131,10 @@ namespace ft {
 		}
 		bool					operator!=(const ConstBidirectionalIterator &obj) {
 			return (_ptr != obj._ptr);
+		}
+
+		node_pointer getPtr() const {
+			return _ptr;
 		}
 	};
 
@@ -193,6 +201,10 @@ namespace ft {
 		bool					operator!=(const RevBidirectionalIterator &obj) {
 			return (_ptr != obj._ptr);
 		}
+
+		node_pointer getPtr() const {
+			return _ptr;
+		}
 	};
 
 	template < typename T, typename N, class Category = std::bidirectional_iterator_tag >
@@ -253,6 +265,10 @@ namespace ft {
 		}
 		bool					operator!=(const ConstRevBidirectionalIterator &obj) {
 			return (_ptr != obj._ptr);
+		}
+
+		node_pointer getPtr() const {
+			return _ptr;
 		}
 	};
 
