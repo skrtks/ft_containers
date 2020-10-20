@@ -218,6 +218,15 @@ public:
 		*this = tmp;
 	}
 
+	void resize (size_type n, value_type val = value_type()) {
+		while (_size > n) {
+			pop_back();
+		}
+		while (_size < n) {
+			push_back(val);
+		}
+	}
+
 	void	clear() {
 		while (_size) {
 			pop_back();

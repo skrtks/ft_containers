@@ -18,20 +18,20 @@
 
 int main()
 {
-	const ft::list<int> first (3,100);   // three ints with a value of 100
-	const ft::list<int> second (first.begin(), first.end());  // five ints with a value of 200
+	ft::list<int> mylist;
 
-//	first.swap(second);
+	// set some initial content:
+	for (int i=1; i<10; ++i) mylist.push_back(i);
 
-	std::cout << "first contains:";
-	for (ft::list<int>::const_reverse_iterator it=first.rbegin(); it!=first.rend(); it++)
+	mylist.resize(5);
+	mylist.resize(8,100);
+	mylist.resize(12);
+
+	std::cout << "mylist contains:";
+	for (ft::list<int>::iterator it=mylist.begin(); it!=mylist.end(); ++it)
 		std::cout << ' ' << *it;
+
 	std::cout << '\n';
 
-	std::cout << "second contains:";
-	for (ft::list<int>::const_iterator it=second.begin(); it!=second.end(); it++) {
-		std::cout << ' ' << *it;
-	}
-	std::cout << '\n';
 	return 0;
 }

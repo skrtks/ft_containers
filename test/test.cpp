@@ -251,3 +251,18 @@ TEST_CASE("Swap", "[List]") {
 	it = second.begin();
 	REQUIRE(*it == 100);
 }
+
+TEST_CASE("Resize", "[List]") {
+	ft::list<int> mylist;
+
+	// set some initial content:
+	for (int i=1; i<10; ++i) mylist.push_back(i);
+
+	mylist.resize(5);
+	REQUIRE(mylist.getSize() == 5);
+	mylist.resize(8,100);
+	REQUIRE(mylist.getSize() == 8);
+	mylist.resize(12);
+	REQUIRE(mylist.getSize() == 12);
+}
+
