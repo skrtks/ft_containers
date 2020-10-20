@@ -30,9 +30,6 @@ namespace ft {
 		}
 		virtual ~BidirectionalIterator() {}
 
-		reference				operator*() {
-			return _ptr->_data;
-		}
 		BidirectionalIterator	operator++(int) { // Overload postfix ++
 			BidirectionalIterator	out(*this);
 			if (_ptr->_next) {
@@ -59,13 +56,16 @@ namespace ft {
 			}
 			return *this;
 		}
-		pointer					operator->() {
+		reference	operator*() {
+			return _ptr->_data;
+		}
+		pointer	operator->() {
 			return &this->_ptr->_data;
 		}
-		bool					operator==(const BidirectionalIterator &obj) {
+		bool	operator==(const BidirectionalIterator &obj) {
 			return (_ptr == obj._ptr);
 		}
-		bool					operator!=(const BidirectionalIterator &obj) {
+		bool	operator!=(const BidirectionalIterator &obj) {
 			return (_ptr != obj._ptr);
 		}
 
@@ -79,7 +79,7 @@ namespace ft {
 	public:
 		typedef T							value_type;
 		typedef value_type&					reference;
-		typedef const value_type&			constReference;
+		typedef const value_type&			const_reference;
 		typedef value_type*					pointer;
 		typedef const value_type*			const_pointer;
 		typedef N                           node_pointer;
@@ -105,11 +105,16 @@ namespace ft {
 			}
 			return *this;
 		}
-
-		bool					operator==(const ConstBidirectionalIterator &obj) {
+		const_reference	operator*() {
+			return this->_ptr->_data;
+		}
+		const_pointer	operator->() {
+			return &this->_ptr->_data;
+		}
+		bool	operator==(const ConstBidirectionalIterator &obj) {
 			return (this->_ptr == obj._ptr);
 		}
-		bool					operator!=(const ConstBidirectionalIterator &obj) {
+		bool	operator!=(const ConstBidirectionalIterator &obj) {
 			return (this->_ptr != obj._ptr);
 		}
 	};
@@ -139,9 +144,6 @@ namespace ft {
 			return *this;
 		}
 
-		reference					operator*() {
-			return _ptr->_data;
-		}
 		RevBidirectionalIterator	operator++(int) { // Overload postfix ++
 			RevBidirectionalIterator	out(*this);
 			if (_ptr->_previous) {
@@ -168,13 +170,16 @@ namespace ft {
 			}
 			return *this;
 		}
-		pointer					operator->() {
+		reference	operator*() {
+			return _ptr->_data;
+		}
+		pointer	operator->() {
 			return &this->_ptr->_data;
 		}
-		bool					operator==(const RevBidirectionalIterator &obj) {
+		bool	operator==(const RevBidirectionalIterator &obj) {
 			return (_ptr == obj._ptr);
 		}
-		bool					operator!=(const RevBidirectionalIterator &obj) {
+		bool	operator!=(const RevBidirectionalIterator &obj) {
 			return (_ptr != obj._ptr);
 		}
 
@@ -188,8 +193,9 @@ namespace ft {
 	public:
 		typedef T							value_type;
 		typedef value_type&					reference;
-		typedef const value_type&			constReference;
+		typedef const value_type&			const_reference;
 		typedef value_type*					pointer;
+		typedef const value_type*			const_pointer;
 		typedef N                           node_pointer;
 		typedef size_t						size_type;
 		typedef ptrdiff_t					difference_type;
@@ -213,11 +219,16 @@ namespace ft {
 			}
 			return *this;
 		}
-
-		bool					operator==(const ConstRevBidirectionalIterator &obj) {
+		const_reference	operator*() {
+			return this->_ptr->_data;
+		}
+		const_pointer	operator->() {
+			return &this->_ptr->_data;
+		}
+		bool	operator==(const ConstRevBidirectionalIterator &obj) {
 			return (this->_ptr == obj._ptr);
 		}
-		bool					operator!=(const ConstRevBidirectionalIterator &obj) {
+		bool	operator!=(const ConstRevBidirectionalIterator &obj) {
 			return (this->_ptr != obj._ptr);
 		}
 	};
