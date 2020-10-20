@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   BidirectionalIterator.hpp                          :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: sam <sam@student.codam.nl>                   +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2020/10/20 18:55:49 by sam           #+#    #+#                 */
+/*   Updated: 2020/10/20 18:55:49 by sam           ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef BIDIRECTIONALITERATOR_HPP
 #define BIDIRECTIONALITERATOR_HPP
 
