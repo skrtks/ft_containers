@@ -16,19 +16,19 @@
 #include <list>
 #include <vector>
 
-int main()
-{
+int main() {
 	ft::list<int> mylist;
 
 	// set some initial content:
-	for (int i=1; i<10; ++i) mylist.push_back(i);
+	for (int i = 1; i < 10; ++i)
+		mylist.push_back(i);
 
 	mylist.resize(5);
-	mylist.resize(8,100);
+	mylist.resize(8, 100);
 	mylist.resize(12);
 
 	std::cout << "mylist contains:";
-	for (ft::list<int>::iterator it=mylist.begin(); it!=mylist.end(); ++it)
+	for (ft::list<int>::iterator it = mylist.begin(); it != mylist.end(); ++it)
 		std::cout << ' ' << *it;
 
 	std::cout << '\n';

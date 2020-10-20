@@ -40,15 +40,16 @@ public:
 	typedef ConstRevBidirectionalIterator<value_type, node_pointer>	const_reverse_iterator;
 
 	// Constructors/Destructor:
-	explicit list(const allocator_type& alloc = allocator_type()): _allocator(alloc) {
+	explicit list(const allocator_type& alloc = allocator_type()) : _allocator(alloc) {
 		_head = new Node<value_type>();
 		_tail = new Node<value_type>();
 		_head->_next = _tail;
 		_tail->_previous = _head;
 		_size = 0;
 	}
+
 	list(size_type n, const value_type& val = value_type(),
-		 const allocator_type& alloc = allocator_type()): _allocator(alloc) {
+		 const allocator_type& alloc = allocator_type()) : _allocator(alloc) {
 		_head = new Node<value_type>();
 		_tail = new Node<value_type>();
 		_head->_next = _tail;
@@ -56,9 +57,10 @@ public:
 		_size = 0;
 		assign(n, val);
 	}
-	template <class InputIterator>
-	list (InputIterator first, InputIterator last,
-		  const allocator_type& alloc = allocator_type()): _allocator(alloc) {
+
+	template<class InputIterator>
+	list(InputIterator first, InputIterator last,
+		 const allocator_type& alloc = allocator_type()): _allocator(alloc) {
 		_head = new Node<value_type>();
 		_tail = new Node<value_type>();
 		_head->_next = _tail;
@@ -66,7 +68,8 @@ public:
 		_size = 0;
 		assign(first, last);
 	}
-	list(list const & x) {
+
+	list(list const& x) {
 		_head = new Node<value_type>();
 		_tail = new Node<value_type>();
 		_head->_next = _tail;
@@ -82,8 +85,9 @@ public:
 		delete _head;
 		delete _tail;
 	}
+
 	// assignment operator overload
-	list&	operator=(list const &	x) {
+	list& operator=(list const& x) {
 		clear();
 		_head->_next = _tail;
 		_tail->_previous = _head;
@@ -109,9 +113,9 @@ public:
 
 	// Modifiers:
 
-	template <class InputIterator>
-	void assign (InputIterator first, InputIterator last,
-				 typename ft::check_type<typename ft::iterator_traits<InputIterator>::iterator_category>::type * = 0) {
+	template<class InputIterator>
+	void assign(InputIterator first, InputIterator last,
+				typename ft::check_type<typename ft::iterator_traits<InputIterator>::iterator_category>::type* = 0) {
 		clear();
 		while (first != last) {
 			push_back(*first);
@@ -119,14 +123,14 @@ public:
 		}
 	}
 
-	void assign (size_type n, const value_type& val) {
+	void assign(size_type n, const value_type& val) {
 		clear();
 		for (size_type i = 0; i < n; i++) {
 			push_back(val);
 		}
 	}
 
-	void push_back(const value_type &val) {
+	void push_back(const value_type& val) {
 		Node<value_type>* node;
 		node = new Node<value_type>(val);
 		node->_previous = _tail->_previous;
@@ -147,7 +151,7 @@ public:
 		}
 	}
 
-	void push_front(const value_type &val) {
+	void push_front(const value_type& val) {
 		Node<value_type>* node;
 		node = new Node<value_type>(val);
 		node->_previous = _head;
@@ -168,7 +172,7 @@ public:
 		}
 	}
 
-	iterator insert (iterator position, const value_type& val) {
+	iterator insert(iterator position, const value_type& val) {
 		Node<value_type>* node = new Node<value_type>(val);
 		Node<value_type>* ptr = position.getPtr();
 		node->_previous = ptr->_previous;
@@ -179,22 +183,22 @@ public:
 		return iterator(node);
 	}
 
-	void insert (iterator position, size_type n, const value_type& val) {
+	void insert(iterator position, size_type n, const value_type& val) {
 		for (size_type i = 0; i < n; i++) {
 			insert(position, val);
 		}
 	}
 
-	template <class InputIterator>
-	void insert (iterator position, InputIterator first, InputIterator last,
-				 typename ft::check_type<typename ft::iterator_traits<InputIterator>::iterator_category>::type * = 0) {
+	template<class InputIterator>
+	void insert(iterator position, InputIterator first, InputIterator last,
+				typename ft::check_type<typename ft::iterator_traits<InputIterator>::iterator_category>::type* = 0) {
 		while (first != last) {
 			insert(position, *first);
 			first++;
 		}
 	}
 
-	iterator erase (iterator position) {
+	iterator erase(iterator position) {
 		Node<value_type>* node = position.getPtr();
 		node->_previous->_next = node->_next;
 		node->_next->_previous = node->_previous;
@@ -204,7 +208,7 @@ public:
 		return position;
 	}
 
-	iterator erase (iterator first, iterator last) {
+	iterator erase(iterator first, iterator last) {
 		while (first != last) {
 			erase(first);
 			first++;
@@ -212,13 +216,13 @@ public:
 		return first;
 	}
 
-	void 	swap(list & x) {
-		list	tmp(x);
+	void swap(list& x) {
+		list tmp(x);
 		x = *this;
 		*this = tmp;
 	}
 
-	void resize (size_type n, value_type val = value_type()) {
+	void resize(size_type n, value_type val = value_type()) {
 		while (_size > n) {
 			pop_back();
 		}
@@ -227,7 +231,7 @@ public:
 		}
 	}
 
-	void	clear() {
+	void clear() {
 		while (_size) {
 			pop_back();
 		}
@@ -242,10 +246,10 @@ public:
 	}
 
 private:
-	node_pointer	_head;
-	node_pointer	_tail;
-	size_type		_size;
-	allocator_type	_allocator;
+	node_pointer _head;
+	node_pointer _tail;
+	size_type _size;
+	allocator_type _allocator;
 };
 
 }
