@@ -166,6 +166,24 @@ public:
 		}
 	}
 
+	iterator erase (iterator position) {
+		Node<value_type>* node = position.getPtr();
+		node->_previous->_next = node->_next;
+		node->_next->_previous = node->_previous;
+		position++;
+		delete node;
+		_size--;
+		return position;
+	}
+
+	iterator erase (iterator first, iterator last) {
+		while (first != last) {
+			erase(first);
+			first++;
+		}
+		return first;
+	}
+
 	void	clear() {
 		while (_size) {
 			pop_back();

@@ -38,9 +38,10 @@ int main()
 	++it1;                      //       ^        ^
 	--it2;                      //       ^     ^
 
-	mylist.erase (it1,it2);     // 10 30 60 80 90
+	it1 = mylist.erase (it1,it2);     // 10 30 60 80 90
 	//        ^
-
+	std::cout << *it1 << std::endl;
+	std::cout << *it2 << std::endl;
 	std::cout << "mylist contains:";
 	for (it1=mylist.begin(); it1!=mylist.end(); ++it1)
 		std::cout << ' ' << *it1;
