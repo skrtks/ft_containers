@@ -82,7 +82,8 @@ public:
 	// Modifiers:
 
 	template <class InputIterator>
-	void assign (InputIterator first, InputIterator last, typename enable_if<check_category<InputIterator>::value, InputIterator>::type * = 0) {
+	void assign (InputIterator first, InputIterator last,
+				 typename ft::check_type<typename ft::iterator_traits<InputIterator>::iterator_category>::type * = 0) {
 		clear();
 		while (first != last) {
 			push_back(*first);

@@ -20,137 +20,78 @@ namespace ft {
 		typedef T type;
 	};
 
-//	template <class T>
-//	struct is_valid
-//	{
-//		template <class U>
-//		static char is_type(U *);
-//
-//		template <class X, class Y>
-//		static char is_type(Y X::*);
-//
-//		template <class U>
-//		static char is_type(U (*)());
-//
-//		template<class X, class Y>
-//		static char is_type(ft::BidirectionalIterator<X, Y>);
-//
-//		static double is_type(...);
-//
-//		static T t;
-//		enum { value = sizeof(is_type(t)) == sizeof(char) };
-//		typedef T type;
-//	};
+	template <class>
+	struct check_type { typedef void type; };
 
-	template<class T>
-	struct check_it {
-		typedef T type;
-		enum { value = false };
-	};
-	template <>
-	struct check_it<std::bidirectional_iterator_tag> {
-		typedef std::bidirectional_iterator_tag type;
-		enum { value = true };
+	struct input_iterator_tag {};
+	struct output_iterator_tag {};
+	struct forward_iterator_tag : public input_iterator_tag {};
+	struct bidirectional_iterator_tag : public forward_iterator_tag {};
+	struct random_access_iterator_tag : public bidirectional_iterator_tag {};
+
+	template <class T>
+	struct _has_iterator_typedefs
+	{
+	private:
+		struct	_two { char _lx; char _lxx; };
+		template <class U>	static _two _test(...);
+		template <class U>	static char _test(typename	ft::check_type<typename U::iterator_category>::type * = 0,
+												typename	ft::check_type<typename U::difference_type>::type * = 0,
+												typename	ft::check_type<typename U::value_type>::type * = 0,
+												typename	ft::check_type<typename U::reference>::type * = 0,
+												typename	ft::check_type<typename U::pointer>::type * = 0
+		);
+	public:
+		static const bool value = sizeof(_test<T>(0,0,0,0,0)) == 1;
 	};
 
-	template <>
-	struct check_it<std::forward_iterator_tag> {
-		typedef std::forward_iterator_tag type;
-		enum { value = true };
+	template <class T>
+	struct _has_iterator_category
+	{
+	private:
+		struct _two { char _lx; char _lxx; };
+		template <class U>	static _two	_test(...);
+		template <class U>	static char	_test(typename U::iterator_category * = 0);
+	public:
+		static const bool value = sizeof(_test<T>(0)) == 1;
 	};
 
-	template <>
-	struct check_it<std::input_iterator_tag> {
-		typedef std::input_iterator_tag type;
-		enum { value = true };
+	template <class Iter, bool>
+	struct _iterator_traits {};
+
+	template <class Iter>
+	struct _iterator_traits<Iter, true>
+	{
+		typedef	typename Iter::value_type			value_type;
+		typedef	typename Iter::difference_type		difference_type;
+		typedef	typename Iter::pointer				pointer;
+		typedef	typename Iter::reference			reference;
+		typedef	typename Iter::iterator_category	iterator_category;
 	};
 
-	template <>
-	struct check_it<std::random_access_iterator_tag> {
-		typedef std::random_access_iterator_tag type;
-		enum { value = true };
+	template <class Iter>
+	struct iterator_traits : public _iterator_traits<Iter, _has_iterator_typedefs<Iter>::value> {};
+
+	template <class T>
+	struct iterator_traits<T*>
+	{
+		typedef T								value_type;
+		typedef std::ptrdiff_t					difference_type;
+		typedef T*								pointer;
+		typedef T&								reference;
+		typedef ft::random_access_iterator_tag	iterator_category;
 	};
 
-	template <>
-	struct check_it<std::output_iterator_tag> {
-		typedef std::output_iterator_tag type;
-		enum { value = true };
+	template <class T>
+	struct iterator_traits<const T*>
+	{
+		typedef T								value_type;
+		typedef std::ptrdiff_t					difference_type;
+		typedef const T*						pointer;
+		typedef const T&						reference;
+		typedef ft::random_access_iterator_tag	iterator_category;
 	};
 
-	template <typename Category>
-	struct check_category {
-		check_it<typename Category::iterator_category> ohhh;
-	};
-
-	template <class U>
-	struct check_category<U *> {
-		typedef U type;
-		enum { value = true };
-	};
-
-	template <class X, class Y>
-	struct check_category<Y X::*> {
-		typedef X type;
-		enum { value = true };
-	};
-
-	template <class U>
-	struct check_category<U (*)()> {
-		typedef U type;
-		enum { value = true };
-	};
-
-//	template <typename Category>
-//	struct check_category {
-//		template <class U>
-//		static char is_ptr(U *);
-//
-//		template <class X, class Y>
-//		static char is_ptr(Y X::*);
-//
-//		template <class U>
-//		static char is_ptr(U (*)());
-//
-//		static double is_ptr(...);
-//		typedef Category type;
-//		static Category t;
-//		enum { value = sizeof(is_ptr(t)) == sizeof(char) };
-//	};
-//
-//	template <>
-//	struct check_category<std::bidirectional_iterator_tag> {
-//		typedef std::bidirectional_iterator_tag type;
-//		enum { value = true };
-//	};
-//
-//	template <>
-//	struct check_category<std::forward_iterator_tag> {
-//		typedef std::forward_iterator_tag type;
-//		enum { value = true };
-//	};
-//
-//	template <>
-//	struct check_category<std::input_iterator_tag> {
-//		typedef std::input_iterator_tag type;
-//		enum { value = true };
-//	};
-//
-//	template <>
-//	struct check_category<std::random_access_iterator_tag> {
-//		typedef std::random_access_iterator_tag type;
-//		enum { value = true };
-//	};
-//
-//	template <>
-//	struct check_category<std::output_iterator_tag> {
-//		typedef std::output_iterator_tag type;
-//		enum { value = true };
-//	};
-//
-//	template <typename Iterator>
-//	struct is_iterator: public check_category<typename Iterator::iterator_category> {
-//
-//	};
 }
 
 #endif //TRAITS_HPP
