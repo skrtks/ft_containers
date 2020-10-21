@@ -238,7 +238,39 @@ public:
 	}
 
 	// Operations:
-	// todo
+	void splice (iterator position, list& x, iterator i) {
+		Node<value_type>* node = i.getPtr();
+		node->_previous->_next = node->_next;
+		node->_next->_previous = node->_previous;
+		x._size--;
+		Node<value_type>* ptr = position.getPtr();
+		node->_previous = ptr->_previous;
+		node->_next = ptr;
+		ptr->_previous = node;
+		node->_previous->_next = node;
+		this->_size++;
+	}
+
+	void splice (iterator position, list& x) {
+		typename ft::list<value_type>::iterator it = x.begin();
+		typename ft::list<value_type>::iterator itNext;
+		while (it != x.end()) {
+			itNext = it;
+			itNext++;
+			splice(position, x, it);
+			it = itNext;
+		}
+	}
+
+	void splice (iterator position, list& x, iterator first, iterator last) {
+		typename ft::list<value_type>::iterator itNext;
+		while (first != last) {
+			itNext = first;
+			itNext++;
+			splice(position, x, first);
+			first = itNext;
+		}
+	}
 
 
 	size_type getSize() const {

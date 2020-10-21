@@ -266,3 +266,43 @@ TEST_CASE("Resize", "[List]") {
 	REQUIRE(mylist.getSize() == 12);
 }
 
+TEST_CASE("Splice", "[List]") {
+	ft::list<int> mylist1, mylist2;
+	ft::list<int>::iterator it;
+
+	// set some initial values:
+	for (int i=1; i<=4; ++i)
+		mylist1.push_back(i);      // mylist1: 1 2 3 4
+
+	for (int i=1; i<=3; ++i)
+		mylist2.push_back(i*10);   // mylist2: 10 20 30
+
+	it = mylist1.begin();
+	++it;                         // points to 2
+
+	mylist1.splice (it, mylist2);
+	// mylist1: 1 10 20 30 2 3 4
+	// mylist2 (empty)
+	// "it" still points to 2 (the 5th element)
+	REQUIRE(mylist1.getSize() == 7);
+	REQUIRE(mylist2.getSize() == 0);
+	REQUIRE(*it == 2);
+
+	mylist2.splice (mylist2.begin(),mylist1, it);
+	// mylist1: 1 10 20 30 3 4
+	// mylist2: 2
+	// "it" is now invalid.
+	REQUIRE(mylist1.getSize() == 6);
+	REQUIRE(mylist2.getSize() == 1);
+
+	it = mylist1.begin();
+	std::advance(it,3);           // "it" points now to 30
+	REQUIRE(*it == 30);
+
+	mylist1.splice ( mylist1.begin(), mylist1, it, mylist1.end());
+	// mylist1 contains: 30 3 4 1 10 20
+	// mylist2 contains: 2
+	REQUIRE(mylist1.getSize() == 6);
+	REQUIRE(mylist2.getSize() == 1);
+}
+
