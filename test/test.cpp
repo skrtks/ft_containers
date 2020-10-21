@@ -165,14 +165,14 @@ TEST_CASE("Assign", "[List]") {
 	REQUIRE(*it == 1);
 	it++;
 	REQUIRE(*it == 2);
-	REQUIRE(oneL.getSize() == 3);
+	REQUIRE(oneL.size() == 3);
 
 	oneL.assign(4, 300);
 	it = oneL.begin();
 	REQUIRE(*it == 300);
 	it++;
 	REQUIRE(*it == 300);
-	REQUIRE(oneL.getSize() == 4);
+	REQUIRE(oneL.size() == 4);
 
 	int myint[5] = {1, 2, 3, 4, 5};
 	oneL.assign(myint, myint + 5);
@@ -180,7 +180,7 @@ TEST_CASE("Assign", "[List]") {
 	REQUIRE(*it == 1);
 	it++;
 	REQUIRE(*it == 2);
-	REQUIRE(oneL.getSize() == 5);
+	REQUIRE(oneL.size() == 5);
 }
 
 TEST_CASE("Insert", "[List]") {
@@ -194,10 +194,10 @@ TEST_CASE("Insert", "[List]") {
 	++it;       // it points now to number 2           ^
 	REQUIRE(*it == 2);
 	mylist.insert (it,10);                        // 1 10 2 3 4 5
-	REQUIRE(mylist.getSize() == 6);
+	REQUIRE(mylist.size() == 6);
 	// "it" still points to number 2                           ^
 	mylist.insert (it,2,20);                      // 1 10 20 20 2 3 4 5
-	REQUIRE(mylist.getSize() == 8);
+	REQUIRE(mylist.size() == 8);
 	--it;       // it points now to the second 20            ^
 	REQUIRE(*it == 20);
 	std::vector<int> myvector (2,30);
@@ -206,7 +206,7 @@ TEST_CASE("Insert", "[List]") {
 	//               ^
 	it--;
 	REQUIRE(*it == 30);
-	REQUIRE(mylist.getSize() == 10);
+	REQUIRE(mylist.size() == 10);
 }
 
 TEST_CASE("Erase", "[List]") {
@@ -218,26 +218,26 @@ TEST_CASE("Erase", "[List]") {
 	it1 = it2 = mylist.begin(); 		// ^^
 	advance (it2,6);				// ^                 ^
 	++it1;								//    ^              ^
-	REQUIRE(mylist.getSize() == 9);
+	REQUIRE(mylist.size() == 9);
 	REQUIRE(*it1 == 20);
 	REQUIRE(*it2 == 70);
 	it1 = mylist.erase (it1);   // 10 30 40 50 60 70 80 90
 								//    ^           ^
 	REQUIRE(*it1 == 30);
 	REQUIRE(*it2 == 70);
-	REQUIRE(mylist.getSize() == 8);
+	REQUIRE(mylist.size() == 8);
 	it2 = mylist.erase (it2);	// 10 30 40 50 60 80 90
 								//    ^           ^
 	++it1;						//       ^        ^
 	--it2;						//       ^     ^
 	REQUIRE(*it1 == 40);
 	REQUIRE(*it2 == 60);
-	REQUIRE(mylist.getSize() == 7);
+	REQUIRE(mylist.size() == 7);
 	it1 = mylist.erase (it1,it2);		// 10 30 60 80 90
 										//       ^
 	REQUIRE(*it1 == 60);
 	REQUIRE(*it2 == 60);
-	REQUIRE(mylist.getSize() == 5);
+	REQUIRE(mylist.size() == 5);
 }
 
 TEST_CASE("Swap", "[List]") {
@@ -259,11 +259,11 @@ TEST_CASE("Resize", "[List]") {
 	for (int i=1; i<10; ++i) mylist.push_back(i);
 
 	mylist.resize(5);
-	REQUIRE(mylist.getSize() == 5);
+	REQUIRE(mylist.size() == 5);
 	mylist.resize(8,100);
-	REQUIRE(mylist.getSize() == 8);
+	REQUIRE(mylist.size() == 8);
 	mylist.resize(12);
-	REQUIRE(mylist.getSize() == 12);
+	REQUIRE(mylist.size() == 12);
 }
 
 TEST_CASE("Splice", "[List]") {
@@ -279,21 +279,20 @@ TEST_CASE("Splice", "[List]") {
 
 	it = mylist1.begin();
 	++it;                         // points to 2
-
 	mylist1.splice (it, mylist2);
 	// mylist1: 1 10 20 30 2 3 4
 	// mylist2 (empty)
 	// "it" still points to 2 (the 5th element)
-	REQUIRE(mylist1.getSize() == 7);
-	REQUIRE(mylist2.getSize() == 0);
+	REQUIRE(mylist1.size() == 7);
+	REQUIRE(mylist2.empty() == true);
 	REQUIRE(*it == 2);
 
 	mylist2.splice (mylist2.begin(),mylist1, it);
 	// mylist1: 1 10 20 30 3 4
 	// mylist2: 2
 	// "it" is now invalid.
-	REQUIRE(mylist1.getSize() == 6);
-	REQUIRE(mylist2.getSize() == 1);
+	REQUIRE(mylist1.size() == 6);
+	REQUIRE(mylist2.size() == 1);
 
 	it = mylist1.begin();
 	std::advance(it,3);           // "it" points now to 30
@@ -302,7 +301,28 @@ TEST_CASE("Splice", "[List]") {
 	mylist1.splice ( mylist1.begin(), mylist1, it, mylist1.end());
 	// mylist1 contains: 30 3 4 1 10 20
 	// mylist2 contains: 2
-	REQUIRE(mylist1.getSize() == 6);
-	REQUIRE(mylist2.getSize() == 1);
+	REQUIRE(mylist1.size() == 6);
+	REQUIRE(mylist2.size() == 1);
+}
+
+TEST_CASE("Remove", "[List]") {
+	int myints[]= {17,89,7,14};
+	ft::list<int> mylist (myints,myints+4);
+
+	mylist.remove(89);
+	// mylist contains: 17 7 14
+	REQUIRE(mylist.size() == 3);
+}
+
+TEST_CASE("Front() + Back()", "[List]") {
+	ft::list<int> mylist;
+
+	mylist.push_back(77);
+	mylist.push_back(22);
+
+	// now front equals 77, and back 22
+
+	mylist.front() -= mylist.back();
+	REQUIRE(mylist.front() == 55);
 }
 

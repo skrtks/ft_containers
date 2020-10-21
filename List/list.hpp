@@ -106,10 +106,34 @@ public:
 	const_reverse_iterator rend() const {return const_reverse_iterator(_head);}
 
 	// Capacity:
-	// todo
+	bool empty() const {
+		if (_size == 0)
+			return true;
+		return false;
+	}
+
+	size_type size() const {
+		return _size;
+	}
+
+	size_type	max_size() const {
+		return this->_allocator.max_size();
+	}
 
 	// Element access:
-	// todo
+	reference front() {
+		return _head->_next->_data;
+	};
+	const_reference front() const {
+		return _head->_next->_data;
+	};
+
+	reference back() {
+		return _tail->_previous->_data;
+	};
+	const_reference back() const {
+		return _tail->_previous->_data;
+	};
 
 	// Modifiers:
 
@@ -252,8 +276,8 @@ public:
 	}
 
 	void splice (iterator position, list& x) {
-		typename ft::list<value_type>::iterator it = x.begin();
-		typename ft::list<value_type>::iterator itNext;
+		iterator it = x.begin();
+		iterator itNext;
 		while (it != x.end()) {
 			itNext = it;
 			itNext++;
@@ -263,7 +287,7 @@ public:
 	}
 
 	void splice (iterator position, list& x, iterator first, iterator last) {
-		typename ft::list<value_type>::iterator itNext;
+		iterator itNext;
 		while (first != last) {
 			itNext = first;
 			itNext++;
@@ -272,9 +296,14 @@ public:
 		}
 	}
 
-
-	size_type getSize() const {
-		return _size;
+	void remove (const value_type& val) {
+		iterator it = this->begin();
+		while (it != this->end()) {
+			if (*it == val) {
+				it = erase(it);
+			}
+			it++;
+		}
 	}
 
 private:
