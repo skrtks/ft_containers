@@ -343,3 +343,43 @@ TEST_CASE("Front() + Back()", "[List]") {
 	REQUIRE(mylist.front() == 55);
 }
 
+// comparison, not case sensitive.
+bool compare_nocase (const std::string& first, const std::string& second)
+{
+	unsigned int i=0;
+	while ( (i<first.length()) && (i<second.length()) )
+	{
+		if (tolower(first[i])<tolower(second[i])) return true;
+		else if (tolower(first[i])>tolower(second[i])) return false;
+		++i;
+	}
+	return ( first.length() < second.length() );
+}
+
+TEST_CASE("Sort", "[List]") {
+	ft::list<std::string> mylist;
+	ft::list<std::string>::iterator it;
+	mylist.push_back ("Three");
+	mylist.push_back ("one");
+	mylist.push_back ("two");
+	mylist.push_back ("Three");
+
+	mylist.sort();
+//	mylist contains: Three Three one two
+	it = mylist.begin();
+	REQUIRE(*it == "Three");
+	std::advance(it, 2);
+	REQUIRE(*it == "one");
+	std::advance(it, 1);
+	REQUIRE(*it == "two");
+
+	mylist.sort(compare_nocase);
+//	mylist contains: one Three Three two
+	it = mylist.begin();
+	REQUIRE(*it == "one");
+	std::advance(it, 2);
+	REQUIRE(*it == "Three");
+	std::advance(it, 1);
+	REQUIRE(*it == "two");
+}
+

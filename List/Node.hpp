@@ -25,12 +25,10 @@ public:
 	explicit Node(T element): _next(NULL), _previous(NULL), _data(T(element)) {}
 	virtual ~Node() {};
 	Node& operator=(const Node& obj) {
-		if (&obj != this) {
-			delete _data;
-			_data = obj._data;
-			_next = obj._next;
-			_previous = obj._previous;
-		}
+		_data = obj._data;
+		_next = obj._next;
+		_previous = obj._previous;
+		return *this;
 	}
 };
 

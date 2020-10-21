@@ -321,7 +321,42 @@ public:
 		}
 	}
 
+	void sort() {
+		iterator it = this->begin();
+		it++;
+		while (it != this->end()) {
+			if (*it < it.getPtr()->_previous->_data) {
+				swap(it.getPtr(), it.getPtr()->_previous);
+				it = this->begin();
+			}
+			it++;
+		}
+	}
+
+	template <class Compare>
+	void sort(Compare comp) {
+		iterator it = this->begin();
+		it++;
+		while (it != this->end()) {
+			if (comp(*it, it.getPtr()->_previous->_data)) {
+				swap(it.getPtr(), it.getPtr()->_previous);
+				it = this->begin();
+			}
+			it++;
+		}
+	}
+
+
+
 private:
+	void swap(node_pointer second, node_pointer first) {
+		first->_previous->_next = second;
+		second->_next->_previous = first;
+		second->_previous = first->_previous;
+		first->_next = second->_next;
+		second->_next = first;
+		first->_previous = second;
+	}
 	node_pointer _head;
 	node_pointer _tail;
 	size_type _size;

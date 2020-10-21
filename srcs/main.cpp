@@ -15,28 +15,46 @@
 #include "list.hpp"
 #include <list>
 #include <vector>
+#include <cmath>
 
-// a predicate implemented as a function:
-bool single_digit (const int& value) { return (value<10); }
-
-// a predicate implemented as a class:
-struct is_odd {
-	bool operator() (const int& value) { return (value%2)==1; }
-};
+// comparison, not case sensitive.
+bool compare_nocase (const std::string& first, const std::string& second)
+{
+	unsigned int i=0;
+	while ( (i<first.length()) && (i<second.length()) )
+	{
+		if (tolower(first[i])<tolower(second[i])) return true;
+		else if (tolower(first[i])>tolower(second[i])) return false;
+		++i;
+	}
+	return ( first.length() < second.length() );
+}
 
 int main ()
 {
-	int myints[]= {15,36,7,17,20,39,4,1};
-	ft::list<int> mylist (myints,myints+8);   // 15 36 7 17 20 39 4 1
+	ft::list<std::string> mylist;
+	ft::list<std::string>::iterator it;
+	mylist.push_back ("Three");
+	mylist.push_back ("one");
+	mylist.push_back ("two");
+	mylist.push_back ("Three");
 
-	mylist.remove_if (single_digit);           // 15 36 17 20 39
-
-	mylist.remove_if (is_odd());               // 36 20
+	mylist.sort();
 
 	std::cout << "mylist contains:";
-	for (ft::list<int>::iterator it=mylist.begin(); it!=mylist.end(); ++it)
+	for (it=mylist.begin(); it!=mylist.end(); ++it)
 		std::cout << ' ' << *it;
 	std::cout << '\n';
+
+	mylist.sort(compare_nocase);
+
+	std::cout << "mylist contains:";
+	for (it=mylist.begin(); it!=mylist.end(); ++it)
+		std::cout << ' ' << *it;
+	std::cout << '\n';
+
+//	mylist contains: Three Three one two
+//	mylist contains: one Three Three two
 
 	return 0;
 }
