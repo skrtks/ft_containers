@@ -17,44 +17,39 @@
 #include <vector>
 #include <cmath>
 
-// comparison, not case sensitive.
-bool compare_nocase (const std::string& first, const std::string& second)
-{
-	unsigned int i=0;
-	while ( (i<first.length()) && (i<second.length()) )
-	{
-		if (tolower(first[i])<tolower(second[i])) return true;
-		else if (tolower(first[i])>tolower(second[i])) return false;
-		++i;
-	}
-	return ( first.length() < second.length() );
-}
-
 int main ()
 {
-	ft::list<std::string> mylist;
-	ft::list<std::string>::iterator it;
-	mylist.push_back ("Three");
-	mylist.push_back ("one");
-	mylist.push_back ("two");
-	mylist.push_back ("Three");
+	std::list<int> mylist1, mylist2;
+	std::list<int>::iterator it;
+	std::list<int>::iterator ptrIt;
 
-	mylist.sort();
+	// set some initial values:
+	for (int i = 1; i <= 4; ++i)
+		mylist1.push_back(i);      // mylist1: 1 2 3 4
+	for (int i = 1; i <= 3; ++i)
+		mylist2.push_back(i * 10);   // mylist2: 10 20 30
 
-	std::cout << "mylist contains:";
-	for (it=mylist.begin(); it!=mylist.end(); ++it)
-		std::cout << ' ' << *it;
-	std::cout << '\n';
+	it = mylist1.begin();
+	++it;                         // points to 2
 
-	mylist.sort(compare_nocase);
+	// Save the ptr to _data of 1st element in L2
+	ptrIt = mylist2.begin();
+	int* ptr = &(*ptrIt);
 
-	std::cout << "mylist contains:";
-	for (it=mylist.begin(); it!=mylist.end(); ++it)
-		std::cout << ' ' << *it;
-	std::cout << '\n';
+	mylist1.splice(it, mylist2);
+	// mylist1: 1 10 20 30 2 3 4
+	// mylist2 (empty)
 
-//	mylist contains: Three Three one two
-//	mylist contains: one Three Three two
-
+	// Get ptr to _data of the second element in L1 (10 from L2)
+	ptrIt = mylist1.begin();
+	ptrIt++;
+	int* ptr2 = &(*ptrIt);
+	// ptr and ptr2 should be the same because the element was moved without destructing it
+	if (ptr == ptr2) {
+		std::cout << "Passed \n";
+	}
+	else {
+		std::cout << "Failed \n";
+	}
 	return 0;
 }

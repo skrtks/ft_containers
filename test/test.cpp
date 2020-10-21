@@ -269,40 +269,68 @@ TEST_CASE("Resize", "[List]") {
 TEST_CASE("Splice", "[List]") {
 	ft::list<int> mylist1, mylist2;
 	ft::list<int>::iterator it;
+	ft::list<int>::iterator ptrIt;
 
-	// set some initial values:
-	for (int i=1; i<=4; ++i)
-		mylist1.push_back(i);      // mylist1: 1 2 3 4
+	SECTION("Functionality") {
+		// set some initial values:
+		for (int i=1; i<=4; ++i)
+			mylist1.push_back(i);      // mylist1: 1 2 3 4
 
-	for (int i=1; i<=3; ++i)
-		mylist2.push_back(i*10);   // mylist2: 10 20 30
+		for (int i=1; i<=3; ++i)
+			mylist2.push_back(i*10);   // mylist2: 10 20 30
 
-	it = mylist1.begin();
-	++it;                         // points to 2
-	mylist1.splice (it, mylist2);
-	// mylist1: 1 10 20 30 2 3 4
-	// mylist2 (empty)
-	// "it" still points to 2 (the 5th element)
-	REQUIRE(mylist1.size() == 7);
-	REQUIRE(mylist2.empty() == true);
-	REQUIRE(*it == 2);
+		it = mylist1.begin();
+		++it;                         // points to 2
+		mylist1.splice (it, mylist2);
+		// mylist1: 1 10 20 30 2 3 4
+		// mylist2 (empty)
+		// "it" still points to 2 (the 5th element)
+		REQUIRE(mylist1.size() == 7);
+		REQUIRE(mylist2.empty() == true);
+		REQUIRE(*it == 2);
 
-	mylist2.splice (mylist2.begin(),mylist1, it);
-	// mylist1: 1 10 20 30 3 4
-	// mylist2: 2
-	// "it" is now invalid.
-	REQUIRE(mylist1.size() == 6);
-	REQUIRE(mylist2.size() == 1);
+		mylist2.splice (mylist2.begin(),mylist1, it);
+		// mylist1: 1 10 20 30 3 4
+		// mylist2: 2
+		// "it" is now invalid.
+		REQUIRE(mylist1.size() == 6);
+		REQUIRE(mylist2.size() == 1);
 
-	it = mylist1.begin();
-	std::advance(it,3);           // "it" points now to 30
-	REQUIRE(*it == 30);
+		it = mylist1.begin();
+		std::advance(it,3);           // "it" points now to 30
+		REQUIRE(*it == 30);
 
-	mylist1.splice ( mylist1.begin(), mylist1, it, mylist1.end());
-	// mylist1 contains: 30 3 4 1 10 20
-	// mylist2 contains: 2
-	REQUIRE(mylist1.size() == 6);
-	REQUIRE(mylist2.size() == 1);
+		mylist1.splice ( mylist1.begin(), mylist1, it, mylist1.end());
+		// mylist1 contains: 30 3 4 1 10 20
+		// mylist2 contains: 2
+		REQUIRE(mylist1.size() == 6);
+		REQUIRE(mylist2.size() == 1);
+	}
+	SECTION("Check pointers") {
+		// set some initial values:
+		for (int i=1; i<=4; ++i)
+			mylist1.push_back(i);      // mylist1: 1 2 3 4
+
+		for (int i=1; i<=3; ++i)
+			mylist2.push_back(i*10);   // mylist2: 10 20 30
+
+		it = mylist1.begin();
+		++it;                         // points to 2
+
+		// Save the ptr to _data of 1st element in L2
+		ptrIt =  mylist2.begin();
+		int* ptr = &(*ptrIt);
+
+		mylist1.splice (it, mylist2); // mylist1: 1 10 20 30 2 3 4
+		// mylist2 (empty)
+
+		// Get ptr to _data of the second element in L1 (10 from L2)
+		ptrIt = mylist1.begin();
+		ptrIt++;
+		int* ptr2 = &(*ptrIt);
+		// ptr and ptr2 should be the same because the element was moved without destructing it
+		REQUIRE(ptr == ptr2);
+	}
 }
 
 TEST_CASE("Remove", "[List]") {
