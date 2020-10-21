@@ -16,17 +16,27 @@
 #include <list>
 #include <vector>
 
-int main() {
-	ft::list<int> mylist;
+// a predicate implemented as a function:
+bool single_digit (const int& value) { return (value<10); }
 
-	mylist.push_back(77);
-	mylist.push_back(22);
+// a predicate implemented as a class:
+struct is_odd {
+	bool operator() (const int& value) { return (value%2)==1; }
+};
 
-	// now front equals 77, and back 22
+int main ()
+{
+	int myints[]= {15,36,7,17,20,39,4,1};
+	ft::list<int> mylist (myints,myints+8);   // 15 36 7 17 20 39 4 1
 
-	mylist.front() -= mylist.back();
+	mylist.remove_if (single_digit);           // 15 36 17 20 39
 
-	std::cout << "mylist.front() is now " << mylist.front() << '\n';
+	mylist.remove_if (is_odd());               // 36 20
+
+	std::cout << "mylist contains:";
+	for (ft::list<int>::iterator it=mylist.begin(); it!=mylist.end(); ++it)
+		std::cout << ' ' << *it;
+	std::cout << '\n';
 
 	return 0;
 }

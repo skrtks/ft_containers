@@ -302,7 +302,22 @@ public:
 			if (*it == val) {
 				it = erase(it);
 			}
-			it++;
+			else {
+				it++; // Because erase also jumps to the next element
+			}
+		}
+	}
+
+	template <class Predicate>
+	void remove_if (Predicate pred) {
+		iterator it = this->begin();
+		while (it != this->end()) {
+			if (pred(*it)) {
+				it = erase(it);
+			}
+			else {
+				it++; // Because erase also jumps to the next element
+			}
 		}
 	}
 

@@ -306,12 +306,29 @@ TEST_CASE("Splice", "[List]") {
 }
 
 TEST_CASE("Remove", "[List]") {
-	int myints[]= {17,89,7,14};
+	int myints[]= {17,89,7,7};
 	ft::list<int> mylist (myints,myints+4);
 
-	mylist.remove(89);
+	mylist.remove(7);
 	// mylist contains: 17 7 14
-	REQUIRE(mylist.size() == 3);
+	REQUIRE(mylist.size() == 2);
+}
+
+// a predicate implemented as a function:
+bool single_digit (const int& value) { return (value<10); }
+
+// a predicate implemented as a class:
+struct is_odd {
+	bool operator() (const int& value) { return (value%2)==1; }
+};
+TEST_CASE("Remove_if", "[List]") {
+	int myints[]= {15,36,7,17,20,39,4,1};
+	ft::list<int> mylist (myints,myints+8);   // 15 36 7 17 20 39 4 1
+
+	mylist.remove_if (single_digit);           // 15 36 17 20 39
+
+	mylist.remove_if (is_odd());               // 36 20
+	REQUIRE(mylist.size() == 2);
 }
 
 TEST_CASE("Front() + Back()", "[List]") {
