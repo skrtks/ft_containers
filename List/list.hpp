@@ -20,7 +20,7 @@
 #include "Traits.hpp"
 #include <algorithm>
 #include <cstddef>
-
+// todo: safety checks for all functions
 namespace ft {
 
 template <class T, class Alloc = std::allocator<T> >
@@ -394,7 +394,15 @@ public:
 		}
 	}
 
-
+	void reverse() {
+		if (this->size() <= 1)
+			return ;
+		list	tmp(this->begin(), this->end());
+		this->clear();
+		for (iterator it = tmp.begin(); it != tmp.end(); ++it)
+			this->push_front(*it);
+		tmp.clear();
+	}
 
 private:
 	void swap(node_pointer second, node_pointer first) {

@@ -505,3 +505,14 @@ TEST_CASE("Merge", "[List]") {
 	REQUIRE(second.empty() == true);
 }
 
+TEST_CASE("Reverse", "[List]") {
+	ft::list<int> mylist;
+
+	for (int i=1; i<10; ++i) mylist.push_back(i);
+
+	mylist.reverse();
+	REQUIRE(mylist.size() == 9);
+	REQUIRE(mylist.front() == 9);
+	REQUIRE(mylist.back() == 1);
+}
+
