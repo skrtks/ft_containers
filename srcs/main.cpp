@@ -17,39 +17,53 @@
 #include <vector>
 #include <cmath>
 
+// a binary predicate implemented as a function:
+bool same_integral_part (double first, double second)
+{ return ( int(first)==int(second) ); }
+
+// a binary predicate implemented as a class:
+struct is_near {
+	bool operator() (double first, double second)
+	{ return (fabs(first-second)<5.0); }
+};
+
 int main ()
 {
-	std::list<int> mylist1, mylist2;
-	std::list<int>::iterator it;
-	std::list<int>::iterator ptrIt;
+	{
+		double mydoubles[] = {12.15, 2.72, 73.0, 12.77, 3.14, 12.77, 73.35, 72.25, 15.3, 72.25};
+		ft::list<double> mylist(mydoubles, mydoubles + 10);
 
-	// set some initial values:
-	for (int i = 1; i <= 4; ++i)
-		mylist1.push_back(i);      // mylist1: 1 2 3 4
-	for (int i = 1; i <= 3; ++i)
-		mylist2.push_back(i * 10);   // mylist2: 10 20 30
+		mylist.sort();                //  2.72,  3.14, 12.15, 12.77, 12.77, 15.3,  72.25, 72.25, 73.0,  73.35
 
-	it = mylist1.begin();
-	++it;                         // points to 2
+		mylist.unique();            //  2.72, 3.14, 12.15, 12.77, 15.3,  72.25, 73.0,  73.35
 
-	// Save the ptr to _data of 1st element in L2
-	ptrIt = mylist2.begin();
-	int* ptr = &(*ptrIt);
+		mylist.unique(same_integral_part);  //  2.72,  3.14, 12.15, 15.3,  72.25, 73.0
 
-	mylist1.splice(it, mylist2);
-	// mylist1: 1 10 20 30 2 3 4
-	// mylist2 (empty)
+		mylist.unique(is_near());           //  2.72, 12.15, 72.25
 
-	// Get ptr to _data of the second element in L1 (10 from L2)
-	ptrIt = mylist1.begin();
-	ptrIt++;
-	int* ptr2 = &(*ptrIt);
-	// ptr and ptr2 should be the same because the element was moved without destructing it
-	if (ptr == ptr2) {
-		std::cout << "Passed \n";
+		std::cout << "mylist contains:";
+		for (ft::list<double>::iterator it = mylist.begin(); it != mylist.end(); ++it)
+			std::cout << ' ' << *it;
+		std::cout << '\n';
+		// mylist contains: 2.72 12.15 72.25
 	}
-	else {
-		std::cout << "Failed \n";
+	{
+		double myOnes[]={ 1, 1, 1, 1 };
+		ft::list<double> mylist (myOnes,myOnes+4);
+
+		mylist.sort();
+
+		mylist.unique();
+
+		mylist.unique (same_integral_part);
+
+		mylist.unique (is_near());
+
+		std::cout << "mylist contains:";
+		for (ft::list<double>::iterator it=mylist.begin(); it!=mylist.end(); ++it)
+			std::cout << ' ' << *it;
+		std::cout << '\n';
+
 	}
 	return 0;
 }

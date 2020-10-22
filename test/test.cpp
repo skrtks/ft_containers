@@ -411,3 +411,49 @@ TEST_CASE("Sort", "[List]") {
 	REQUIRE(*it == "two");
 }
 
+// a binary predicate implemented as a function:
+bool same_integral_part (double first, double second)
+{ return ( int(first)==int(second) ); }
+
+// a binary predicate implemented as a class:
+struct is_near {
+	bool operator() (double first, double second)
+	{ return (fabs(first-second)<5.0); }
+};
+TEST_CASE("Unique", "[List]") {
+	SECTION("Doubles") {
+		double mydoubles[] = {12.15, 2.72, 73.0, 12.77, 3.14, 12.77, 73.35, 72.25, 15.3, 72.25};
+		std::list<double> mylist(mydoubles, mydoubles + 10);
+
+		mylist.sort();                //  2.72,  3.14, 12.15, 12.77, 12.77, 15.3,  72.25, 72.25, 73.0,  73.35
+
+		mylist.unique();            //  2.72, 3.14, 12.15, 12.77, 15.3,  72.25, 73.0,  73.35
+		REQUIRE(mylist.size() == 8);
+		REQUIRE(mylist.back() == 73.35);
+		mylist.unique(same_integral_part);  //  2.72,  3.14, 12.15, 15.3,  72.25, 73.0
+
+		mylist.unique(is_near());           //  2.72, 12.15, 72.25
+		REQUIRE(mylist.size() == 3);
+		REQUIRE(mylist.back() == 72.25);
+
+		// mylist contains: 2.72 12.15 72.25
+	}
+
+	SECTION("Only ones") {
+		double myOnes[]={ 1, 1, 1, 1 };
+		std::list<double> mylist (myOnes,myOnes+4);
+
+		mylist.sort();
+
+		mylist.unique();
+		REQUIRE(mylist.size() == 1);
+		REQUIRE(*mylist.begin() == 1);
+
+		mylist.unique (same_integral_part);
+
+		mylist.unique (is_near());
+		REQUIRE(mylist.size() == 1);
+		REQUIRE(*mylist.begin() == 1);
+	}
+}
+

@@ -321,6 +321,31 @@ public:
 		}
 	}
 
+	void unique() {
+		iterator it = this->begin();
+		it++;
+		while (it != this->end()) {
+			if (*it == it.getPtr()->_previous->_data) {
+				it = erase(it);
+			} else {
+				++it;
+			}
+		}
+	}
+
+	template <class BinaryPredicate>
+	void unique (BinaryPredicate binary_pred) {
+		iterator it = this->begin();
+		it++;
+		while (it != this->end()) {
+			if (binary_pred(*it, it.getPtr()->_previous->_data)) {
+				it = erase(it);
+			} else {
+				++it;
+			}
+		}
+	}
+
 	void sort() {
 		iterator it = this->begin();
 		it++;
