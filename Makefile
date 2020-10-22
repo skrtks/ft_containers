@@ -16,7 +16,7 @@ SRCS = $(addprefix srcs/, $(addsuffix .cpp, $(FILES)))
 OBJS = $(SRCS:.cpp=.o)
 INCLUDE = -IList -Isrcs
 
-CXXFLAGS = -W -Wall -Werror -Wextra -pedantic -std=c++11 -Ofast
+CXXFLAGS = -W -Wall -Werror -Wextra -pedantic -std=c++98 -Ofast
 ifdef DEBUG
  CXXFLAGS += -g -fsanitize=address -fno-omit-frame-pointer
 endif

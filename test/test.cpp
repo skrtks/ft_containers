@@ -297,7 +297,7 @@ TEST_CASE("Splice", "[List]") {
 		REQUIRE(mylist2.size() == 1);
 
 		it = mylist1.begin();
-		std::advance(it,3);           // "it" points now to 30
+		std::advance(it,3);           // "it" points to 30
 		REQUIRE(*it == 30);
 
 		mylist1.splice ( mylist1.begin(), mylist1, it, mylist1.end());
@@ -455,5 +455,53 @@ TEST_CASE("Unique", "[List]") {
 		REQUIRE(mylist.size() == 1);
 		REQUIRE(*mylist.begin() == 1);
 	}
+}
+
+// compare only integral part:
+bool mycomparison (double first, double second)
+{ return ( int(first)<int(second) ); }
+TEST_CASE("Merge", "[List]") {
+	ft::list<double> first, second;
+	ft::list<double>::iterator it;
+
+	first.push_back (3.1);
+	first.push_back (2.2);
+	first.push_back (2.9);
+
+	second.push_back (3.7);
+	second.push_back (7.1);
+	second.push_back (1.4);
+
+	first.sort();
+	second.sort();
+
+	it = second.begin();
+	double* ptr = &(*it);
+
+	first.merge(second);
+	// first contains: 1.4 2.2 2.9 3.1 3.7 7.1
+	REQUIRE(first.size() == 6);
+	REQUIRE(first.front() == 1.4);
+	REQUIRE(first.back() == 7.1);
+	it = first.begin();
+	double* ptr2 = &(*it);
+	REQUIRE(ptr == ptr2);
+	std::advance(it, 4);
+	REQUIRE(*it == 3.7);
+	// (second is now empty)
+	REQUIRE(second.empty() == true);
+
+	second.push_back (2.1);
+
+	first.merge(second,mycomparison);
+	// first contains: 1.4 2.2 2.9 2.1 3.1 3.7 7.1
+	REQUIRE(first.size() == 7);
+	REQUIRE(first.front() == 1.4);
+	REQUIRE(first.back() == 7.1);
+	it = first.begin();
+	std::advance(it, 3);
+	REQUIRE(*it == 2.1);
+	// (second is now empty)
+	REQUIRE(second.empty() == true);
 }
 

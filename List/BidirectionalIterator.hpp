@@ -14,6 +14,7 @@
 #define BIDIRECTIONALITERATOR_HPP
 
 #include "Node.hpp"
+#include <cstddef>
 
 namespace ft {
 

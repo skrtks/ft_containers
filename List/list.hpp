@@ -18,6 +18,8 @@
 #include "Node.hpp"
 #include "BidirectionalIterator.hpp"
 #include "Traits.hpp"
+#include <algorithm>
+#include <cstddef>
 
 namespace ft {
 
@@ -347,19 +349,7 @@ public:
 	}
 
 	void merge (list& x) {
-		if (&x == this)
-			return ;
-		iterator prev;
-		iterator src = x.begin();
-		iterator dst = this->begin();
-		while (src != x.end()) {
-			while (dst != end() && *dst < *src) {
-				++dst;
-			}
-			prev = src;
-			++src;
-			this->splice(dst, x, prev);
-		}
+		merge(x, std::less<value_type>());
 	}
 
 	template <class Compare>
@@ -370,7 +360,7 @@ public:
 		iterator src = x.begin();
 		iterator dst = this->begin();
 		while (src != x.end()) {
-			while (dst != end() && comp(*dst, *src)) {
+			while (dst != end() && !comp(*src, *dst)) {
 				++dst;
 			}
 			prev = src;
