@@ -269,9 +269,9 @@ public:
 		x._size--;
 		Node<value_type>* ptr = position.getPtr();
 		node->_previous = ptr->_previous;
+		ptr->_previous->_next = node;
 		node->_next = ptr;
 		ptr->_previous = node;
-		node->_previous->_next = node;
 		this->_size++;
 	}
 
@@ -343,6 +343,39 @@ public:
 			} else {
 				++it;
 			}
+		}
+	}
+
+	void merge (list& x) {
+		if (&x == this)
+			return ;
+		iterator prev;
+		iterator src = x.begin();
+		iterator dst = this->begin();
+		while (src != x.end()) {
+			while (dst != end() && *dst < *src) {
+				++dst;
+			}
+			prev = src;
+			++src;
+			this->splice(dst, x, prev);
+		}
+	}
+
+	template <class Compare>
+	void merge (list& x, Compare comp) {
+		if (&x == this)
+			return ;
+		iterator prev;
+		iterator src = x.begin();
+		iterator dst = this->begin();
+		while (src != x.end()) {
+			while (dst != end() && comp(*dst, *src)) {
+				++dst;
+			}
+			prev = src;
+			++src;
+			this->splice(dst, x, prev);
 		}
 	}
 

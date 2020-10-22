@@ -80,6 +80,9 @@ namespace ft {
 		bool	operator!=(const BidirectionalIterator &obj) {
 			return (_ptr != obj._ptr);
 		}
+		bool	operator>=(const BidirectionalIterator &obj) {
+			return (_ptr >= obj._ptr);
+		}
 
 		node_pointer getPtr() const {
 			return _ptr;

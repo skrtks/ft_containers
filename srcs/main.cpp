@@ -17,53 +17,37 @@
 #include <vector>
 #include <cmath>
 
-// a binary predicate implemented as a function:
-bool same_integral_part (double first, double second)
-{ return ( int(first)==int(second) ); }
-
-// a binary predicate implemented as a class:
-struct is_near {
-	bool operator() (double first, double second)
-	{ return (fabs(first-second)<5.0); }
-};
+// compare only integral part:
+bool mycomparison (double first, double second)
+{ return ( int(first)<int(second) ); }
 
 int main ()
 {
-	{
-		double mydoubles[] = {12.15, 2.72, 73.0, 12.77, 3.14, 12.77, 73.35, 72.25, 15.3, 72.25};
-		ft::list<double> mylist(mydoubles, mydoubles + 10);
+	ft::list<double> first, second;
 
-		mylist.sort();                //  2.72,  3.14, 12.15, 12.77, 12.77, 15.3,  72.25, 72.25, 73.0,  73.35
+	first.push_back (3.1);
+	first.push_back (2.2);
+	first.push_back (2.9);
 
-		mylist.unique();            //  2.72, 3.14, 12.15, 12.77, 15.3,  72.25, 73.0,  73.35
+	second.push_back (3.7);
+	second.push_back (7.1);
+	second.push_back (1.4);
 
-		mylist.unique(same_integral_part);  //  2.72,  3.14, 12.15, 15.3,  72.25, 73.0
+	first.sort();
+	second.sort();
 
-		mylist.unique(is_near());           //  2.72, 12.15, 72.25
+	first.merge(second);
 
-		std::cout << "mylist contains:";
-		for (ft::list<double>::iterator it = mylist.begin(); it != mylist.end(); ++it)
-			std::cout << ' ' << *it;
-		std::cout << '\n';
-		// mylist contains: 2.72 12.15 72.25
-	}
-	{
-		double myOnes[]={ 1, 1, 1, 1 };
-		ft::list<double> mylist (myOnes,myOnes+4);
+	// (second is now empty)
 
-		mylist.sort();
+	second.push_back (2.1);
 
-		mylist.unique();
+	first.merge(second,mycomparison);
 
-		mylist.unique (same_integral_part);
+	std::cout << "first contains:";
+	for (ft::list<double>::iterator it=first.begin(); it!=first.end(); ++it)
+		std::cout << ' ' << *it;
+	std::cout << '\n';
 
-		mylist.unique (is_near());
-
-		std::cout << "mylist contains:";
-		for (ft::list<double>::iterator it=mylist.begin(); it!=mylist.end(); ++it)
-			std::cout << ' ' << *it;
-		std::cout << '\n';
-
-	}
 	return 0;
 }
