@@ -19,14 +19,19 @@
 
 int main ()
 {
-	ft::list<int> mylist;
+	std::list<int> mylist;
 
 	for (int i=1; i<10; ++i) mylist.push_back(i);
 
-	mylist.reverse();
+	std::list<int> mylist2;
+
+	for (int i=10; i>0; --i) mylist2.push_back(i);
+
+	if (mylist2 == mylist)
+		std::cout << "hoi\n";
 
 	std::cout << "mylist contains:";
-	for (ft::list<int>::iterator it=mylist.begin(); it!=mylist.end(); ++it)
+	for (std::list<int>::iterator it=mylist.begin(); it!=mylist.end(); ++it)
 		std::cout << ' ' << *it;
 
 	std::cout << '\n';

@@ -248,8 +248,10 @@ TEST_CASE("Swap", "[List]") {
 
 	ft::list<int>::iterator it=first.begin();
 	REQUIRE(*it == 200);
+	REQUIRE(first.size() == 5);
 	it = second.begin();
 	REQUIRE(*it == 100);
+	REQUIRE(second.size() == 3);
 }
 
 TEST_CASE("Resize", "[List]") {

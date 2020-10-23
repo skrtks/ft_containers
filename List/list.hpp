@@ -243,9 +243,20 @@ public:
 	}
 
 	void swap(list& x) {
-		list tmp(x);
-		x = *this;
-		*this = tmp;
+		iterator headX = --x.begin();
+		iterator tailX = x.end();
+		node_pointer tmp;
+		int sizeTmp;
+
+		tmp = _head->_next;
+		_head->_next = headX.getPtr()->_next;
+		headX.getPtr()->_next = tmp;
+		tmp = _tail->_previous;
+		_tail->_previous = tailX.getPtr()->_previous;
+		tailX.getPtr()->_previous = tmp;
+		sizeTmp = size();
+		_size = x.size();
+		x._size = sizeTmp;
 	}
 
 	void resize(size_type n, value_type val = value_type()) {
@@ -422,6 +433,20 @@ private:
 	size_type _size;
 	allocator_type _allocator;
 };
+
+// Relational operators
+//	template <class value_type, class allocator_type>
+//	bool operator== (const list<value_type,allocator_type>& lhs, const list<value_type,allocator_type>& rhs);
+//	template<class value_type, class allocator_type>
+//	bool operator!=(const list<value_type, allocator_type>& lhs, const list<value_type, allocator_type>& rhs);
+//	template<class value_type, class allocator_type>
+//	bool operator<(const list<value_type, allocator_type>& lhs, const list<value_type, allocator_type>& rhs);
+//	template<class value_type, class allocator_type>
+//	bool operator<=(const list<value_type, allocator_type>& lhs, const list<value_type, allocator_type>& rhs);
+//	template<class value_type, class allocator_type>
+//	bool operator>(const list<value_type, allocator_type>& lhs, const list<value_type, allocator_type>& rhs);
+//	template<class value_type, class allocator_type>
+//	bool operator>=(const list<value_type, allocator_type>& lhs, const list<value_type, allocator_type>& rhs);
 
 }
 
