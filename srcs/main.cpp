@@ -17,35 +17,35 @@
 #include <vector>
 #include <cmath>
 
+// comparison, not case sensitive.
+bool compare_nocase (std::list<std::string>::iterator first, std::list<std::string>::iterator second)
+{
+	(void)first;
+	(void)false;
+	return false;
+}
+
 int main ()
 {
-	ft::list<int> a;
-	a.push_back(10);
-	a.push_back(20);
-	a.push_back(30);
-	ft::list<int> b;
-	b.push_back(10);
-	b.push_back(20);
-	b.push_back(30);
-	ft::list<int> c;
-	c.push_back(30);
-	c.push_back(20);
-	c.push_back(10);
+	std::list<std::string> mylist;
+	std::list<std::string>::iterator it;
+	mylist.push_back ("one");
+	mylist.push_back ("two");
+	mylist.push_back ("Three");
 
-	if (a==b) std::cout << "a and b are equal\n";
-	if (b!=c) std::cout << "b and c are not equal\n";
-	if (b<c) std::cout << "b is less than c\n";
-	if (c>b) std::cout << "c is greater than b\n";
-	if (a<=b) std::cout << "a is less than or equal to b\n";
-	if (a>=b) std::cout << "a is greater than or equal to b\n";
+	mylist.sort();
 
+	std::cout << "mylist contains:";
+	for (it=mylist.begin(); it!=mylist.end(); ++it)
+		std::cout << ' ' << *it;
+	std::cout << '\n';
 
-	/*Outcome:
-	a and b are equal
-	b and c are not equal
-	b is less than c
-	c is greater than b
-	a is less than or equal to b
-	a is greater than or equal to b*/
+	mylist.sort(compare_nocase);
+
+	std::cout << "mylist contains:";
+	for (it=mylist.begin(); it!=mylist.end(); ++it)
+		std::cout << ' ' << *it;
+	std::cout << '\n';
+
 	return 0;
 }

@@ -471,7 +471,6 @@ private:
 	bool operator>=(const list<value_type, allocator_type>& lhs, const list<value_type, allocator_type>& rhs) {
 		return !(lhs < rhs); // Yes this is correct
 	}
-
 }
 
 #endif //LIST_HPP
