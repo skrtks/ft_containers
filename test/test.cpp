@@ -1,4 +1,3 @@
-#define CATCH_CONFIG_MAIN
 #include "Catch2.h"
 
 #include "list.hpp"
@@ -546,12 +545,4 @@ TEST_CASE("Relational operator overloads", "[List]") {
 	REQUIRE((b > c) == false);
 	REQUIRE((b == c) == false);
 	REQUIRE((b != c) == true);
-	/*Outcome:
-	a and b are equal
-	b and c are not equal
-	b is less than c
-	c is greater than b
-	a is less than or equal to b
-	a is greater than or equal to b*/
 }
-
