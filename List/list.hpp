@@ -397,11 +397,11 @@ public:
 	void reverse() {
 		if (this->size() <= 1)
 			return ;
-		iterator it = end();
+		iterator it = --end();
 		iterator tmp;
 		--it;
-		--it;
-		while (it != rend()) {
+		while (it != --begin()) {
+			tmp = it;
 			push_back(*it);
 			--it;
 			erase(tmp);
