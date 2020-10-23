@@ -397,11 +397,15 @@ public:
 	void reverse() {
 		if (this->size() <= 1)
 			return ;
-		list	tmp(this->begin(), this->end());
-		this->clear();
-		for (iterator it = tmp.begin(); it != tmp.end(); ++it)
-			this->push_front(*it);
-		tmp.clear();
+		iterator it = end();
+		iterator tmp;
+		--it;
+		--it;
+		while (it != rend()) {
+			push_back(*it);
+			--it;
+			erase(tmp);
+		}
 	}
 
 private:
