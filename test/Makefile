@@ -10,20 +10,15 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME = ft_containers
-FILES = test
-SRCS = $(addprefix srcs/, $(addsuffix .cpp, $(FILES)))
+NAME = ft_containers_tests
+FILES = catchMain test
+SRCS = $(addsuffix .cpp, $(FILES))
 OBJS = $(SRCS:.cpp=.o)
-INCLUDE = -IList -Isrcs
 
-CXXFLAGS = -W -Wall -Werror -Wextra -pedantic -std=c++98 -Ofast
-ifdef DEBUG
- CXXFLAGS += -g -fsanitize=address -fno-omit-frame-pointer
-endif
+# Add the directories you need here:
+INCLUDE = -I../List -I../srcs
 
-ifeq ($(shell uname), Linux)
- ECHO = -e
-endif
+CXXFLAGS = -std=c++11 -Wall
 
 # Colours
 DARK_GREEN	= \033[0;32m
@@ -37,11 +32,7 @@ all: $(NAME)
 $(NAME): $(OBJS)
 	@echo $(ECHO) "$(PREFIX)$(GREEN) Bundling executable... $(END)$(NAME)"
 	@$(CXX) $(CXXFLAGS) $(OBJS) $(INCLUDE) -o $@
-
-%.a: %
-	@echo $(ECHO) "$(PREFIX)$(GREEN) Compiling file $(END)$< $(GREEN)to $(END)$@"
-	@make -s -C $<
-	@cp $</$@ .
+	./$(NAME)
 
 %.o: %.cpp
 	@echo $(ECHO) "$(PREFIX)$(GREEN) Compiling file $(END)$< $(GREEN)to $(END)$@"
