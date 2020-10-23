@@ -1,5 +1,8 @@
 ### Tests for ft_containers
-_By Sam Kortekaas (skorteka), powered by Catch2_
+###### _By Sam Kortekaas (skorteka)_
+
+###### _Powered by Catch2_
+
 
 ##### Project structure:
 
