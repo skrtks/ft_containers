@@ -518,3 +518,40 @@ TEST_CASE("Reverse", "[List]") {
 	REQUIRE(mylist.back() == 1);
 }
 
+TEST_CASE("Relational operator overloads", "[List]") {
+	ft::list<int> a;
+	a.push_back(10);
+	a.push_back(20);
+	a.push_back(30);
+	ft::list<int> b;
+	b.push_back(10);
+	b.push_back(20);
+	b.push_back(30);
+	ft::list<int> c;
+	c.push_back(30);
+	c.push_back(20);
+	c.push_back(10);
+
+	REQUIRE((a == b) == true);
+	REQUIRE((b != c) == true);
+	REQUIRE((b < c) == true);
+	REQUIRE((c > b) == true);
+	REQUIRE((a <= b) == true);
+	REQUIRE((a >= b) == true);
+
+	REQUIRE((a <= b) == true);
+	REQUIRE((a > b) == false);
+	REQUIRE((a < b) == false);
+	REQUIRE((a != b) == false);
+	REQUIRE((b > c) == false);
+	REQUIRE((b == c) == false);
+	REQUIRE((b != c) == true);
+	/*Outcome:
+	a and b are equal
+	b and c are not equal
+	b is less than c
+	c is greater than b
+	a is less than or equal to b
+	a is greater than or equal to b*/
+}
+

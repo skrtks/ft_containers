@@ -435,18 +435,42 @@ private:
 };
 
 // Relational operators
-//	template <class value_type, class allocator_type>
-//	bool operator== (const list<value_type,allocator_type>& lhs, const list<value_type,allocator_type>& rhs);
-//	template<class value_type, class allocator_type>
-//	bool operator!=(const list<value_type, allocator_type>& lhs, const list<value_type, allocator_type>& rhs);
-//	template<class value_type, class allocator_type>
-//	bool operator<(const list<value_type, allocator_type>& lhs, const list<value_type, allocator_type>& rhs);
-//	template<class value_type, class allocator_type>
-//	bool operator<=(const list<value_type, allocator_type>& lhs, const list<value_type, allocator_type>& rhs);
-//	template<class value_type, class allocator_type>
-//	bool operator>(const list<value_type, allocator_type>& lhs, const list<value_type, allocator_type>& rhs);
-//	template<class value_type, class allocator_type>
-//	bool operator>=(const list<value_type, allocator_type>& lhs, const list<value_type, allocator_type>& rhs);
+	template <class value_type, class allocator_type>
+	bool operator== (const list<value_type,allocator_type>& lhs, const list<value_type,allocator_type>& rhs) {
+		if (lhs.size() != rhs.size()) {
+			return false;
+		}
+		typename ft::list<value_type>::iterator lhsIt = lhs.begin();
+		typename ft::list<value_type>::iterator rhsIt = rhs.begin();
+		while (lhsIt != lhs.end() && rhsIt != rhs.end()) {
+			if (!(*lhsIt == *rhsIt)) {
+				return false;
+			}
+			++lhsIt;
+			++rhsIt;
+		}
+		return true;
+	}
+	template<class value_type, class allocator_type>
+	bool operator!=(const list<value_type, allocator_type>& lhs, const list<value_type, allocator_type>& rhs) {
+		return !(lhs == rhs);
+	}
+	template<class value_type, class allocator_type>
+	bool operator<(const list<value_type, allocator_type>& lhs, const list<value_type, allocator_type>& rhs) {
+		return std::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
+	}
+	template<class value_type, class allocator_type>
+	bool operator<=(const list<value_type, allocator_type>& lhs, const list<value_type, allocator_type>& rhs) {
+		return !(rhs < lhs);
+	}
+	template<class value_type, class allocator_type>
+	bool operator>(const list<value_type, allocator_type>& lhs, const list<value_type, allocator_type>& rhs) {
+		return rhs < lhs; // Yes this is correct
+	}
+	template<class value_type, class allocator_type>
+	bool operator>=(const list<value_type, allocator_type>& lhs, const list<value_type, allocator_type>& rhs) {
+		return !(lhs < rhs); // Yes this is correct
+	}
 
 }
 

@@ -19,22 +19,33 @@
 
 int main ()
 {
-	std::list<int> mylist;
+	ft::list<int> a;
+	a.push_back(10);
+	a.push_back(20);
+	a.push_back(30);
+	ft::list<int> b;
+	b.push_back(10);
+	b.push_back(20);
+	b.push_back(30);
+	ft::list<int> c;
+	c.push_back(30);
+	c.push_back(20);
+	c.push_back(10);
 
-	for (int i=1; i<10; ++i) mylist.push_back(i);
+	if (a==b) std::cout << "a and b are equal\n";
+	if (b!=c) std::cout << "b and c are not equal\n";
+	if (b<c) std::cout << "b is less than c\n";
+	if (c>b) std::cout << "c is greater than b\n";
+	if (a<=b) std::cout << "a is less than or equal to b\n";
+	if (a>=b) std::cout << "a is greater than or equal to b\n";
 
-	std::list<int> mylist2;
 
-	for (int i=10; i>0; --i) mylist2.push_back(i);
-
-	if (mylist2 == mylist)
-		std::cout << "hoi\n";
-
-	std::cout << "mylist contains:";
-	for (std::list<int>::iterator it=mylist.begin(); it!=mylist.end(); ++it)
-		std::cout << ' ' << *it;
-
-	std::cout << '\n';
-
+	/*Outcome:
+	a and b are equal
+	b and c are not equal
+	b is less than c
+	c is greater than b
+	a is less than or equal to b
+	a is greater than or equal to b*/
 	return 0;
 }
