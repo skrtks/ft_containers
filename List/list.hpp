@@ -20,7 +20,7 @@
 #include "Traits.hpp"
 #include <algorithm>
 #include <cstddef>
-// todo: safety checks for all functions
+
 namespace ft {
 
 template <class T, class Alloc = std::allocator<T> >

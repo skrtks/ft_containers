@@ -44,11 +44,11 @@ namespace ft {
 		virtual ~BidirectionalIterator() {}
 
 		BidirectionalIterator	operator++(int) { // Overload postfix ++
-			BidirectionalIterator	out(*this);
+			BidirectionalIterator	ret(*this);
 			if (_ptr->_next) {
 				_ptr = _ptr->_next;
 			}
-			return out;
+			return ret;
 		}
 		BidirectionalIterator&	operator++() { // Overload prefix ++
 			if (_ptr->_next) {
@@ -57,11 +57,11 @@ namespace ft {
 			return *this;
 		}
 		BidirectionalIterator	operator--(int) { // Overload postfix --
-			BidirectionalIterator	out(*this);
+			BidirectionalIterator	ret(*this);
 			if (_ptr->_previous) {
 				_ptr = _ptr->_previous;
 			}
-			return out;
+			return ret;
 		}
 		BidirectionalIterator&	operator--() { // Overload prefix --
 			if (_ptr->_previous) {
@@ -161,11 +161,11 @@ namespace ft {
 		}
 
 		RevBidirectionalIterator	operator++(int) { // Overload postfix ++
-			RevBidirectionalIterator	out(*this);
+			RevBidirectionalIterator	ret(*this);
 			if (_ptr->_previous) {
 				_ptr = _ptr->_previous;
 			}
-			return out;
+			return ret;
 		}
 		RevBidirectionalIterator&	operator++() { // Overload prefix ++
 			if (_ptr->_previous) {
@@ -174,11 +174,11 @@ namespace ft {
 			return *this;
 		}
 		RevBidirectionalIterator	operator--(int) { // Overload postfix --
-			RevBidirectionalIterator	out(*this);
+			RevBidirectionalIterator	ret(*this);
 			if (_ptr->_next) {
 				_ptr = _ptr->_next;
 			}
-			return out;
+			return ret;
 		}
 		RevBidirectionalIterator&	operator--() { // Overload prefix --
 			if (_ptr->_next) {

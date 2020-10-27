@@ -12,40 +12,22 @@
 
 #include <iostream>
 
-#include "list.hpp"
+#include "Vector.hpp"
 #include <list>
 #include <vector>
 #include <cmath>
 
-// comparison, not case sensitive.
-bool compare_nocase (std::list<std::string>::iterator first, std::list<std::string>::iterator second)
-{
-	(void)first;
-	(void)false;
-	return false;
-}
-
 int main ()
 {
-	std::list<std::string> mylist;
-	std::list<std::string>::iterator it;
-	mylist.push_back ("one");
-	mylist.push_back ("two");
-	mylist.push_back ("Three");
+	ft::vector<int> myvector(10, 42);
 
-	mylist.sort();
+	// set some content in the vector:
+//	for (int i=0; i<20; i++) myvector.push_back(i);
 
-	std::cout << "mylist contains:";
-	for (it=mylist.begin(); it!=mylist.end(); ++it)
-		std::cout << ' ' << *it;
-	std::cout << '\n';
-
-	mylist.sort(compare_nocase);
-
-	std::cout << "mylist contains:";
-	for (it=mylist.begin(); it!=mylist.end(); ++it)
-		std::cout << ' ' << *it;
-	std::cout << '\n';
-
+	ft::vector<int>::iterator myIt = myvector.end();
+//	myIt--;
+	std::cout << "iterator val: " << *myIt << '\n';
+	std::cout << "size: " << (int) myvector.size() << '\n';
+	std::cout << "capacity: " << (int) myvector.capacity() << '\n';
 	return 0;
 }

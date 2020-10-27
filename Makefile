@@ -14,7 +14,7 @@ NAME = ft_containers
 FILES = main
 SRCS = $(addprefix srcs/, $(addsuffix .cpp, $(FILES)))
 OBJS = $(SRCS:.cpp=.o)
-INCLUDE = -IList -Isrcs
+INCLUDE = -IList -Isrcs -IVector
 
 CXXFLAGS = -W -Wall -Werror -Wextra -pedantic -std=c++98 -Ofast
 ifdef DEBUG
