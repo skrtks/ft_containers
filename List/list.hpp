@@ -21,6 +21,8 @@
 #include <algorithm>
 #include <cstddef>
 
+#include <iostream>
+
 namespace ft {
 
 template <class T, class Alloc = std::allocator<T> >
@@ -236,8 +238,8 @@ public:
 
 	iterator erase(iterator first, iterator last) {
 		while (first != last) {
-			erase(first);
-			first++;
+			std::cout << "hoi\n";
+			first = erase(first);
 		}
 		return first;
 	}

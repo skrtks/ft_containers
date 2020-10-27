@@ -11,12 +11,12 @@
 # **************************************************************************** #
 
 NAME = ft_containers_tests
-FILES = catchMain test
+FILES = catchMain listTest vectorTest
 SRCS = $(addsuffix .cpp, $(FILES))
 OBJS = $(SRCS:.cpp=.o)
 
 # Add the directories you need here:
-INCLUDE = -I../List -I../srcs
+INCLUDE = -I../List -I../srcs -I../Vector
 
 CXXFLAGS = -std=c++11 -Wall
 
