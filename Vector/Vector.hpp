@@ -34,9 +34,9 @@ namespace ft {
 		typedef ptrdiff_t difference_type;
 		typedef size_t size_type;
 		typedef RandomAccessIterator<value_type> iterator;
-//		typedef ConstBidirectionalIterator<value_type> const_iterator;
-//		typedef RevBidirectionalIterator<value_type> reverse_iterator;
-//		typedef ConstRevBidirectionalIterator<value_type> const_reverse_iterator;
+		typedef ConstRandomAccessIterator<value_type> const_iterator;
+		typedef RevRandomAccessIterator<value_type> reverse_iterator;
+		typedef ConstRevRandomAccessIterator<value_type> const_reverse_iterator;
 
 		// Constructors & destructor
 		explicit vector (const allocator_type& alloc = allocator_type()): _allocator(alloc) {
@@ -97,12 +97,18 @@ namespace ft {
 //		Iterators:
 		iterator begin() {return iterator(_array);}
 		iterator end() {return iterator(&_array[_size]);}
-//		const_iterator begin() const {return const_iterator(_head->_next);}
-//		const_iterator end() const {return const_iterator(_tail);}
-//		reverse_iterator rbegin() {return reverse_iterator(_tail->_previous);}
-//		reverse_iterator rend() {return reverse_iterator(_head);}
-//		const_reverse_iterator rbegin() const {return const_reverse_iterator(_tail->_previous);}
-//		const_reverse_iterator rend() const {return const_reverse_iterator(_head);}
+		const_iterator begin() const {return const_iterator(_array);}
+		const_iterator end() const {return const_iterator(&_array[_size]);}
+		reverse_iterator rbegin() {return reverse_iterator(&_array[_size - 1]);}
+		reverse_iterator rend() {
+			pointer ret = _array;
+			return reverse_iterator(--ret);
+		}
+		const_reverse_iterator rbegin() const {return const_reverse_iterator(&_array[_size - 1]);}
+		const_reverse_iterator rend() const {
+			pointer ret = _array;
+			return reverse_iterator(--ret);
+		}
 
 	private:
 			pointer _array;
