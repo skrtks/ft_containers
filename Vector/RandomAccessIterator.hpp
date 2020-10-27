@@ -93,6 +93,12 @@ namespace ft {
 			return ret;
 		}
 
+		int operator-(RandomAccessIterator it) {
+			int ret;
+			ret = _ptr - it.getPtr();
+			return ret;
+		}
+
 		RandomAccessIterator operator-=(difference_type n) {
 			_ptr -= n;
 			return _ptr;

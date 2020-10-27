@@ -55,15 +55,25 @@ namespace ft {
 			_capacity = n;
 		}
 
-//		template <class InputIterator>
-//		vector (InputIterator first, InputIterator last,
-//				const allocator_type& alloc = allocator_type()): _allocator(alloc) {
-//
-//		}
+		template <class InputIterator>
+		vector (InputIterator first, InputIterator last,
+			const allocator_type& alloc = allocator_type()): _allocator(alloc) {
+			_capacity = last - first;
+			_size = 0;
+			_array = new value_type[_capacity];
+			assign(first, last);
+		}
 
-//		vector (const vector& x): _allocator(alloc) {
-//
-//		}
+		vector (const vector& x) {
+			*this = x;
+		}
+
+		vector& operator=(const vector& x) {
+			if (&x != this) {
+				_array = x.getPtr();
+			}
+			return *this;
+		}
 
 		virtual ~vector() {
 			delete[] _array;
@@ -90,9 +100,21 @@ namespace ft {
 			return _size == 0;
 		}
 
-//		void reserve (size_type n) {
-//
-//		}
+		void reserve (size_type n) {
+			if (n > _capacity) {
+				_capacity = (_capacity == 0 ? 1 : _capacity * 2);
+				pointer tmp = new value_type[_capacity];
+				for (size_type i = 0; i < _size; i++)
+					tmp[i] = _array[i];
+				delete[] _array;
+				_array = tmp;
+			}
+		}
+
+		reference       front()       {return _array[0];}
+		const_reference front() const {return _array[0];}
+		reference       back()        {return _array[_size - 1];}
+		const_reference back()  const {return _array[_size - 1];}
 
 //		Iterators:
 		iterator begin() {return iterator(_array);}
@@ -108,6 +130,40 @@ namespace ft {
 		const_reverse_iterator rend() const {
 			pointer ret = _array;
 			return reverse_iterator(--ret);
+		}
+
+		template<class InputIterator>
+		void assign(InputIterator first, InputIterator last,
+					typename ft::check_type<typename ft::iterator_traits<InputIterator>::iterator_category>::type* = 0) {
+			clear();
+			while (first != last) {
+				push_back(*first);
+				++first;
+			}
+		}
+
+		void assign(size_type n, const value_type& val) {
+			clear();
+			for (size_type i = 0; i < n; i++) {
+				push_back(val);
+			}
+		}
+
+		void push_back (const value_type& val) {
+			if (_size == _capacity) {
+				reserve(_size + 1);
+			}
+			++_size;
+			back() = val;
+		}
+
+		void	pop_back() {
+			_size--;
+		}
+
+		void	clear() {
+			while (_size)
+				pop_back();
 		}
 
 	private:
