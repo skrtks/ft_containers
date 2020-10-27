@@ -73,7 +73,7 @@ namespace ft {
 
 		RandomAccessIterator operator+=(difference_type n) {
 			_ptr += n;
-			return _ptr;
+			return *this;
 		}
 
 		RandomAccessIterator operator--(int) { // Overload postfix -
@@ -101,7 +101,7 @@ namespace ft {
 
 		RandomAccessIterator operator-=(difference_type n) {
 			_ptr -= n;
-			return _ptr;
+			return *this;
 		}
 
 		bool operator>=(const RandomAccessIterator& obj) {

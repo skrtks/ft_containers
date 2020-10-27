@@ -3,25 +3,19 @@
 #include "Vector.hpp"
 #include <list>
 
-TEST_CASE("Default constructor", "[Vector]") {
-	ft::vector<int> myvector;
-	REQUIRE(myvector.capacity() == 0);
-	REQUIRE(myvector.empty() == true);
-}
-
-TEST_CASE("Iterator", "[List]") {
-	ft::vector<std::string> myList;
-	std::vector<std::string> sysList;
-	ft::vector<int> myIntList;
+TEST_CASE("Vector Iterator", "[Vector]") {
+	ft::vector<std::string> myVec;
+	std::vector<std::string> sysVec;
+	ft::vector<int> myIntVec;
 	std::string str = "Hello, world!";
-	myList.push_back(str);
-	sysList.push_back(str);
-	myList.push_back("I'm the next King");
-	sysList.push_back("I'm the next King");
-	myList.push_back("Welcome yourself to the next chapter");
-	sysList.push_back("Welcome yourself to the next chapter");
-	ft::vector<std::string>::iterator myIt = myList.begin();
-	std::vector<std::string>::iterator sysIt = sysList.begin();
+	myVec.push_back(str);
+	sysVec.push_back(str);
+	myVec.push_back("I'm the next King");
+	sysVec.push_back("I'm the next King");
+	myVec.push_back("Welcome yourself to the next chapter");
+	sysVec.push_back("Welcome yourself to the next chapter");
+	ft::vector<std::string>::iterator myIt = myVec.begin();
+	std::vector<std::string>::iterator sysIt = sysVec.begin();
 
 	SECTION("Increment") {
 		myIt++;
@@ -51,60 +45,60 @@ TEST_CASE("Iterator", "[List]") {
 	}
 	SECTION("== overload") {
 		bool res;
-		res = (myIt == myList.begin());
+		res = (myIt == myVec.begin());
 		REQUIRE(res == true);
 		myIt++;
 		myIt++;
 		myIt++;
-		res = (myIt == myList.end());
+		res = (myIt == myVec.end());
 		REQUIRE(res == true);
-		res = (myIt == myList.begin());
+		res = (myIt == myVec.begin());
 		REQUIRE(res == false);
 	}
 	SECTION("!= overload") {
 		bool res;
-		res = (myIt != myList.end());
+		res = (myIt != myVec.end());
 		REQUIRE(res == true);
 		myIt++;
 		myIt++;
-		res = (myIt != myList.begin());
+		res = (myIt != myVec.begin());
 		REQUIRE(res == true);
 		myIt++;
-		res = (myIt != myList.end());
+		res = (myIt != myVec.end());
 		REQUIRE(res == false);
 	}
 	SECTION("Test (*it)++") {
-		myIntList.push_back(1);
-		ft::vector<int>::iterator myIntIt = myIntList.begin();
+		myIntVec.push_back(1);
+		ft::vector<int>::iterator myIntIt = myIntVec.begin();
 		REQUIRE(*myIntIt == 1);
 		(*myIntIt)++;
 		REQUIRE(*myIntIt == 2);
 		*myIntIt++;
-		bool res = (myIntIt == myIntList.end());
+		bool res = (myIntIt == myIntVec.end());
 		REQUIRE(res == true);
 	}
 	SECTION("Test (*it)--") {
-		myIntList.push_back(2);
-		ft::vector<int>::iterator myIntIt = myIntList.begin();
+		myIntVec.push_back(2);
+		ft::vector<int>::iterator myIntIt = myIntVec.begin();
 		REQUIRE(*myIntIt == 2);
 		(*myIntIt)--;
 		REQUIRE(*myIntIt == 1);
 		*myIntIt--;
-		bool res = (myIntIt != myIntList.begin());
+		bool res = (myIntIt != myIntVec.begin());
 		REQUIRE(res == true);
 	}
 	SECTION("Test assignemt with iterator") {
-		myIntList.push_back(1);
-		myIntList.push_back(8);
-		ft::vector<int>::iterator myIntIt = myIntList.begin();
+		myIntVec.push_back(1);
+		myIntVec.push_back(8);
+		ft::vector<int>::iterator myIntIt = myIntVec.begin();
 		REQUIRE(*myIntIt == 1);
 		*myIntIt = 5;
 		REQUIRE(*myIntIt == 5);
 	}
 	SECTION("Test dereference as lvalue") {
-		myIntList.push_back(1);
-		myIntList.push_back(8);
-		ft::vector<int>::iterator myIntIt = myIntList.begin();
+		myIntVec.push_back(1);
+		myIntVec.push_back(8);
+		ft::vector<int>::iterator myIntIt = myIntVec.begin();
 		*myIntIt++ = 5;
 		REQUIRE(*myIntIt == 8);
 		myIntIt--;
@@ -123,4 +117,35 @@ TEST_CASE("Iterator", "[List]") {
 		*rit = 10;
 		REQUIRE(*rit == 10);
 	}
+	SECTION("Test - + += -+ overloads") {
+		myIntVec.push_back(2);
+		myIntVec.push_back(3);
+		myIntVec.push_back(4);
+		myIntVec.push_back(5);
+		myIntVec.push_back(6);
+		ft::vector<int>::iterator it = myIntVec.begin();
+		REQUIRE(*it == 2);
+		it = it + 1;
+		REQUIRE(*it == 3);
+		it + 1;
+		REQUIRE(*it == 3);
+		it = it - 1;
+		REQUIRE(*it == 2);
+		int i = *it + *it;
+		REQUIRE(i == 4);
+		it += 3;
+		REQUIRE(*it == 5);
+	}
+}
+
+TEST_CASE("Default constructor", "[Vector]") {
+	ft::vector<int> myvector;
+	REQUIRE(myvector.capacity() == 0);
+	REQUIRE(myvector.empty() == true);
+}
+
+TEST_CASE("Default constructor", "[Vector]") {
+	ft::vector<int> myvector;
+	REQUIRE(myvector.capacity() == 0);
+	REQUIRE(myvector.empty() == true);
 }
