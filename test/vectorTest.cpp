@@ -138,14 +138,27 @@ TEST_CASE("Vector Iterator", "[Vector]") {
 	}
 }
 
-TEST_CASE("Default constructor", "[Vector]") {
-	ft::vector<int> myvector;
-	REQUIRE(myvector.capacity() == 0);
-	REQUIRE(myvector.empty() == true);
+TEST_CASE("Constructors", "[Vector]") {
+	// constructors used in the same order as described above:
+	std::vector<int> first;                                // empty vector of ints
+	REQUIRE(first.capacity() == 0);
+	std::vector<int> second(5, 100);                // four ints with value 100
+	REQUIRE(second.capacity() == 5);
+	std::vector<int> third(second.begin(), second.end());  // iterating through second
+	REQUIRE(third.capacity() == 5);
+	std::vector<int> fourth(third);                       // a copy of third
+	REQUIRE(fourth.capacity() == 5);
+
+	// the iterator constructor can also be used to construct from arrays:
+	int myints[] = {16, 2, 77, 29, 66};
+	std::vector<int> fifth(myints, myints + sizeof(myints) / sizeof(int));
+	REQUIRE(fifth.capacity() == 5);
+	REQUIRE(fifth.front() == 16);
+	REQUIRE(fifth.back() == 66);
+
+	std::vector<int> sixt = fifth;
+	REQUIRE(fifth.capacity() == 5);
+	REQUIRE(fifth.front() == 16);
+	REQUIRE(fifth.back() == 66);
 }
 
-TEST_CASE("Default constructor", "[Vector]") {
-	ft::vector<int> myvector;
-	REQUIRE(myvector.capacity() == 0);
-	REQUIRE(myvector.empty() == true);
-}

@@ -70,6 +70,9 @@ namespace ft {
 
 		vector& operator=(const vector& x) {
 			if (&x != this) {
+				if (capacity()) {
+					clear();
+				}
 				_array = x.getPtr();
 			}
 			return *this;
