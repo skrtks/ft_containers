@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   vectorTest.cpp                                     :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: sam <sam@student.codam.nl>                   +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2020/10/28 13:30:18 by sam           #+#    #+#                 */
+/*   Updated: 2020/10/28 13:30:18 by sam           ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "Catch2.h"
 
 #include "Vector.hpp"
@@ -193,4 +205,17 @@ TEST_CASE("[] operator overload", "[Vector]") {
 	for (int i = 0; i < 6; i++) {
 		REQUIRE(myvector[i] == i);
 	}
+}
+
+TEST_CASE("Vector At", "[Vector") {
+	ft::vector<int> myvector (10);   // 10 zero-initialized ints
+
+	// assign some values:
+	for (unsigned i=0; i<myvector.size(); i++)
+		myvector.at(i)=i;
+
+	for (unsigned i=0; i<myvector.size(); i++)
+		REQUIRE(myvector.at(i) == i);
+
+	REQUIRE_THROWS_AS(myvector.at(10), std::out_of_range);
 }

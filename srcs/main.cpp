@@ -20,24 +20,14 @@
 
 int main ()
 {
-//	ft::vector<int> myIntVec;
-//	myIntVec.push_back(2);
-//	myIntVec.push_back(3);
-//	myIntVec.push_back(4);
-//	myIntVec.push_back(5);
-//	myIntVec.push_back(6);
-//	ft::vector<int>::iterator it = myIntVec.begin();
-//	it = it + 1;
-//	it + 1;
-//	it = it - 1;
-////	int i = *it + *it;
-//	it += 3;
+	ft::vector<int> myvector (10);   // 10 zero-initialized ints
 
-	ft::vector<int> myvector;
+	// assign some values:
+	for (unsigned i=0; i<myvector.size(); i++)
+		myvector.at(i)=i;
 
-	for (int i = 0; i < 6; i++) myvector.push_back(i);
-
-	for (int i = 0; i < 6; i++) {
-		std::cout << myvector[i] << " " << i << std::endl;
-	}
+	for (unsigned i=0; i<myvector.size(); i++)
+		std::cout << ' ' << myvector.at(i);
+	// myvector contains: 0 1 2 3 4 5 6 7 8 9
+	return 0;
 }

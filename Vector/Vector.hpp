@@ -14,6 +14,7 @@
 #define VECTOR_HPP
 #include <memory>
 #include <iterator>
+#include <stdexcept>
 #include "Traits.hpp"
 #include <algorithm>
 #include <cstddef>
@@ -185,6 +186,20 @@ namespace ft {
 		}
 
 		const_reference	operator[](difference_type n) const {
+			return (*(_array + n));
+		}
+
+		reference at (size_type n) {
+			if (n >= _size) {
+				throw (std::out_of_range("Index out of range"));
+			}
+			return (*(_array + n));
+		}
+
+		const_reference at (size_type n) const {
+			if (n >= _size) {
+				throw (std::out_of_range("Index out of range"));
+			}
 			return (*(_array + n));
 		}
 
