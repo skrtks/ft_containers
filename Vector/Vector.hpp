@@ -243,6 +243,36 @@ namespace ft {
 			}
 		}
 
+		iterator erase (iterator position) {
+			if (position == --end()) {
+				pop_back();
+			}
+			else {
+				vector tmp(position, end());
+				_size -= end() - position;
+				for (iterator it = tmp.begin() + 1; it != tmp.end(); ++it) {
+					push_back(*it);
+				}
+			}
+			return ++position;
+		}
+
+		iterator erase (iterator first, iterator last) {
+			size_type n = last - first;
+			if (last == end()) {
+				_size -= n;
+			}
+			else {
+				vector tmp(last, end());
+				_size -= end() - first;
+				for (iterator it = tmp.begin(); it != tmp.end(); ++it) {
+					push_back(*it);
+				}
+			}
+			return ++last;
+		}
+
+
 		pointer getArray() const {
 			return _array;
 		}

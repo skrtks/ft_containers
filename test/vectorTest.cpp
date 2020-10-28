@@ -258,3 +258,60 @@ TEST_CASE("Vector Insert", "[Vector]") {
 	REQUIRE(myvector.at(7) == 200);
 	REQUIRE(myvector.back() == 100);
 }
+
+TEST_CASE("Vector Erase", "[Vector]") {
+	ft::vector<int> myvector;
+
+	// set some values (from 1 to 10)
+	for (int i=1; i<=10; i++) myvector.push_back(i);
+
+	SECTION("Erase end") {
+		// erase the 6th element
+		myvector.erase (myvector.begin()+9);
+		// myvector contains: 1 2 3 4 5 7 8 9 10
+		REQUIRE(myvector.size() == 9);
+		REQUIRE(myvector.capacity() == 16);
+		REQUIRE(myvector.back() == 9);
+	}
+	SECTION("Erase 1 element") {
+		// erase the 6th element
+		myvector.erase (myvector.begin()+5);
+		// myvector contains: 1 2 3 4 5 7 8 9 10
+		REQUIRE(myvector.size() == 9);
+		REQUIRE(myvector.capacity() == 16);
+		REQUIRE(myvector.at(4) == 5);
+		REQUIRE(myvector.at(5) == 7);
+
+		myvector.erase (myvector.begin());
+		REQUIRE(myvector.size() == 8);
+		REQUIRE(myvector.capacity() == 16);
+		REQUIRE(myvector.at(0) == 2);
+	}
+	SECTION("Erase range from begin") {
+		myvector.erase (myvector.begin(), myvector.begin()+5);
+		REQUIRE(myvector.size() == 5);
+		REQUIRE(myvector.capacity() == 16);
+		REQUIRE(myvector.at(0) == 6);
+		REQUIRE(myvector.at(1) == 7);
+	}
+	SECTION("Erase range from middle") {
+		myvector.erase (myvector.begin()+1, myvector.begin()+5);
+		REQUIRE(myvector.size() == 6);
+		REQUIRE(myvector.capacity() == 16);
+		REQUIRE(myvector.at(0) == 1);
+		REQUIRE(myvector.at(1) == 6);
+	}
+	SECTION("Erase range until end - 1") {
+		myvector.erase (myvector.begin()+5, myvector.begin()+9);
+		REQUIRE(myvector.size() == 6);
+		REQUIRE(myvector.capacity() == 16);
+		REQUIRE(myvector.at(4) == 5);
+		REQUIRE(myvector.at(5) == 10);
+	}
+	SECTION("Erase range until end") {
+		myvector.erase (myvector.begin()+5, myvector.end());
+		REQUIRE(myvector.size() == 5);
+		REQUIRE(myvector.capacity() == 16);
+		REQUIRE(myvector.at(4) == 5);
+	}
+}
