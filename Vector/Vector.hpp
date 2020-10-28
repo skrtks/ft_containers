@@ -96,9 +96,14 @@ namespace ft {
 			return this->_allocator.max_size();
 		}
 
-	//	void resize (size_type n, value_type val = value_type()) {
-	//
-	//	}
+		void resize (size_type n, value_type val = value_type()) {
+			while (_size > n) {
+				pop_back();
+			}
+			while (_size < n) {
+				push_back(val);
+			}
+		}
 
 		size_type capacity() const {
 			return _capacity;
@@ -173,6 +178,10 @@ namespace ft {
 			while (_size > 0) {
 				pop_back();
 			}
+		}
+
+		reference	operator[](difference_type n) {
+			return (*(_array + n));
 		}
 
 		pointer getArray() const {

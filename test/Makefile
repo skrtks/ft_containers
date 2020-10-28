@@ -19,7 +19,7 @@ OBJS = $(SRCS:.cpp=.o)
 INCLUDE = -I../List -I../srcs -I../Vector
 
 CXXFLAGS = -std=c++11 -Wall
-
+# -g -fsanitize=address -fno-omit-frame-pointer -O1
 # Colours
 DARK_GREEN	= \033[0;32m
 GREEN		= \033[0;92m

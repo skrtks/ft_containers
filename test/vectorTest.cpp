@@ -162,3 +162,26 @@ TEST_CASE("Vector Constructors", "[Vector]") {
 	REQUIRE(sixt.back() == 66);
 }
 
+TEST_CASE("Vector Resize", "[Vector]") {
+	ft::vector<int> myvector;
+
+	// set some initial content:
+	for (int i=1;i<6;i++) myvector.push_back(i);
+
+	myvector.resize(5);
+	REQUIRE(myvector.capacity() == 8);
+	REQUIRE(myvector.size() == 5);
+	REQUIRE(myvector.front() == 1);
+	REQUIRE(myvector.back() == 5);
+	myvector.resize(8,100);
+	REQUIRE(myvector.capacity() == 8);
+	REQUIRE(myvector.size() == 8);
+	REQUIRE(myvector.front() == 1);
+	REQUIRE(myvector.back() == 100);
+	myvector.resize(12);
+	REQUIRE(myvector.capacity() == 16);
+	REQUIRE(myvector.size() == 12);
+	REQUIRE(myvector.front() == 1);
+	REQUIRE(myvector.back() == 0);
+}
+

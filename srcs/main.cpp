@@ -18,34 +18,30 @@
 #include <vector>
 #include <cmath>
 
-int main () {
-	ft::list<int> mylist;
-	ft::list<int>::iterator it1,it2;
-	// set some values:
-	for (int i=1; i<10; ++i) mylist.push_back(i*10);
-	// 10 20 30 40 50 60 70 80 90
-	it1 = it2 = mylist.begin(); 		// ^^
-	advance (it2,6);				// ^                 ^
-	++it1;								//    ^              ^
-//	REQUIRE(mylist.size() == 9);
-//	REQUIRE(*it1 == 20);
-//	REQUIRE(*it2 == 70);
-	it1 = mylist.erase (it1);   // 10 30 40 50 60 70 80 90
-	//    ^           ^
-//	REQUIRE(*it1 == 30);
-//	REQUIRE(*it2 == 70);
-//	REQUIRE(mylist.size() == 8);
-	it2 = mylist.erase (it2);	// 10 30 40 50 60 80 90
-	//    ^           ^
-	++it1;						//       ^        ^
-	--it2;						//       ^     ^
-//	REQUIRE(*it1 == 40);
-//	REQUIRE(*it2 == 60);
-//	REQUIRE(mylist.size() == 7);
-	it1 = mylist.erase (it1,it2);		// 10 30 60 80 90
-	//       ^
-//	REQUIRE(*it1 == 60);
-//	REQUIRE(*it2 == 60);
-//	REQUIRE(mylist.size() == 5);
-	return 0;
+int main ()
+{
+//	ft::vector<int> myIntVec;
+//	myIntVec.push_back(2);
+//	myIntVec.push_back(3);
+//	myIntVec.push_back(4);
+//	myIntVec.push_back(5);
+//	myIntVec.push_back(6);
+//	ft::vector<int>::iterator it = myIntVec.begin();
+//	it = it + 1;
+//	it + 1;
+//	it = it - 1;
+////	int i = *it + *it;
+//	it += 3;
+
+	ft::list<int> first (3,100);   // three ints with a value of 100
+	ft::list<int> second (5,200);  // five ints with a value of 200
+
+	first.swap(second);
+
+	ft::list<int>::iterator it=first.begin();
+//	REQUIRE(*it == 200);
+//	REQUIRE(first.size() == 5);
+	it = second.begin();
+//	REQUIRE(*it == 100);
+//	REQUIRE(second.size() == 3);
 }
