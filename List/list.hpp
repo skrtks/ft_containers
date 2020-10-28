@@ -52,7 +52,7 @@ public:
 		_size = 0;
 	}
 
-	list(size_type n, const value_type& val = value_type(),
+	explicit list(size_type n, const value_type& val = value_type(),
 		 const allocator_type& alloc = allocator_type()) : _allocator(alloc) {
 		_head = new Node<value_type>();
 		_tail = new Node<value_type>();
@@ -238,7 +238,6 @@ public:
 
 	iterator erase(iterator first, iterator last) {
 		while (first != last) {
-			std::cout << "hoi\n";
 			first = erase(first);
 		}
 		return first;

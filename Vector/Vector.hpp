@@ -57,7 +57,8 @@ namespace ft {
 
 		template <class InputIterator>
 		vector (InputIterator first, InputIterator last,
-			const allocator_type& alloc = allocator_type()): _allocator(alloc) {
+			const allocator_type& alloc = allocator_type(),
+			typename ft::check_type<typename ft::iterator_traits<InputIterator>::iterator_category>::type* = 0): _allocator(alloc) {
 			_capacity = last - first;
 			_size = 0;
 			_array = new value_type[_capacity];
@@ -65,6 +66,8 @@ namespace ft {
 		}
 
 		vector (const vector& x) {
+			_size = 0;
+			_capacity = 0;
 			*this = x;
 		}
 
@@ -73,7 +76,9 @@ namespace ft {
 				if (capacity()) {
 					clear();
 				}
-				_array = x.getPtr();
+				_array = new value_type[x.capacity()];
+				_capacity = x.capacity();
+				assign(x.begin(), x.end());
 			}
 			return *this;
 		}
@@ -165,8 +170,13 @@ namespace ft {
 		}
 
 		void	clear() {
-			while (_size)
+			while (_size > 0) {
 				pop_back();
+			}
+		}
+
+		pointer getArray() const {
+			return _array;
 		}
 
 	private:
