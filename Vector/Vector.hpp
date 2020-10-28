@@ -203,6 +203,46 @@ namespace ft {
 			return (*(_array + n));
 		}
 
+		iterator insert (iterator position, const value_type& val) {
+			size_type n = position - begin();
+			insert(position, 1, val);
+			return (iterator(&_array[n]));
+		}
+
+		void insert (iterator position, size_type n, const value_type& val) {
+			vector tmp(position, end());
+			size_type old_size = _size;
+			_size -= end() - position;
+			if (old_size + n > _capacity) {
+				reserve(old_size + n);
+			}
+			for (size_type i = 0; i < n; ++i) {
+				push_back(val);
+			}
+			for (iterator it = tmp.begin(); it != tmp.end(); ++it) {
+				push_back(*it);
+			}
+		}
+
+		template <class InputIterator>
+		void insert (iterator position, InputIterator first, InputIterator last,
+					 typename ft::check_type<typename ft::iterator_traits<InputIterator>::iterator_category>::type* = 0) {
+			vector tmp(position, end());
+			size_type old_size = _size;
+			_size -= end() - position;
+			size_type n = last - first;
+			if (old_size + n > _capacity) {
+				reserve(old_size + n);
+			}
+			while (first != last) {
+				push_back(*first);
+				++first;
+			}
+			for (iterator it = tmp.begin(); it != tmp.end(); ++it) {
+				push_back(*it);
+			}
+		}
+
 		pointer getArray() const {
 			return _array;
 		}
