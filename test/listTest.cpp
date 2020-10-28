@@ -3,7 +3,7 @@
 #include "list.hpp"
 #include <list>
 
-TEST_CASE("Iterator", "[List]") {
+TEST_CASE("List: Iterator", "[List]") {
 	ft::list<std::string> myList;
 	std::list<std::string> sysList;
 	ft::list<int> myIntList;
@@ -119,7 +119,7 @@ TEST_CASE("Iterator", "[List]") {
 	}
 }
 
-TEST_CASE("Push-front", "[List]") {
+TEST_CASE("List: Push-front", "[List]") {
 	ft::list<int> myList;
 	myList.push_back(1);
 	myList.push_front(2);
@@ -130,7 +130,7 @@ TEST_CASE("Push-front", "[List]") {
 	REQUIRE(*it == 2);
 }
 
-TEST_CASE("Pop-front", "[List]") {
+TEST_CASE("List: Pop-front", "[List]") {
 	ft::list<int> myList;
 	myList.push_back(1);
 	myList.push_back(2);
@@ -141,7 +141,7 @@ TEST_CASE("Pop-front", "[List]") {
 	REQUIRE(*it == 3);
 }
 
-TEST_CASE("Pop-back", "[List]") {
+TEST_CASE("List: Pop-back", "[List]") {
 	ft::list<int> myList;
 	myList.push_back(1);
 	myList.push_back(2);
@@ -152,7 +152,7 @@ TEST_CASE("Pop-back", "[List]") {
 	REQUIRE(*it == 1);
 }
 
-TEST_CASE("Assign", "[List]") {
+TEST_CASE("List: Assign", "[List]") {
 	ft::list<int>	oneL;
 	std::list<int>	twoL;
 	twoL.push_back(1);
@@ -182,7 +182,7 @@ TEST_CASE("Assign", "[List]") {
 	REQUIRE(oneL.size() == 5);
 }
 
-TEST_CASE("Insert", "[List]") {
+TEST_CASE("List: Insert", "[List]") {
 	ft::list<int> mylist;
 	ft::list<int>::iterator it;
 
@@ -208,7 +208,7 @@ TEST_CASE("Insert", "[List]") {
 	REQUIRE(mylist.size() == 10);
 }
 
-TEST_CASE("Erase", "[List]") {
+TEST_CASE("List: Erase", "[List]") {
 	ft::list<int> mylist;
 	ft::list<int>::iterator it1,it2;
 	// set some values:
@@ -239,7 +239,7 @@ TEST_CASE("Erase", "[List]") {
 	REQUIRE(mylist.size() == 5);
 }
 
-TEST_CASE("Swap", "[List]") {
+TEST_CASE("List: Swap", "[List]") {
 	ft::list<int> first (3,100);   // three ints with a value of 100
 	ft::list<int> second (5,200);  // five ints with a value of 200
 
@@ -253,7 +253,7 @@ TEST_CASE("Swap", "[List]") {
 	REQUIRE(second.size() == 3);
 }
 
-TEST_CASE("Resize", "[List]") {
+TEST_CASE("List: Resize", "[List]") {
 	ft::list<int> mylist;
 
 	// set some initial content:
@@ -267,7 +267,7 @@ TEST_CASE("Resize", "[List]") {
 	REQUIRE(mylist.size() == 12);
 }
 
-TEST_CASE("Splice", "[List]") {
+TEST_CASE("List: Splice", "[List]") {
 	ft::list<int> mylist1, mylist2;
 	ft::list<int>::iterator it;
 	ft::list<int>::iterator ptrIt;
@@ -334,7 +334,7 @@ TEST_CASE("Splice", "[List]") {
 	}
 }
 
-TEST_CASE("Remove", "[List]") {
+TEST_CASE("List: Remove", "[List]") {
 	int myints[]= {17,89,7,7};
 	ft::list<int> mylist (myints,myints+4);
 
@@ -350,7 +350,7 @@ bool single_digit (const int& value) { return (value<10); }
 struct is_odd {
 	bool operator() (const int& value) { return (value%2)==1; }
 };
-TEST_CASE("Remove_if", "[List]") {
+TEST_CASE("List: Remove_if", "[List]") {
 	int myints[]= {15,36,7,17,20,39,4,1};
 	ft::list<int> mylist (myints,myints+8);   // 15 36 7 17 20 39 4 1
 
@@ -360,7 +360,7 @@ TEST_CASE("Remove_if", "[List]") {
 	REQUIRE(mylist.size() == 2);
 }
 
-TEST_CASE("Front() + Back()", "[List]") {
+TEST_CASE("List: Front() + Back()", "[List]") {
 	ft::list<int> mylist;
 
 	mylist.push_back(77);
@@ -385,7 +385,7 @@ bool compare_nocase (const std::string& first, const std::string& second)
 	return ( first.length() < second.length() );
 }
 
-TEST_CASE("Sort", "[List]") {
+TEST_CASE("List: Sort", "[List]") {
 	ft::list<std::string> mylist;
 	ft::list<std::string>::iterator it;
 	mylist.push_back ("Three");
@@ -421,7 +421,7 @@ struct is_near {
 	bool operator() (double first, double second)
 	{ return (fabs(first-second)<5.0); }
 };
-TEST_CASE("Unique", "[List]") {
+TEST_CASE("List: Unique", "[List]") {
 	SECTION("Doubles") {
 		double mydoubles[] = {12.15, 2.72, 73.0, 12.77, 3.14, 12.77, 73.35, 72.25, 15.3, 72.25};
 		std::list<double> mylist(mydoubles, mydoubles + 10);
@@ -461,7 +461,7 @@ TEST_CASE("Unique", "[List]") {
 // compare only integral part:
 bool mycomparison (double first, double second)
 { return ( int(first)<int(second) ); }
-TEST_CASE("Merge", "[List]") {
+TEST_CASE("List: Merge", "[List]") {
 	ft::list<double> first, second;
 	ft::list<double>::iterator it;
 
@@ -506,7 +506,7 @@ TEST_CASE("Merge", "[List]") {
 	REQUIRE(second.empty() == true);
 }
 
-TEST_CASE("Reverse", "[List]") {
+TEST_CASE("List: Reverse", "[List]") {
 	ft::list<int> mylist;
 
 	for (int i=1; i<10; ++i) mylist.push_back(i);
@@ -517,7 +517,7 @@ TEST_CASE("Reverse", "[List]") {
 	REQUIRE(mylist.back() == 1);
 }
 
-TEST_CASE("Relational operator overloads", "[List]") {
+TEST_CASE("List: Relational operator overloads", "[List]") {
 	ft::list<int> a;
 	a.push_back(10);
 	a.push_back(20);

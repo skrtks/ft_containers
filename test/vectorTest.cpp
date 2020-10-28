@@ -15,7 +15,7 @@
 #include "Vector.hpp"
 #include <list>
 
-TEST_CASE("Vector Iterator", "[Vector]") {
+TEST_CASE("Vector: Iterator", "[Vector]") {
 	ft::vector<std::string> myVec;
 	std::vector<std::string> sysVec;
 	ft::vector<int> myIntVec;
@@ -150,7 +150,7 @@ TEST_CASE("Vector Iterator", "[Vector]") {
 	}
 }
 
-TEST_CASE("Vector Constructors", "[Vector]") {
+TEST_CASE("Vector: Constructors", "[Vector]") {
 	// constructors used in the same order as described above:
 	ft::vector<int> first;                                // empty vector of ints
 	REQUIRE(first.capacity() == 0);
@@ -174,7 +174,7 @@ TEST_CASE("Vector Constructors", "[Vector]") {
 	REQUIRE(sixt.back() == 66);
 }
 
-TEST_CASE("Vector Resize", "[Vector]") {
+TEST_CASE("Vector: Resize", "[Vector]") {
 	ft::vector<int> myvector;
 
 	// set some initial content:
@@ -197,7 +197,7 @@ TEST_CASE("Vector Resize", "[Vector]") {
 	REQUIRE(myvector.back() == 0);
 }
 
-TEST_CASE("[] operator overload", "[Vector]") {
+TEST_CASE("Vector: [] operator overload", "[Vector]") {
 	ft::vector<int> myvector;
 
 	for (int i = 0; i < 6; i++) myvector.push_back(i);
@@ -207,7 +207,7 @@ TEST_CASE("[] operator overload", "[Vector]") {
 	}
 }
 
-TEST_CASE("Vector At", "[Vector") {
+TEST_CASE("Vector: At", "[Vector") {
 	ft::vector<int> myvector (10);   // 10 zero-initialized ints
 
 	// assign some values:
@@ -220,7 +220,7 @@ TEST_CASE("Vector At", "[Vector") {
 	REQUIRE_THROWS_AS(myvector.at(10), std::out_of_range);
 }
 
-TEST_CASE("Vector Insert", "[Vector]") {
+TEST_CASE("Vector: Insert", "[Vector]") {
 	ft::vector<int> myvector (3,100);
 	ft::vector<int>::iterator it;
 
@@ -259,7 +259,7 @@ TEST_CASE("Vector Insert", "[Vector]") {
 	REQUIRE(myvector.back() == 100);
 }
 
-TEST_CASE("Vector Erase", "[Vector]") {
+TEST_CASE("Vector: Erase", "[Vector]") {
 	ft::vector<int> myvector;
 
 	// set some values (from 1 to 10)
@@ -316,7 +316,7 @@ TEST_CASE("Vector Erase", "[Vector]") {
 	}
 }
 
-TEST_CASE("Vector Swap", "[Vector]") {
+TEST_CASE("Vector: Swap", "[Vector]") {
 	ft::vector<int> foo (3,100);   // three ints with a value of 100
 	ft::vector<int> bar (5,200);   // five ints with a value of 200
 
@@ -328,7 +328,7 @@ TEST_CASE("Vector Swap", "[Vector]") {
 	REQUIRE(bar.capacity() == 3);
 }
 
-TEST_CASE("Vector Relational operator overloads", "[Vector]") {
+TEST_CASE("Vector: Relational operator overloads", "[Vector]") {
 	ft::vector<int> a;
 	a.push_back(10);
 	a.push_back(20);
