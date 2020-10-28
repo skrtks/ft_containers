@@ -327,3 +327,33 @@ TEST_CASE("Vector Swap", "[Vector]") {
 	REQUIRE(bar.size() == 3);
 	REQUIRE(bar.capacity() == 3);
 }
+
+TEST_CASE("Vector Relational operator overloads", "[Vector]") {
+	ft::vector<int> a;
+	a.push_back(10);
+	a.push_back(20);
+	a.push_back(30);
+	ft::vector<int> b;
+	b.push_back(10);
+	b.push_back(20);
+	b.push_back(30);
+	ft::vector<int> c;
+	c.push_back(30);
+	c.push_back(20);
+	c.push_back(10);
+
+	REQUIRE((a == b) == true);
+	REQUIRE((b != c) == true);
+	REQUIRE((b < c) == true);
+	REQUIRE((c > b) == true);
+	REQUIRE((a <= b) == true);
+	REQUIRE((a >= b) == true);
+
+	REQUIRE((a <= b) == true);
+	REQUIRE((a > b) == false);
+	REQUIRE((a < b) == false);
+	REQUIRE((a != b) == false);
+	REQUIRE((b > c) == false);
+	REQUIRE((b == c) == false);
+	REQUIRE((b != c) == true);
+}

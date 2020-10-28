@@ -296,7 +296,45 @@ namespace ft {
 			size_type _size;
 			size_type _capacity;
 			allocator_type _allocator;
-		};
+	};
+
+	// Relational operators
+	template <class value_type, class allocator_type>
+	bool operator== (const vector<value_type,allocator_type>& lhs, const vector<value_type,allocator_type>& rhs) {
+		if (lhs.size() != rhs.size()) {
+			return false;
+		}
+		typename ft::vector<value_type>::iterator lhsIt = lhs.begin();
+		typename ft::vector<value_type>::iterator rhsIt = rhs.begin();
+		while (lhsIt != lhs.end() && rhsIt != rhs.end()) {
+			if (!(*lhsIt == *rhsIt)) {
+				return false;
+			}
+			++lhsIt;
+			++rhsIt;
+		}
+		return true;
+	}
+	template<class value_type, class allocator_type>
+	bool operator!=(const vector<value_type, allocator_type>& lhs, const vector<value_type, allocator_type>& rhs) {
+		return !(lhs == rhs);
+	}
+	template<class value_type, class allocator_type>
+	bool operator<(const vector<value_type, allocator_type>& lhs, const vector<value_type, allocator_type>& rhs) {
+		return std::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
+	}
+	template<class value_type, class allocator_type>
+	bool operator<=(const vector<value_type, allocator_type>& lhs, const vector<value_type, allocator_type>& rhs) {
+		return !(rhs < lhs);
+	}
+	template<class value_type, class allocator_type>
+	bool operator>(const vector<value_type, allocator_type>& lhs, const vector<value_type, allocator_type>& rhs) {
+		return rhs < lhs; // Yes this is correct
+	}
+	template<class value_type, class allocator_type>
+	bool operator>=(const vector<value_type, allocator_type>& lhs, const vector<value_type, allocator_type>& rhs) {
+		return !(lhs < rhs); // Yes this is correct
+	}
 
 } // ft end
 
