@@ -315,3 +315,15 @@ TEST_CASE("Vector Erase", "[Vector]") {
 		REQUIRE(myvector.at(4) == 5);
 	}
 }
+
+TEST_CASE("Vector Swap", "[Vector]") {
+	ft::vector<int> foo (3,100);   // three ints with a value of 100
+	ft::vector<int> bar (5,200);   // five ints with a value of 200
+
+	foo.swap(bar);
+
+	REQUIRE(foo.size() == 5);
+	REQUIRE(foo.capacity() == 5);
+	REQUIRE(bar.size() == 3);
+	REQUIRE(bar.capacity() == 3);
+}

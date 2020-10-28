@@ -20,20 +20,22 @@
 
 int main ()
 {
-	std::vector<int> myvector;
+	ft::vector<int> foo (3,100);   // three ints with a value of 100
+	ft::vector<int> bar (5,200);   // five ints with a value of 200
 
-	// set some values (from 1 to 10)
-	for (int i=1; i<=10; i++) myvector.push_back(i);
+	foo.swap(bar);
 
-	// erase the 6th element
-//	myvector.erase (myvector.begin()+9);
-	// myvector contains: 1 2 3 4 5 7 8 9 10
-	std::cout << myvector.size() << " " << myvector.capacity() << std::endl;
-
-	std::cout << "myvector contains:";
-	for (unsigned i=0; i<myvector.size(); ++i)
-		std::cout << ' ' << myvector[i];
+	std::cout << "foo contains:";
+	for (unsigned i=0; i<foo.size(); i++)
+		std::cout << ' ' << foo[i];
 	std::cout << '\n';
-	// myvector contains: 4 5 7 8 9 10
+
+	std::cout << "bar contains:";
+	for (unsigned i=0; i<bar.size(); i++)
+		std::cout << ' ' << bar[i];
+	std::cout << '\n';
+	std::cout << foo.size() << " " << foo.capacity() << std::endl;
+	std::cout << bar.size() << " " << bar.capacity() << std::endl;
+
 	return 0;
 }

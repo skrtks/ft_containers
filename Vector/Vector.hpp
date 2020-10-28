@@ -272,6 +272,20 @@ namespace ft {
 			return ++last;
 		}
 
+		void swap (vector& x) {
+			size_type tmp;
+			pointer tmpPtr;
+			tmpPtr = _array;
+			_array = x._array;
+			x._array = tmpPtr;
+			tmp = _size;
+			_size = x._size;
+			x._size = tmp;
+			tmp = _capacity;
+			_capacity = x._capacity;
+			x._capacity = tmp;
+		}
+
 
 		pointer getArray() const {
 			return _array;
