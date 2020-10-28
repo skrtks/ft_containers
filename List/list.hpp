@@ -83,9 +83,7 @@ public:
 	}
 
 	virtual ~list() {
-		while (_size) {
-			pop_front();
-		}
+		clear();
 		delete _head;
 		delete _tail;
 	}
@@ -251,10 +249,14 @@ public:
 
 		tmp = _head->_next;
 		_head->_next = headX.getPtr()->_next;
+		_head->_next->_previous = _head;
 		headX.getPtr()->_next = tmp;
+		headX.getPtr()->_next->_previous = headX.getPtr();
 		tmp = _tail->_previous;
 		_tail->_previous = tailX.getPtr()->_previous;
+		_tail->_previous->_next = _tail;
 		tailX.getPtr()->_previous = tmp;
+		tailX.getPtr()->_previous->_next = tailX.getPtr();
 		sizeTmp = size();
 		_size = x.size();
 		x._size = sizeTmp;
