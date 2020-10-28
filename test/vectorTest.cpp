@@ -12,7 +12,7 @@
 
 #include "Catch2.h"
 
-#include "Vector.hpp"
+#include "vector.hpp"
 #include <list>
 
 TEST_CASE("Vector: Iterator", "[Vector]") {
