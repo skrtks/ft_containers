@@ -185,3 +185,12 @@ TEST_CASE("Vector Resize", "[Vector]") {
 	REQUIRE(myvector.back() == 0);
 }
 
+TEST_CASE("[] operator overload", "[Vector]") {
+	ft::vector<int> myvector;
+
+	for (int i = 0; i < 6; i++) myvector.push_back(i);
+
+	for (int i = 0; i < 6; i++) {
+		REQUIRE(myvector[i] == i);
+	}
+}

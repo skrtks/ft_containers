@@ -184,6 +184,10 @@ namespace ft {
 			return (*(_array + n));
 		}
 
+		const_reference	operator[](difference_type n) const {
+			return (*(_array + n));
+		}
+
 		pointer getArray() const {
 			return _array;
 		}

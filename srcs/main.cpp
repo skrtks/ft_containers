@@ -33,15 +33,11 @@ int main ()
 ////	int i = *it + *it;
 //	it += 3;
 
-	ft::list<int> first (3,100);   // three ints with a value of 100
-	ft::list<int> second (5,200);  // five ints with a value of 200
+	ft::vector<int> myvector;
 
-	first.swap(second);
+	for (int i = 0; i < 6; i++) myvector.push_back(i);
 
-	ft::list<int>::iterator it=first.begin();
-//	REQUIRE(*it == 200);
-//	REQUIRE(first.size() == 5);
-	it = second.begin();
-//	REQUIRE(*it == 100);
-//	REQUIRE(second.size() == 3);
+	for (int i = 0; i < 6; i++) {
+		std::cout << myvector[i] << " " << i << std::endl;
+	}
 }
