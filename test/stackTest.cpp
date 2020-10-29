@@ -100,4 +100,3 @@ TEST_CASE("Stack: Relational operator overloads", "[Stack]") {
 	REQUIRE((b == c) == false);
 	REQUIRE((b != c) == true);
 }
-
