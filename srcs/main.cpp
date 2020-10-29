@@ -25,8 +25,8 @@
 
 int main ()
 {
-	std::vector<int> myvector (2,200);
-	std::queue<int, std::vector<int> > myqueue(myvector);
+	std::list<int> mylist (2,200);
+	std::queue<int, std::list<int> > myqueue(mylist);
 
 	myqueue.push(3);
 
