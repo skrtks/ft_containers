@@ -12,13 +12,14 @@
 
 #ifndef VECTOR_HPP
 #define VECTOR_HPP
+
+#include "Traits.hpp"
+#include "RandomAccessIterator.hpp"
 #include <memory>
 #include <iterator>
 #include <stdexcept>
-#include "Traits.hpp"
 #include <algorithm>
 #include <cstddef>
-#include "RandomAccessIterator.hpp"
 
 namespace ft {
 

@@ -13,11 +13,11 @@
 #ifndef QUEUE_HPP
 #define QUEUE_HPP
 
-#include <memory>
-#include <iterator>
 #include "Node.hpp"
 #include "BidirectionalIterator.hpp"
 #include "Traits.hpp"
+#include <memory>
+#include <iterator>
 #include <deque>
 #include <algorithm>
 #include <cstddef>

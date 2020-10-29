@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   RandomAccessIterator.hpp                           :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: skorteka <skorteka@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2020/10/29 14:29:45 by skorteka      #+#    #+#                 */
+/*   Updated: 2020/10/29 14:29:45 by skorteka      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef RANDOMACCESSITERATOR_HPP
 #define RANDOMACCESSITERATOR_HPP
 

@@ -13,11 +13,11 @@
 #ifndef LIST_HPP
 #define LIST_HPP
 
-#include <memory>
-#include <iterator>
 #include "Node.hpp"
 #include "BidirectionalIterator.hpp"
 #include "Traits.hpp"
+#include <memory>
+#include <iterator>
 #include <algorithm>
 #include <cstddef>
 
