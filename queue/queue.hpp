@@ -21,7 +21,7 @@
 #include <algorithm>
 #include <cstddef>
 
-#include <deque> // todo This is now the default container
+#include <deque>
 
 namespace ft {
 
