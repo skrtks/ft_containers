@@ -16,7 +16,7 @@ SRCS = $(addsuffix .cpp, $(FILES))
 OBJS = $(SRCS:.cpp=.o)
 
 # Add the directories you need here:
-INCLUDE = -I../List -I../srcs -I../Vector
+INCLUDE = -I../list -I../srcs -I../vector -I../stack -I../queue
 
 CXXFLAGS = -std=c++11 -Wall
 ifdef asan
