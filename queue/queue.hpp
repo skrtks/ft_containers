@@ -18,10 +18,9 @@
 #include "Node.hpp"
 #include "BidirectionalIterator.hpp"
 #include "Traits.hpp"
+#include <deque>
 #include <algorithm>
 #include <cstddef>
-
-#include <deque>
 
 namespace ft {
 
