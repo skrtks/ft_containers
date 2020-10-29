@@ -21,8 +21,6 @@
 #include <algorithm>
 #include <cstddef>
 
-#include <iostream>
-
 namespace ft {
 
 template <class T, class Alloc = std::allocator<T> >
