@@ -1,4 +1,4 @@
-name: Ubuntu Compile + test
+name: Ubuntu Compile + Test
 
 on:
   push:
