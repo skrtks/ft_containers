@@ -14,5 +14,5 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: make test
-      run: make test
+      run: make test asan=1
 
