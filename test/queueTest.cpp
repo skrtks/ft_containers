@@ -12,35 +12,31 @@
 
 #include "Catch2.h"
 
-#include "vector.hpp"
 #include "list.hpp"
 #include "queue.hpp"
 #include <list>
-#include <vector>
-#include <cmath>
 #include <deque>
-#include <stack>
 
 TEST_CASE("Queue: Constructor", "[Queue]") {
 	std::deque<int> mydeque (3,100);          // deque with 3 elements
-	ft::vector<int> myvector (2,200);        // vector with 2 elements
+	ft::list<int> mylist (2,200);        // list with 2 elements
 
 	ft::queue<int> first;                    // empty queue
 	ft::queue<int> second (mydeque);         // queue initialized to copy of deque
 
-	ft::queue<int,ft::vector<int> > third;  // empty queue using vector
-	ft::queue<int,ft::vector<int> > fourth (myvector);
+	ft::queue<int,ft::list<int> > third;  // empty queue using list
+	ft::queue<int,ft::list<int> > fourth (mylist);
 }
 
 TEST_CASE("Queue: Size() + Empty()", "[Queue]") {
 	std::deque<int> mydeque (3,100);          // deque with 3 elements
-	ft::vector<int> myvector (2,200);        // vector with 2 elements
+	ft::list<int> mylist (2,200);        // list with 2 elements
 
 	ft::queue<int> first;                    // empty queue
 	ft::queue<int> second (mydeque);         // queue initialized to copy of deque
 
-	ft::queue<int,ft::vector<int> > third;  // empty queue using vector
-	ft::queue<int,ft::vector<int> > fourth (myvector);
+	ft::queue<int,ft::list<int> > third;  // empty queue using list
+	ft::queue<int,ft::list<int> > fourth (mylist);
 
 	REQUIRE(first.empty() == true);
 	REQUIRE(second.size() == 3);
@@ -49,21 +45,21 @@ TEST_CASE("Queue: Size() + Empty()", "[Queue]") {
 }
 
 TEST_CASE("Queue: Back()", "[Queue]") {
-	ft::vector<int> myvector;
+	ft::list<int> mylist;
 
 	// set some initial content:
-	for (int i=1;i<6;i++) myvector.push_back(i);
-	ft::queue<int,ft::vector<int> > myqueue (myvector);
+	for (int i=1;i<6;i++) mylist.push_back(i);
+	ft::queue<int,ft::list<int> > myqueue (mylist);
 	myqueue.back() += 5;
 	REQUIRE(myqueue.back() == 10);
 }
 
 TEST_CASE("Queue: Front()", "[Queue]") {
-	ft::vector<int> myvector;
+	ft::list<int> mylist;
 
 	// set some initial content:
-	for (int i=1;i<6;i++) myvector.push_back(i);
-	ft::queue<int,ft::vector<int> > myqueue (myvector);
+	for (int i=1;i<6;i++) mylist.push_back(i);
+	ft::queue<int,ft::list<int> > myqueue (mylist);
 	myqueue.front() += 5;
 	REQUIRE(myqueue.front() == 6);
 }

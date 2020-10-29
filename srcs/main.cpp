@@ -15,22 +15,22 @@
 #include "vector.hpp"
 #include "list.hpp"
 #include "stack.hpp"
+#include "queue.hpp"
 #include <list>
 #include <vector>
 #include <cmath>
 #include <deque>
+#include <queue>
 #include <stack>
 
 int main ()
 {
-	ft::vector<int> myvector (2,200);
-	ft::vector<int> myvector2 (2,300);
-	ft::stack<int, ft::vector<int> > mystack(myvector);
-	ft::stack<int, ft::vector<int> > mystack2(myvector2);
+	std::vector<int> myvector (2,200);
+	std::queue<int, std::vector<int> > myqueue(myvector);
 
-	if (mystack != mystack2) {
-		std::cout << "Hoi\n";
-	}
+	myqueue.push(3);
+
+	myqueue.pop();
 
 	return 0;
 }

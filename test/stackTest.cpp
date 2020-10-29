@@ -13,13 +13,9 @@
 #include "Catch2.h"
 
 #include "vector.hpp"
-#include "list.hpp"
 #include "stack.hpp"
 #include <list>
-#include <vector>
-#include <cmath>
 #include <deque>
-#include <stack>
 
 TEST_CASE("Stack: Constructor", "[Stack]") {
 	std::deque<int> mydeque (3,100);          // deque with 3 elements
