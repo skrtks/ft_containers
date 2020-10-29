@@ -18,13 +18,12 @@
 #include "Traits.hpp"
 #include <memory>
 #include <iterator>
-#include <deque>
 #include <algorithm>
 #include <cstddef>
 
 namespace ft {
 
-	template <class T, class Container = std::deque<T>, class Alloc = std::allocator<T> >
+	template <class T, class Container = ft::list<T>, class Alloc = std::allocator<T> >
 	class queue {
 	public:
 		typedef T			value_type;

@@ -22,26 +22,26 @@ TEST_CASE("Stack: Constructor", "[Stack]") {
 	ft::vector<int> myvector (2,200);        // vector with 2 elements
 
 	ft::stack<int> first;                    // empty stack
-	ft::stack<int> second (mydeque);         // stack initialized to copy of deque
+	ft::stack<int> second (myvector);        // stack initialized to copy of deque
 
 	ft::stack<int,ft::vector<int> > third;  // empty stack using vector
-	ft::stack<int,ft::vector<int> > fourth (myvector);
+	ft::stack<int,std::deque<int> > fourth (mydeque);
 }
 
 TEST_CASE("Stack: Size() + Empty()", "[Stack]") {
 	std::deque<int> mydeque (3,100);          // deque with 3 elements
 	ft::vector<int> myvector (2,200);        // vector with 2 elements
 
-	ft::stack<int> first;                    // empty stack
-	ft::stack<int> second (mydeque);         // stack initialized to copy of deque
+	ft::stack<int> first;               // empty stack
+	ft::stack<int> second (myvector);   // !!! This might give a compile error if you default container is not vector
 
 	ft::stack<int,ft::vector<int> > third;  // empty stack using vector
-	ft::stack<int,ft::vector<int> > fourth (myvector);
+	ft::stack<int,std::deque<int> > fourth (mydeque);
 
 	REQUIRE(first.empty() == true);
-	REQUIRE(second.size() == 3);
+	REQUIRE(second.size() == 2);
 	REQUIRE(third.empty() == true);
-	REQUIRE(fourth.size() == 2);
+	REQUIRE(fourth.size() == 3);
 }
 
 TEST_CASE("Stack: Top()", "[Stack]") {

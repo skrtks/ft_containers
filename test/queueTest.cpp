@@ -14,7 +14,6 @@
 
 #include "list.hpp"
 #include "queue.hpp"
-#include <list>
 #include <deque>
 
 TEST_CASE("Queue: Constructor", "[Queue]") {
@@ -22,26 +21,26 @@ TEST_CASE("Queue: Constructor", "[Queue]") {
 	ft::list<int> mylist (2,200);        // list with 2 elements
 
 	ft::queue<int> first;                    // empty queue
-	ft::queue<int> second (mydeque);         // queue initialized to copy of deque
+	ft::queue<int> second (mylist);         // queue initialized to copy of deque
 
 	ft::queue<int,ft::list<int> > third;  // empty queue using list
-	ft::queue<int,ft::list<int> > fourth (mylist);
+	ft::queue<int,std::deque<int> > fourth (mydeque);
 }
 
 TEST_CASE("Queue: Size() + Empty()", "[Queue]") {
 	std::deque<int> mydeque (3,100);          // deque with 3 elements
 	ft::list<int> mylist (2,200);        // list with 2 elements
 
-	ft::queue<int> first;                    // empty queue
-	ft::queue<int> second (mydeque);         // queue initialized to copy of deque
+	ft::queue<int> first;             // empty queue
+	ft::queue<int> second (mylist);   // !!! This might give a compile error if you default container is not list
 
 	ft::queue<int,ft::list<int> > third;  // empty queue using list
-	ft::queue<int,ft::list<int> > fourth (mylist);
+	ft::queue<int,std::deque<int> > fourth (mydeque);
 
 	REQUIRE(first.empty() == true);
-	REQUIRE(second.size() == 3);
+	REQUIRE(second.size() == 2);
 	REQUIRE(third.empty() == true);
-	REQUIRE(fourth.size() == 2);
+	REQUIRE(fourth.size() == 3);
 }
 
 TEST_CASE("Queue: Back()", "[Queue]") {
