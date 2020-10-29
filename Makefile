@@ -17,7 +17,7 @@ OBJS = $(SRCS:.cpp=.o)
 INCLUDE = -IList -Isrcs -IVector
 
 CXXFLAGS = -W -Wall -Werror -Wextra -pedantic -std=c++98 -Ofast
-ifdef DEBUG
+ifdef debug
  CXXFLAGS += -g -fsanitize=address -fno-omit-frame-pointer
 endif
 
@@ -40,7 +40,7 @@ $(NAME): $(OBJS)
 
 test:
 	@echo $(ECHO) "$(PREFIX)$(GREEN) Running tests... $(END)$(NAME)"
-	@cd test && make
+	@cd test && make asan=1
 
 %.a: %
 	@echo $(ECHO) "$(PREFIX)$(GREEN) Compiling file $(END)$< $(GREEN)to $(END)$@"

@@ -36,10 +36,14 @@ PREFIX		= $(DARK_GREEN)$(NAME) $(END)\xc2\xbb
 
 all: $(NAME)
 
-$(NAME): fclean $(OBJS)
+$(NAME): $(OBJS)
 	@echo $(ECHO) "$(PREFIX)$(GREEN) Bundling executable... $(END)$(NAME)"
 	@$(CXX) $(CXXFLAGS) $(OBJS) $(INCLUDE) -o $@
 	./$(NAME)
+	@echo $(ECHO) "$(PREFIX)$(GREEN) Cleaning... $(END)$(OUT_DIR)"
+	@rm -f $(OBJS)
+	@rm -rf webservwebserv.dSYM *.a
+	@rm -rf $(NAME)
 
 %.o: %.cpp
 	@echo $(ECHO) "$(PREFIX)$(GREEN) Compiling file $(END)$< $(GREEN)to $(END)$@"
