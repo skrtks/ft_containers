@@ -32,15 +32,12 @@ TEST_CASE("Queue: Size() + Empty()", "[Queue]") {
 	ft::list<int> mylist (2,200);        // list with 2 elements
 
 	ft::queue<int> first;             // empty queue
-	ft::queue<int> second (mylist);   // !!! This might give a compile error if you default container is not list
-
-	ft::queue<int,ft::list<int> > third;  // empty queue using list
-	ft::queue<int,std::deque<int> > fourth (mydeque);
+	ft::queue<int,ft::list<int> > second;  // empty queue using list
+	ft::queue<int,std::deque<int> > third (mydeque);
 
 	REQUIRE(first.empty() == true);
-	REQUIRE(second.size() == 2);
-	REQUIRE(third.empty() == true);
-	REQUIRE(fourth.size() == 3);
+	REQUIRE(second.empty() == true);
+	REQUIRE(third.size() == 3);
 }
 
 TEST_CASE("Queue: Back()", "[Queue]") {

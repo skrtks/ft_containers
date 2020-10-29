@@ -33,15 +33,13 @@ TEST_CASE("Stack: Size() + Empty()", "[Stack]") {
 	ft::vector<int> myvector (2,200);        // vector with 2 elements
 
 	ft::stack<int> first;               // empty stack
-	ft::stack<int> second (myvector);   // !!! This might give a compile error if you default container is not vector
 
-	ft::stack<int,ft::vector<int> > third;  // empty stack using vector
-	ft::stack<int,std::deque<int> > fourth (mydeque);
+	ft::stack<int,ft::vector<int> > second;  // empty stack using vector
+	ft::stack<int,std::deque<int> > third (mydeque);
 
 	REQUIRE(first.empty() == true);
-	REQUIRE(second.size() == 2);
-	REQUIRE(third.empty() == true);
-	REQUIRE(fourth.size() == 3);
+	REQUIRE(second.empty() == true);
+	REQUIRE(third.size() == 3);
 }
 
 TEST_CASE("Stack: Top()", "[Stack]") {
