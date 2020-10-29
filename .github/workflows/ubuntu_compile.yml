@@ -1,4 +1,4 @@
-name: Check_Ubuntu_Compile
+name: Ubuntu Compile + test
 
 on:
   push:
