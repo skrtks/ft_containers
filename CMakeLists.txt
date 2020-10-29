@@ -4,6 +4,6 @@ project(ft_containers)
 add_subdirectory(test)
 set(CMAKE_CXX_STANDARD 98)
 set(CMAKE_CXX_FLAGS "-pedantic -std=c++98 -Wall -Werror -Wextra")
-include_directories(srcs list vector stack queue)
+include_directories(srcs srcs/list srcs/vector srcs/stack srcs/queue)
 
-add_executable(ft_containers srcs/main.cpp List/list.hpp List/Node.hpp List/BidirectionalIterator.hpp srcs/Traits.hpp Vector/vector.hpp Vector/RandomAccessIterator.hpp Stack/stack.hpp queue/queue.hpp)
+add_executable(ft_containers srcs/main.cpp srcs/list/list.hpp srcs/list/Node.hpp srcs/list/BidirectionalIterator.hpp srcs/Traits.hpp srcs/vector/vector.hpp srcs/vector/RandomAccessIterator.hpp srcs/stack/stack.hpp srcs/queue/queue.hpp)
