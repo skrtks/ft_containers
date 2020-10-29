@@ -1,5 +1,5 @@
-![Check_Ubuntu_Compile](https://github.com/skrtks/ft_containers/workflows/Check_Ubuntu_Compile/badge.svg)
-![Check_MacOS_Compile](https://github.com/skrtks/ft_containers/workflows/Check_MacOS_Compile/badge.svg)
+![Ubuntu Compile + Test](https://github.com/skrtks/ft_containers/workflows/Ubuntu%20Compile%20+%20Test/badge.svg)
+![MacOS Compile + Test](https://github.com/skrtks/ft_containers/workflows/MacOS%20Compile%20+%20Test/badge.svg)
 
 ##ft_containers
 
