@@ -36,7 +36,7 @@ PREFIX		= $(DARK_GREEN)$(NAME) $(END)\xc2\xbb
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
+$(NAME): fclean $(OBJS)
 	@echo $(ECHO) "$(PREFIX)$(GREEN) Bundling executable... $(END)$(NAME)"
 	@$(CXX) $(CXXFLAGS) $(OBJS) $(INCLUDE) -o $@
 	./$(NAME)

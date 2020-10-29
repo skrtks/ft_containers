@@ -38,6 +38,10 @@ $(NAME): $(OBJS)
 	@echo $(ECHO) "$(PREFIX)$(GREEN) Bundling executable... $(END)$(NAME)"
 	@$(CXX) $(CXXFLAGS) $(OBJS) $(INCLUDE) -o $@
 
+test:
+	@echo $(ECHO) "$(PREFIX)$(GREEN) Running tests... $(END)$(NAME)"
+	@cd test && make
+
 %.a: %
 	@echo $(ECHO) "$(PREFIX)$(GREEN) Compiling file $(END)$< $(GREEN)to $(END)$@"
 	@make -s -C $<
@@ -61,4 +65,4 @@ re: fclean all
 run: clean all
 	./$(NAME)
 
-.PHONY: clean fclean re all
+.PHONY: clean fclean re all test
