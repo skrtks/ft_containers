@@ -14,28 +14,23 @@
 
 #include "vector.hpp"
 #include "list.hpp"
+#include "stack.hpp"
 #include <list>
 #include <vector>
 #include <cmath>
+#include <deque>
+#include <stack>
 
 int main ()
 {
-	ft::vector<int> foo (3,100);   // three ints with a value of 100
-	ft::vector<int> bar (5,200);   // five ints with a value of 200
+	ft::vector<int> myvector (2,200);
+	ft::vector<int> myvector2 (2,300);
+	ft::stack<int, ft::vector<int> > mystack(myvector);
+	ft::stack<int, ft::vector<int> > mystack2(myvector2);
 
-	foo.swap(bar);
-
-	std::cout << "foo contains:";
-	for (unsigned i=0; i<foo.size(); i++)
-		std::cout << ' ' << foo[i];
-	std::cout << '\n';
-
-	std::cout << "bar contains:";
-	for (unsigned i=0; i<bar.size(); i++)
-		std::cout << ' ' << bar[i];
-	std::cout << '\n';
-	std::cout << foo.size() << " " << foo.capacity() << std::endl;
-	std::cout << bar.size() << " " << bar.capacity() << std::endl;
+	if (mystack != mystack2) {
+		std::cout << "Hoi\n";
+	}
 
 	return 0;
 }

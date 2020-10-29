@@ -13,7 +13,6 @@
 #include "Catch2.h"
 
 #include "vector.hpp"
-#include <list>
 
 TEST_CASE("Vector: Iterator", "[Vector]") {
 	ft::vector<std::string> myVec;
