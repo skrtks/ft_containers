@@ -13,7 +13,7 @@
 #ifndef LIST_HPP
 #define LIST_HPP
 
-#include "Node.hpp"
+#include "listNode.hpp"
 #include "BidirectionalIterator.hpp"
 #include "Traits.hpp"
 #include <memory>
@@ -33,7 +33,7 @@ public:
 	typedef const T		&const_reference;
 	typedef T			*pointer;
 	typedef const T		*const_pointer;
-	typedef Node<T>		*node_pointer;
+	typedef listNode<T>		*node_pointer;
 	typedef ptrdiff_t	difference_type;
 	typedef size_t		size_type;
 	typedef BidirectionalIterator<value_type, node_pointer>			iterator;
@@ -43,8 +43,8 @@ public:
 
 	// Constructors/Destructor:
 	explicit list(const allocator_type& alloc = allocator_type()) : _allocator(alloc) {
-		_head = new Node<value_type>();
-		_tail = new Node<value_type>();
+		_head = new listNode<value_type>();
+		_tail = new listNode<value_type>();
 		_head->_next = _tail;
 		_tail->_previous = _head;
 		_size = 0;
@@ -52,8 +52,8 @@ public:
 
 	explicit list(size_type n, const value_type& val = value_type(),
 		 const allocator_type& alloc = allocator_type()) : _allocator(alloc) {
-		_head = new Node<value_type>();
-		_tail = new Node<value_type>();
+		_head = new listNode<value_type>();
+		_tail = new listNode<value_type>();
 		_head->_next = _tail;
 		_tail->_previous = _head;
 		_size = 0;
@@ -63,8 +63,8 @@ public:
 	template<class InputIterator>
 	list(InputIterator first, InputIterator last,
 		 const allocator_type& alloc = allocator_type()): _allocator(alloc) {
-		_head = new Node<value_type>();
-		_tail = new Node<value_type>();
+		_head = new listNode<value_type>();
+		_tail = new listNode<value_type>();
 		_head->_next = _tail;
 		_tail->_previous = _head;
 		_size = 0;
@@ -72,8 +72,8 @@ public:
 	}
 
 	list(list const& x) {
-		_head = new Node<value_type>();
-		_tail = new Node<value_type>();
+		_head = new listNode<value_type>();
+		_tail = new listNode<value_type>();
 		_head->_next = _tail;
 		_tail->_previous = _head;
 		_size = 0;
@@ -155,8 +155,8 @@ public:
 	}
 
 	void push_back(const value_type& val) {
-		Node<value_type>* node;
-		node = new Node<value_type>(val);
+		listNode<value_type>* node;
+		node = new listNode<value_type>(val);
 		node->_previous = _tail->_previous;
 		_tail->_previous->_next = node;
 		_tail->_previous = node;
@@ -166,7 +166,7 @@ public:
 
 	void pop_back() {
 		if (_size) {
-			Node<value_type>* node;
+			listNode<value_type>* node;
 			node = _tail->_previous;
 			_tail->_previous = node->_previous;
 			node->_previous->_next = _tail;
@@ -176,8 +176,8 @@ public:
 	}
 
 	void push_front(const value_type& val) {
-		Node<value_type>* node;
-		node = new Node<value_type>(val);
+		listNode<value_type>* node;
+		node = new listNode<value_type>(val);
 		node->_previous = _head;
 		node->_next = _head->_next;
 		_head->_next->_previous = node;
@@ -187,7 +187,7 @@ public:
 
 	void pop_front() {
 		if (_size) {
-			Node<value_type>* node;
+			listNode<value_type>* node;
 			node = _head->_next;
 			_head->_next = node->_next;
 			node->_next->_previous = _head;
@@ -197,8 +197,8 @@ public:
 	}
 
 	iterator insert(iterator position, const value_type& val) {
-		Node<value_type>* node = new Node<value_type>(val);
-		Node<value_type>* ptr = position.getPtr();
+		listNode<value_type>* node = new listNode<value_type>(val);
+		listNode<value_type>* ptr = position.getPtr();
 		node->_previous = ptr->_previous;
 		node->_next = ptr;
 		ptr->_previous = node;
@@ -223,7 +223,7 @@ public:
 	}
 
 	iterator erase(iterator position) {
-		Node<value_type>* node = position.getPtr();
+		listNode<value_type>* node = position.getPtr();
 		node->_previous->_next = node->_next;
 		node->_next->_previous = node->_previous;
 		position++;
@@ -277,11 +277,11 @@ public:
 
 	// Operations:
 	void splice (iterator position, list& x, iterator i) {
-		Node<value_type>* node = i.getPtr();
+		listNode<value_type>* node = i.getPtr();
 		node->_previous->_next = node->_next;
 		node->_next->_previous = node->_previous;
 		x._size--;
-		Node<value_type>* ptr = position.getPtr();
+		listNode<value_type>* ptr = position.getPtr();
 		node->_previous = ptr->_previous;
 		ptr->_previous->_next = node;
 		node->_next = ptr;

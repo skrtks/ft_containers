@@ -10,21 +10,21 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef NODE_HPP
-#define NODE_HPP
+#ifndef LISTNODE_HPP
+#define LISTNODE_HPP
 
 template <class T>
-class Node {
+class listNode {
 public:
-	Node	*_next;
-	Node	*_previous;
+	listNode	*_next;
+	listNode	*_previous;
 	T		_data;
 
 //	explicit ListNode(const T &obj): _next(0), _previous(0), _data(new T(obj)) {}
-	explicit Node(): _next(NULL), _previous(NULL), _data(T()) {}
-	explicit Node(T element): _next(NULL), _previous(NULL), _data(T(element)) {}
-	virtual ~Node() {};
-	Node& operator=(const Node& obj) {
+	explicit listNode(): _next(NULL), _previous(NULL), _data(T()) {}
+	explicit listNode(T element): _next(NULL), _previous(NULL), _data(T(element)) {}
+	virtual ~listNode() {};
+	listNode& operator=(const listNode& obj) {
 		_data = obj._data;
 		_next = obj._next;
 		_previous = obj._previous;
@@ -32,4 +32,4 @@ public:
 	}
 };
 
-#endif //NODE_HPP
+#endif //LISTNODE_HPP

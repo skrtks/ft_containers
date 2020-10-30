@@ -13,7 +13,7 @@
 #ifndef STACK_HPP
 #define STACK_HPP
 
-#include "Node.hpp"
+#include "listNode.hpp"
 #include "BidirectionalIterator.hpp"
 #include "Traits.hpp"
 #include <memory>
