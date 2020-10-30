@@ -25,12 +25,12 @@
 
 int main ()
 {
-	std::list<int> mylist (2,200);
-	std::queue<int, std::list<int> > myqueue(mylist);
+	std::vector<int> myvector (3,100);
+	std::vector<int>::iterator it;
+	std::vector<int>::iterator it2;
 
-	myqueue.push(3);
-
-	myqueue.pop();
-
+	it = myvector.begin();
+	it2 = myvector.end();
+	std::cout << it - it2 << std::endl;
 	return 0;
 }

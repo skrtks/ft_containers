@@ -356,3 +356,13 @@ TEST_CASE("Vector: Relational operator overloads", "[Vector]") {
 	REQUIRE((b == c) == false);
 	REQUIRE((b != c) == true);
 }
+
+TEST_CASE("Vector: subtracting two iterators", "[Vector]") {
+	ft::vector<int> myvector (3,100);
+	ft::vector<int>::iterator it;
+	ft::vector<int>::iterator it2;
+
+	it = myvector.begin();
+	it2 = myvector.end();
+	REQUIRE(it2 - it == 3);
+}
