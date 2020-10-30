@@ -105,7 +105,7 @@ namespace ft {
 			return ret;
 		}
 
-		int operator-(RandomAccessIterator it) {
+		difference_type operator-(RandomAccessIterator it) {
 			int ret;
 			ret = _ptr - it.getPtr();
 			return ret;
