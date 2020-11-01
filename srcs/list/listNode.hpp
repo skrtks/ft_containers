@@ -20,7 +20,6 @@ public:
 	listNode	*_previous;
 	T		_data;
 
-//	explicit ListNode(const T &obj): _next(0), _previous(0), _data(new T(obj)) {}
 	explicit listNode(): _next(NULL), _previous(NULL), _data(T()) {}
 	explicit listNode(T element): _next(NULL), _previous(NULL), _data(T(element)) {}
 	virtual ~listNode() {};
@@ -29,6 +28,14 @@ public:
 		_next = obj._next;
 		_previous = obj._previous;
 		return *this;
+	}
+
+	listNode* getNext() const {
+		return _next;
+	}
+
+	listNode* getPrevious() const {
+		return _previous;
 	}
 };
 
