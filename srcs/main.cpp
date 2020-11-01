@@ -18,6 +18,7 @@
 #include "queue.hpp"
 #include <list>
 #include <vector>
+#include <map>
 #include <cmath>
 #include <deque>
 #include <queue>
@@ -25,12 +26,20 @@
 
 int main ()
 {
-	std::vector<int> myvector (3,100);
-	std::vector<int>::iterator it;
-	std::vector<int>::iterator it2;
+	std::map<int, int> myMap;
 
-	it = myvector.begin();
-	it2 = myvector.end();
-	std::cout << it - it2 << std::endl;
+	myMap.insert(std::pair<int, int>(9, 1));
+	myMap.insert(std::pair<int, int>(10, 1));
+	myMap.insert(std::pair<int, int>(11, 1));
+	myMap.insert(std::pair<int, int>(2, 1));
+	myMap.insert(std::pair<int, int>(4, 1));
+	myMap.insert(std::pair<int, int>(5, 1));
+	myMap.insert(std::pair<int, int>(8, 1));
+
+	std::map<int, int>::iterator it = myMap.begin();
+	for (; it != myMap.end(); it++)
+		std::cout << it->first << std::endl;
+
+
 	return 0;
 }
