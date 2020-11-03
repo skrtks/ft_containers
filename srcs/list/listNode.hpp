@@ -13,6 +13,8 @@
 #ifndef LISTNODE_HPP
 #define LISTNODE_HPP
 
+#include <cstdlib>
+
 template <class T>
 class listNode {
 public:

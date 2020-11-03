@@ -14,6 +14,7 @@
 #define BIDIRECTIONALITERATOR_HPP
 
 #include <cstddef>
+#include <iterator>
 
 namespace ft {
 
@@ -44,28 +45,20 @@ namespace ft {
 
 		BidirectionalIterator	operator++(int) { // Overload postfix ++
 			BidirectionalIterator	ret(*this);
-			if (_ptr->getNext()) {
-				_ptr = _ptr->getNext();
-			}
+			_ptr = _ptr->getNext();
 			return ret;
 		}
 		BidirectionalIterator&	operator++() { // Overload prefix ++
-			if (_ptr->getNext()) {
-				_ptr = _ptr->getNext();
-			}
+			_ptr = _ptr->getNext();
 			return *this;
 		}
 		BidirectionalIterator	operator--(int) { // Overload postfix --
 			BidirectionalIterator	ret(*this);
-			if (_ptr->getPrevious()) {
-				_ptr = _ptr->getPrevious();
-			}
+			_ptr = _ptr->getPrevious();
 			return ret;
 		}
 		BidirectionalIterator&	operator--() { // Overload prefix --
-			if (_ptr->getPrevious()) {
-				_ptr = _ptr->getPrevious();
-			}
+			_ptr = _ptr->getPrevious();
 			return *this;
 		}
 		reference	operator*() {
@@ -161,28 +154,21 @@ namespace ft {
 
 		RevBidirectionalIterator	operator++(int) { // Overload postfix ++
 			RevBidirectionalIterator	ret(*this);
-			if (_ptr->getPrevious()) {
 				_ptr = _ptr->getPrevious();
-			}
 			return ret;
 		}
 		RevBidirectionalIterator&	operator++() { // Overload prefix ++
-			if (_ptr->getPrevious()) {
 				_ptr = _ptr->getPrevious();
-			}
 			return *this;
 		}
 		RevBidirectionalIterator	operator--(int) { // Overload postfix --
 			RevBidirectionalIterator	ret(*this);
-			if (_ptr->getNext()) {
 				_ptr = _ptr->getNext();
-			}
 			return ret;
 		}
 		RevBidirectionalIterator&	operator--() { // Overload prefix --
-			if (_ptr->getNext()) {
+
 				_ptr = _ptr->getNext();
-			}
 			return *this;
 		}
 		reference	operator*() {
