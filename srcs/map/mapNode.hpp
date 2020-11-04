@@ -58,10 +58,25 @@ namespace ft {
 			}
 			return curr;
 		}
-//
-//		mapNode* getPrevious() const {
-//			return NULL;
-//		}
+
+		mapNode* getPrevious() {
+			mapNode<T>* curr = this;
+			if (_left) {
+				curr = curr->_left;
+				if (curr->_right && (curr->_right->_data.first > curr->_data.first)) {
+					return curr->_right;
+				}
+			}
+			else if (!_left) {
+				while (curr->_parent && (curr->_parent->_data.first > curr->_data.first)) {
+					curr = curr->_parent;
+				}
+				if (curr->_parent && (curr->_parent->_data.first < curr->_data.first)) {
+					return curr->_parent;
+				}
+			}
+			return curr;
+		}
 	};
 
 }
