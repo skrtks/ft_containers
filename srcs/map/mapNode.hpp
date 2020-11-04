@@ -20,14 +20,22 @@ namespace ft {
 	template <class T>
 	class mapNode {
 	public:
+		typedef T			value_type;
+		typedef	T&			reference;
+		typedef const T&	const_reference;
+		typedef	T*			pointer;
+		typedef	const T*	const_pointer;
+//		typedef	C			key_compare;
+
 		mapNode	*_parent;
 		mapNode	*_left;
 		mapNode	*_right;
 		bool	_isBlack;
+		bool 	_nil;
 		T		_data;
 
-		explicit mapNode(): _parent(NULL), _left(NULL), _right(NULL), _isBlack(false), _data(T()) {}
-		explicit mapNode(T element): _parent(NULL), _left(NULL), _right(NULL), _isBlack(false), _data(T(element)) {}
+//		explicit mapNode(): _parent(NULL), _left(NULL), _right(NULL), _isBlack(false), _data(T()) {}
+		explicit mapNode(value_type const& val = value_type()): _parent(NULL), _left(NULL), _right(NULL), _isBlack(false), _data(val) {}
 		mapNode(const mapNode<T>& x) : _data(x._data), _parent(x._parent), _left(x._left), _right(x._right), _isBlack(x._isBlack) {
 		}
 		virtual ~mapNode() {};
@@ -49,6 +57,9 @@ namespace ft {
 				}
 			}
 			else if (!_right) {
+				if (curr->_nil) {
+					return curr->_parent;
+				}
 				while (curr->_parent && (curr->_parent->_data.first < curr->_data.first)) {
 					curr = curr->_parent;
 				}
@@ -68,6 +79,9 @@ namespace ft {
 				}
 			}
 			else if (!_left) {
+				if (curr->_nil) {
+					return curr->_parent;
+				}
 				while (curr->_parent && (curr->_parent->_data.first > curr->_data.first)) {
 					curr = curr->_parent;
 				}

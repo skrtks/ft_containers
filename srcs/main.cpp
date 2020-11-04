@@ -31,27 +31,17 @@ int main ()
 {
 	ft::map<int, int> myMap;
 
-	ft::mapNode<std::pair<const int, int> >* root = new ft::mapNode<std::pair<const int, int> >(std::make_pair(5, 5));
-	root->_left = new ft::mapNode<std::pair<const int, int> >(std::make_pair(3, 3));
-	root->_left->_parent = root;
-	root->_right = new ft::mapNode<std::pair<const int, int> >(std::make_pair(7, 7));
-	root->_right->_parent = root;
-	root->_left->_left = new ft::mapNode<std::pair<const int, int> >(std::make_pair(2, 2));
-	root->_left->_left->_parent = root->_left;
-	root->_left->_right = new ft::mapNode<std::pair<const int, int> >(std::make_pair(4, 4));
-	root->_left->_right->_parent = root->_left;
-	root->_right->_left = new ft::mapNode<std::pair<const int, int> >(std::make_pair(6, 6));
-	root->_right->_left->_parent = root->_right;
-	root->_right->_right = new ft::mapNode<std::pair<const int, int> >(std::make_pair(8, 8));
-	root->_right->_right->_parent = root->_right;
-	myMap.setRoot(root);
+	myMap.insert(std::make_pair(2, 2));
+	myMap.insert(std::make_pair(1, 1));
+	myMap.insert(std::make_pair(3, 3));
 
 	ft::map<int, int>::iterator it = myMap.begin();
 	for (; it != myMap.end(); it++)
 		std::cout << it->first << std::endl;
 
 	ft::map<int, int>::iterator it2 = myMap.end();
-	for (; it2 != myMap.begin(); it2--)
+	it2--;
+	for (; it2 != --myMap.begin(); it2--)
 		std::cout << it2->first << std::endl;
 
 
