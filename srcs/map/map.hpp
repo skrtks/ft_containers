@@ -76,10 +76,8 @@ namespace ft {
 		// Iterators:
 		iterator begin() {
 			node_pointer tmp_node = _root;
-			ft::mapNode<value_type>::_itStack.push(tmp_node);
 			while (tmp_node->_left != NULL) {
 				tmp_node = tmp_node->_left;
-				ft::mapNode<value_type>::_itStack.push(tmp_node);
 			}
 			return iterator(tmp_node);
 		}
@@ -115,7 +113,10 @@ namespace ft {
 		}
 
 //		pair<iterator,bool> insert (const value_type& val);
-
+	public:
+		void setRoot(node_pointer root) { // TODO: Remove this before pushing
+			_root = root;
+		}
 	};
 
 } // end ft

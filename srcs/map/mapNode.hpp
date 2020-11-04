@@ -20,7 +20,6 @@ namespace ft {
 	template <class T>
 	class mapNode {
 	public:
-		static ft::stack<mapNode<T>* > _itStack;
 		mapNode	*_parent;
 		mapNode	*_left;
 		mapNode	*_right;
@@ -42,13 +41,22 @@ namespace ft {
 		}
 
 		mapNode* getNext() {
-			mapNode<T> *curr = _itStack.top()->_right;
-			_itStack.pop();
-			while (curr) {
-				_itStack.push(curr);
-				curr = curr->_left;
+			mapNode<T>* curr = this;
+			if (_right) {
+				curr = curr->_right;
+				while (curr->_left) {
+					curr = curr->_left;
+				}
 			}
-			return _itStack.top();
+			else if (!_right) {
+				while (curr->_parent && (curr->_parent->_data.first < curr->_data.first)) {
+					curr = curr->_parent;
+				}
+				if (curr->_parent && (curr->_parent->_data.first > curr->_data.first)) {
+					return curr->_parent;
+				}
+			}
+			return curr;
 		}
 //
 //		mapNode* getPrevious() const {
@@ -56,8 +64,6 @@ namespace ft {
 //		}
 	};
 
-	template <class T>
-	ft::stack<mapNode<T>* > mapNode<T>::_itStack;
 }
 
 #endif //MAPNODE_HPP

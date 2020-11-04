@@ -47,8 +47,12 @@ int main ()
 	myMap.setRoot(root);
 
 	ft::map<int, int>::iterator it = myMap.begin();
+	ft::map<int, int>::iterator it2 = myMap.begin();
 	for (; it != myMap.end(); it++)
 		std::cout << it->first << std::endl;
+
+	for (; it2 != myMap.end(); it2++)
+		std::cout << it2->first << std::endl;
 
 
 	return 0;

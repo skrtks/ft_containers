@@ -15,12 +15,6 @@
 
 namespace ft {
 
-	template <bool b, class T = void>struct enable_if {};
-	template<class T>
-	struct enable_if<true, T> {
-		typedef T type;
-	};
-
 	template <class>
 	struct check_type { typedef void type; };
 
