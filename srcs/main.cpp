@@ -31,19 +31,22 @@ int main ()
 {
 	ft::map<int, int> myMap;
 
-	myMap.insert(std::make_pair(2, 2));
-	myMap.insert(std::make_pair(1, 1));
+	myMap.insert(std::make_pair(5, 5));
 	myMap.insert(std::make_pair(3, 3));
+	myMap.insert(std::make_pair(4, 4));
+	myMap.insert(std::make_pair(2, 2));
+	myMap.insert(std::make_pair(7, 7));
+	myMap.insert(std::make_pair(6, 6));
+	myMap.insert(std::make_pair(8, 8));
 
 	ft::map<int, int>::iterator it = myMap.begin();
 	for (; it != myMap.end(); it++)
 		std::cout << it->first << std::endl;
 
-	ft::map<int, int>::iterator it2 = myMap.end();
-	it2--;
-	for (; it2 != --myMap.begin(); it2--)
-		std::cout << it2->first << std::endl;
-
+//	ft::map<int, int>::iterator it2 = myMap.end();
+//	it2--;
+//	for (; it2 != --myMap.begin(); it2--)
+//		std::cout << it2->first << std::endl;
 
 	return 0;
 }

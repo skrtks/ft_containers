@@ -123,14 +123,13 @@ namespace ft {
 				return std::make_pair(_root, true);
 			}
 			else {
-				new_node->_isBlack = false;
 				return insertLeaf(new_node);
 			}
 		}
 
 	private:
 
-		std::pair<iterator,bool> insertLeaf(const node_pointer &x) {
+		std::pair<iterator,bool> insertLeaf(node_pointer &x) {
 			node_pointer curr = _root;
 			while (curr) {
 				if (curr->_data.first == x->_data.first) {
@@ -159,6 +158,7 @@ namespace ft {
 			}
 			resetOuter();
 			balanceTree(x);
+			resetOuter(); // TODO thest with and without this
 			_size++;
 			return std::make_pair(x, true);
 		}
@@ -187,22 +187,96 @@ namespace ft {
 			_last->_parent->_right = _last;
 		}
 
-		void balanceTree(const node_pointer &x) {
-			x->_isBlack = x == _root;
+		void balanceTree(node_pointer root, node_pointer &x) {
+			x->_isBlack = x == root;
 
-			if (x->_parent->_isBlack) {
-				return;
+			while (x != root && !x->_parent->_isBlack) {
+				if (tree_is_left_child(x->_parent)) {
+					node_pointer y = x->_parent->_parent->_right;
+					if (y != NULL && !y->_isBlack) {
+						x = x->_parent;
+						x->_isBlack = true;
+						x = x->_parent;
+						x->_isBlack = x == root;
+						y->_isBlack = true;
+					}
+					else {
+						if (!tree_is_left_child(x)) {
+							x = x->_parent;
+							tree_left_rotate(x);
+						}
+						x = x->_parent;
+						x->_isBlack = true;
+						x = x->_parent;
+						x->_isBlack = false;
+						tree_right_rotate(x);
+						break;
+					}
+				}
+				else {
+					node_pointer y = x->_parent->_parent->_left;
+					if (y != NULL && !y->_isBlack) {
+						x = x->_parent;
+						x->_isBlack = true;
+						x = x->_parent;
+						x->_isBlack = x == root;
+						y->_isBlack = true;
+					}
+					else {
+						if (tree_is_left_child(x)) {
+							x = x->_parent;
+							tree_right_rotate(x);
+						}
+						x = x->_parent;
+						x->_isBlack = true;
+						x = x->_parent;
+						x->_isBlack = false;
+						tree_left_rotate(x);
+						break;
+					}
+				}
+
 			}
-			// 5) If the parent of newNode is Red then check the color of parent node's sibling of newNode.
-			//6) If it is Black or NULL node then make a suitable Rotation and Recolor it.
-			//7) If it is Red colored node then perform Recolor and Recheck it. Repeat the same until tree becomes Red Black Tree.
 		}
 
-		bool tree_is_left_child(const node_pointer &x) _NOEXCEPT
+		bool tree_is_left_child(node_pointer &x)
 		{
-			return x == x->__parent_->__left_;
+			return x == x->_parent->_left;
 		}
 
+		bool tree_is_right_child(node_pointer &x)
+		{
+			return x == x->_parent->_right;
+		}
+
+		void tree_left_rotate(node_pointer x)
+		{
+			node_pointer y = x->_right;
+			x->_right = y->_left;
+			if (x->_right != nullptr)
+				x->_right->setParent(x);
+			y->_parent = x->_parent;
+			if (tree_is_left_child(x))
+				x->_parent->_left = y;
+			else
+				x->_parent->_right = y;
+			y->_left = x;
+			x->setParent(y);
+		}
+		void tree_right_rotate(node_pointer x)
+		{
+			node_pointer y = x->_left;
+			x->_left = y->_right;
+			if (x->_left != nullptr)
+				x->_left->setParent(x);
+			y->_parent = x->_parent;
+			if (tree_is_left_child(x))
+				x->_parent->_left = y;
+			else
+				x->_parent->_right = y;
+			y->_right = x;
+			x->setParent(y);
+		}
 	};
 } // end ft
 

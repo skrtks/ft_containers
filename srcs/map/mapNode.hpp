@@ -90,6 +90,10 @@ namespace ft {
 			}
 			return curr;
 		}
+
+		void setParent(mapNode* parent) {
+			_parent = parent;
+		}
 	};
 
 }
