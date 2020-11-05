@@ -34,6 +34,8 @@ int main ()
 //	myMap.insert(std::make_pair(2, 2));
 //	myMap.insert(std::make_pair(3, 3));
 //	myMap.insert(std::make_pair(1, 1));
+	myMap.insert(std::make_pair(4, 4));
+	myMap.insert(std::make_pair(2, 2));
 	myMap.insert(std::make_pair(11, 11));
 	myMap.insert(std::make_pair(10, 10));
 	myMap.insert(std::make_pair(9, 9));
@@ -41,9 +43,7 @@ int main ()
 	myMap.insert(std::make_pair(7, 7));
 	myMap.insert(std::make_pair(6, 6));
 	myMap.insert(std::make_pair(5, 5));
-	myMap.insert(std::make_pair(4, 4));
 	myMap.insert(std::make_pair(3, 3));
-	myMap.insert(std::make_pair(2, 2));
 
 
 	myMap.printBT();

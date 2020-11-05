@@ -39,12 +39,14 @@ namespace ft {
 		}
 		virtual ~mapNode() {};
 		mapNode& operator=(const mapNode& obj) {
-			_data = obj._data;
-			_left = obj._left;
-			_right = obj._right;
-			_parent = obj._parent;
-			_isBlack = obj._isBlack;
-			_nil = obj._nil;
+			if (obj == this) {
+				_data = obj._data;
+				_left = obj._left;
+				_right = obj._right;
+				_parent = obj._parent;
+				_isBlack = obj._isBlack;
+				_nil = obj._nil;
+			}
 			return *this;
 		}
 
