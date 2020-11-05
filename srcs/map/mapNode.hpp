@@ -34,8 +34,8 @@ namespace ft {
 		bool 	_nil;
 		T		_data;
 
-		explicit mapNode(value_type const& val = value_type()): _parent(NULL), _left(NULL), _right(NULL), _isBlack(false), _data(val) {}
-		mapNode(const mapNode<T>& x) : _data(x._data), _parent(x._parent), _left(x._left), _right(x._right), _isBlack(x._isBlack) {
+		explicit mapNode(value_type const& val = value_type()): _parent(NULL), _left(NULL), _right(NULL), _isBlack(false), _nil(false), _data(val) {}
+		mapNode(const mapNode<T>& x) : _data(x._data), _parent(x._parent), _left(x._left), _right(x._right), _isBlack(x._isBlack), _nil(false) {
 		}
 		virtual ~mapNode() {};
 		mapNode& operator=(const mapNode& obj) {
@@ -44,6 +44,7 @@ namespace ft {
 			_right = obj._right;
 			_parent = obj._parent;
 			_isBlack = obj._isBlack;
+			_nil = obj._nil;
 			return *this;
 		}
 
