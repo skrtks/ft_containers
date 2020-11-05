@@ -130,19 +130,19 @@ namespace ft {
 
 	private:
 
-		std::pair<iterator,bool> insertLeaf(const node_pointer &ptr) {
+		std::pair<iterator,bool> insertLeaf(const node_pointer &x) {
 			node_pointer curr = _root;
 			while (curr) {
-				if (curr->_data.first == ptr->_data.first) {
+				if (curr->_data.first == x->_data.first) {
 					return std::make_pair(curr, false);
 				}
-				else if (curr->_data.first > ptr->_data.first) {
+				else if (curr->_data.first > x->_data.first) {
 					if (curr->_left && curr->_left != _first) {
 						curr = curr->_left;
 					}
 					else {
-						curr->_left = ptr;
-						ptr->_parent = curr;
+						curr->_left = x;
+						x->_parent = curr;
 						break;
 					}
 				}
@@ -151,20 +151,20 @@ namespace ft {
 						curr = curr->_right;
 					}
 					else {
-						curr->_right = ptr;
-						ptr->_parent = curr;
+						curr->_right = x;
+						x->_parent = curr;
 						break;
 					}
 				}
 			}
 			resetOuter();
-			checkAndBalance(ptr);
+			balanceTree(x);
 			_size++;
-			return std::make_pair(ptr, true);
+			return std::make_pair(x, true);
 		}
 
-		void insertRoot(const node_pointer &ptr) {
-			_root = ptr;
+		void insertRoot(const node_pointer &x) {
+			_root = x;
 			_root->_isBlack = true;
 			_first->_parent = _root;
 			_last->_parent = _root;
@@ -187,13 +187,20 @@ namespace ft {
 			_last->_parent->_right = _last;
 		}
 
-		void checkAndBalance(const node_pointer &ptr) {
-			if (ptr->_parent->_isBlack) {
+		void balanceTree(const node_pointer &x) {
+			x->_isBlack = x == _root;
+
+			if (x->_parent->_isBlack) {
 				return;
 			}
 			// 5) If the parent of newNode is Red then check the color of parent node's sibling of newNode.
 			//6) If it is Black or NULL node then make a suitable Rotation and Recolor it.
 			//7) If it is Red colored node then perform Recolor and Recheck it. Repeat the same until tree becomes Red Black Tree.
+		}
+
+		bool tree_is_left_child(const node_pointer &x) _NOEXCEPT
+		{
+			return x == x->__parent_->__left_;
 		}
 
 	};

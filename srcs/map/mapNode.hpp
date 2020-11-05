@@ -34,7 +34,6 @@ namespace ft {
 		bool 	_nil;
 		T		_data;
 
-//		explicit mapNode(): _parent(NULL), _left(NULL), _right(NULL), _isBlack(false), _data(T()) {}
 		explicit mapNode(value_type const& val = value_type()): _parent(NULL), _left(NULL), _right(NULL), _isBlack(false), _data(val) {}
 		mapNode(const mapNode<T>& x) : _data(x._data), _parent(x._parent), _left(x._left), _right(x._right), _isBlack(x._isBlack) {
 		}
