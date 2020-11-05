@@ -19,6 +19,9 @@
 //#include <algorithm>
 //#include <cstddef>
 
+# define _RED			"\x1b[31m"
+# define _END			"\x1b[0m"
+
 namespace ft {
 
 	template < class Key,
@@ -131,12 +134,15 @@ namespace ft {
 
 		std::pair<iterator,bool> insertLeaf(node_pointer &x) {
 			node_pointer curr = _root;
+
+			_first->_parent->_left = NULL; // Unlink first and last trackers
+			_last->_parent->_right = NULL;
 			while (curr) {
 				if (curr->_data.first == x->_data.first) {
 					return std::make_pair(curr, false);
 				}
 				else if (curr->_data.first > x->_data.first) {
-					if (curr->_left && curr->_left != _first) {
+					if (curr->_left) {
 						curr = curr->_left;
 					}
 					else {
@@ -146,7 +152,7 @@ namespace ft {
 					}
 				}
 				else {
-					if (curr->_right && curr->_right != _last) {
+					if (curr->_right) {
 						curr = curr->_right;
 					}
 					else {
@@ -156,9 +162,8 @@ namespace ft {
 					}
 				}
 			}
-			resetOuter();
 			balanceTree(x);
-			resetOuter(); // TODO thest with and without this
+			resetOuter();
 			_size++;
 			return std::make_pair(x, true);
 		}
@@ -187,17 +192,17 @@ namespace ft {
 			_last->_parent->_right = _last;
 		}
 
-		void balanceTree(node_pointer root, node_pointer &x) {
-			x->_isBlack = x == root;
+		void balanceTree(node_pointer &x) {
+			x->_isBlack = x == _root;
 
-			while (x != root && !x->_parent->_isBlack) {
+			while (x != _root && !x->_parent->_isBlack && x != _last && x != _first) {
 				if (tree_is_left_child(x->_parent)) {
 					node_pointer y = x->_parent->_parent->_right;
 					if (y != NULL && !y->_isBlack) {
 						x = x->_parent;
 						x->_isBlack = true;
 						x = x->_parent;
-						x->_isBlack = x == root;
+						x->_isBlack = x == _root;
 						y->_isBlack = true;
 					}
 					else {
@@ -219,7 +224,7 @@ namespace ft {
 						x = x->_parent;
 						x->_isBlack = true;
 						x = x->_parent;
-						x->_isBlack = x == root;
+						x->_isBlack = x == _root;
 						y->_isBlack = true;
 					}
 					else {
@@ -235,7 +240,6 @@ namespace ft {
 						break;
 					}
 				}
-
 			}
 		}
 
@@ -249,14 +253,22 @@ namespace ft {
 			return x == x->_parent->_right;
 		}
 
+		//     y                               x
+		//    / \     Right Rotation          /  \
+		//   x   T3   - - - - - - - >        T1   y
+		//  / \       < - - - - - - -            / \
+		// T1  T2     Left Rotation            T2  T3
+
 		void tree_left_rotate(node_pointer x)
 		{
 			node_pointer y = x->_right;
 			x->_right = y->_left;
-			if (x->_right != nullptr)
+			if (x->_right != NULL)
 				x->_right->setParent(x);
 			y->_parent = x->_parent;
-			if (tree_is_left_child(x))
+			if (x == _root)
+				_root = y;
+			else if (tree_is_left_child(x))
 				x->_parent->_left = y;
 			else
 				x->_parent->_right = y;
@@ -267,15 +279,37 @@ namespace ft {
 		{
 			node_pointer y = x->_left;
 			x->_left = y->_right;
-			if (x->_left != nullptr)
+			if (x->_left != NULL)
 				x->_left->setParent(x);
 			y->_parent = x->_parent;
-			if (tree_is_left_child(x))
+			if (x == _root)
+				_root = y;
+			else if (tree_is_left_child(x))
 				x->_parent->_left = y;
 			else
 				x->_parent->_right = y;
 			y->_right = x;
 			x->setParent(y);
+		}
+
+		void printBT(const std::string& prefix, const node_pointer trav, bool isLeft) const {
+			if (trav && trav != _first && trav != _last) {
+				std::cout << prefix;
+				std::cout << (isLeft ? "└L─" : "├R-" );
+				// print the value of the node
+				if (!trav->_isBlack)
+					std::cout << _RED;
+				std::cout << trav->_data.first << _END << std::endl ;
+				// enter the next tree level - left and right branch
+				printBT( prefix + (!isLeft ? "│   " : "    "), trav->_right, false);
+				printBT( prefix + (!isLeft ? "│   " : "    "), trav->_left, true);
+			}
+		}
+
+	public:
+		void printBT() const {
+			printBT("", this->_root, true);
+			std::cerr << std::endl;
 		}
 	};
 } // end ft

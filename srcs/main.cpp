@@ -23,21 +23,30 @@
 #include <deque>
 #include <queue>
 #include <stack>
+#include <iomanip>
 #include "map.hpp"
 #include "mapNode.hpp"
-
 
 int main ()
 {
 	ft::map<int, int> myMap;
 
-	myMap.insert(std::make_pair(5, 5));
-	myMap.insert(std::make_pair(3, 3));
-	myMap.insert(std::make_pair(4, 4));
-	myMap.insert(std::make_pair(2, 2));
+//	myMap.insert(std::make_pair(2, 2));
+//	myMap.insert(std::make_pair(3, 3));
+//	myMap.insert(std::make_pair(1, 1));
+	myMap.insert(std::make_pair(11, 11));
+	myMap.insert(std::make_pair(10, 10));
+	myMap.insert(std::make_pair(9, 9));
+	myMap.insert(std::make_pair(8, 8));
 	myMap.insert(std::make_pair(7, 7));
 	myMap.insert(std::make_pair(6, 6));
-	myMap.insert(std::make_pair(8, 8));
+	myMap.insert(std::make_pair(5, 5));
+	myMap.insert(std::make_pair(4, 4));
+	myMap.insert(std::make_pair(3, 3));
+	myMap.insert(std::make_pair(2, 2));
+
+
+	myMap.printBT();
 
 	ft::map<int, int>::iterator it = myMap.begin();
 	for (; it != myMap.end(); it++)
