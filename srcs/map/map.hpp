@@ -44,9 +44,9 @@ namespace ft {
 		typedef ptrdiff_t										difference_type;
 		typedef size_t											size_type;
 		typedef BidirectionalIterator<value_type, node_pointer, Alloc> iterator;
-//		typedef ConstBidirectionalIterator<value_type, node_pointer>	const_iterator;
-//		typedef RevBidirectionalIterator<value_type, node_pointer>		reverse_iterator;
-//		typedef ConstRevBidirectionalIterator<value_type, node_pointer>	const_reverse_iterator;
+		typedef ConstBidirectionalIterator<value_type, node_pointer>	const_iterator;
+		typedef RevBidirectionalIterator<value_type, node_pointer>		reverse_iterator;
+		typedef ConstRevBidirectionalIterator<value_type, node_pointer>	const_reverse_iterator;
 	private:
 		node_pointer _root;
 		node_pointer _first;
@@ -87,20 +87,14 @@ namespace ft {
 		}
 
 		// Iterators:
-		iterator begin() {
-			return iterator(_first->_parent);
-		}
-
-		iterator end() {
-			return iterator(_last);
-		}
-
-//		const_iterator begin() const {return const_iterator(_head->_next);}
-//		const_iterator end() const {return const_iterator(_tail);}
-//		reverse_iterator rbegin() {return reverse_iterator(_tail->_previous);}
-//		reverse_iterator rend() {return reverse_iterator(_head);}
-//		const_reverse_iterator rbegin() const {return const_reverse_iterator(_tail->_previous);}
-//		const_reverse_iterator rend() const {return const_reverse_iterator(_head);}
+		iterator begin() {return iterator(_first->_parent);}
+		iterator end() {return iterator(_last);}
+		const_iterator begin() const {return const_iterator(_first->_parent);}
+		const_iterator end() const {return const_iterator(_last);}
+		reverse_iterator rbegin() {return reverse_iterator(_last->_parent);}
+		reverse_iterator rend() {return reverse_iterator(_first);}
+		const_reverse_iterator rbegin() const {return const_reverse_iterator(_last->_parent);}
+		const_reverse_iterator rend() const {return const_reverse_iterator(_first);}
 
 		// Capacity:
 		bool empty() const {
@@ -128,6 +122,33 @@ namespace ft {
 				return insertLeaf(new_node);
 			}
 		}
+
+//		iterator insert (iterator position, const value_type& val);
+
+		template <class InputIterator>
+		void insert (InputIterator first, InputIterator last,
+					 typename ft::check_type<typename ft::iterator_traits<InputIterator>::iterator_category>::type* = 0) {
+			while (first != last) {
+				insert(*first);
+				++first;
+			}
+		}
+
+		iterator find (const key_type& k) {
+			for (iterator it = begin(); it != end(); ++it) {
+				if (it->first == k)
+					return it;
+			}
+			return end();
+		}
+		const_iterator find (const key_type& k) const {
+			for (iterator it = begin(); it != end(); ++it) {
+				if (it->first == k)
+					return it;
+			}
+			return end();
+		}
+
 
 		void printBT() const {
 			printBT("", this->_root, true);
