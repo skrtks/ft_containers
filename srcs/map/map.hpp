@@ -14,7 +14,8 @@
 #define MAP_HPP
 
 #include "mapNode.hpp"
-//#include <iostream>
+#include "BidirectionalIterator.hpp"
+#include "Traits.hpp"
 
 # define _RED			"\x1b[31m"
 # define _END			"\x1b[0m"

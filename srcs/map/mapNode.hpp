@@ -13,8 +13,6 @@
 #ifndef MAPNODE_HPP
 #define MAPNODE_HPP
 
-#include "stack.hpp"
-
 namespace ft {
 
 	template <class T>
