@@ -51,3 +51,23 @@ TEST_CASE("Map: Find", "[Map]") {
 	res = it == mymap.end();
 	REQUIRE(res == true);
 }
+
+//TEST_CASE("Map: Iterators", "[Map]") {
+//	ft::map<int, int> myMap;
+//
+//	myMap.insert(std::make_pair(9, 9));
+//	myMap.insert(std::make_pair(3, 3));
+//	myMap.insert(std::make_pair(8, 8));
+//	myMap.insert(std::make_pair(0, 0));
+//	myMap.insert(std::make_pair(7, 7));
+//	myMap.insert(std::make_pair(6, 6));
+//	myMap.insert(std::make_pair(5, 5));
+//	myMap.insert(std::make_pair(4, 4));
+//	myMap.insert(std::make_pair(2, 2));
+//	myMap.insert(std::make_pair(1, 1));
+//
+//	ft::map<int, int>::iterator it = myMap.begin();
+//	while (it != mymap.end()) {
+//
+//	}
+//}

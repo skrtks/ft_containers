@@ -14,11 +14,7 @@
 #define MAP_HPP
 
 #include "mapNode.hpp"
-#include <iostream>
-//#include <memory>
-//#include <iterator>
-//#include <algorithm>
-//#include <cstddef>w
+//#include <iostream>
 
 # define _RED			"\x1b[31m"
 # define _END			"\x1b[0m"
