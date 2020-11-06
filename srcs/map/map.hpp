@@ -14,10 +14,11 @@
 #define MAP_HPP
 
 #include "mapNode.hpp"
+#include <iostream>
 //#include <memory>
 //#include <iterator>
 //#include <algorithm>
-//#include <cstddef>
+//#include <cstddef>w
 
 # define _RED			"\x1b[31m"
 # define _END			"\x1b[0m"
@@ -47,11 +48,33 @@ namespace ft {
 		typedef ConstBidirectionalIterator<value_type, node_pointer>	const_iterator;
 		typedef RevBidirectionalIterator<value_type, node_pointer>		reverse_iterator;
 		typedef ConstRevBidirectionalIterator<value_type, node_pointer>	const_reverse_iterator;
+
+		class value_compare: public std::binary_function<value_type,value_type,bool> {
+			friend class map;
+		protected:
+			Compare comp;
+			explicit value_compare (Compare c) : comp(c) {}  // constructed with map's comparison object
+		public:
+			typedef bool result_type;
+			typedef value_type first_argument_type;
+			typedef value_type second_argument_type;
+			bool operator() (const value_type& x, const value_type& y) const
+			{
+				return comp(x.first, y.first);
+			}
+		};
+
+		key_compare		key_comp() const { return _comp; }
+		value_compare	value_comp() const { return value_compare(_comp); }
+		bool equal(value_type const & x, value_type const & y) const { return (!value_comp()(x, y) && !value_comp()(y, x)); }
+		bool equal(key_type const & x, key_type const & y) const { return (!key_comp()(x, y) && !key_comp()(y, x)); }
+
 	private:
-		node_pointer _root;
-		node_pointer _first;
-		node_pointer _last;
-		size_type _size;
+		node_pointer 	_root;
+		node_pointer 	_first;
+		node_pointer 	_last;
+		size_type		_size;
+		key_compare		_comp;
 
 	public:
 
@@ -116,14 +139,31 @@ namespace ft {
 			if (empty()) {
 				insertRoot(new_node);
 				_size++;
-				return std::make_pair(_root, true);
+				return std::make_pair(iterator(_root), true);
 			}
 			else {
 				return insertLeaf(new_node);
 			}
 		}
 
-//		iterator insert (iterator position, const value_type& val);
+		iterator insert (iterator position, const value_type& val) {
+			iterator ret;
+			node_pointer new_node = new node(val);
+			node_pointer hint_node = position.getPtr();
+			if (empty()) {
+				insertRoot(new_node);
+				return iterator(_root);
+			}
+			else if ((!hint_node->_right && value_comp()(val, hint_node->_data))
+					|| (!hint_node->_left && value_comp()(hint_node->_data, val))) {
+				ret = insertLeaf(new_node, hint_node).first;
+			}
+			else {
+				ret = insertLeaf(new_node).first;
+			}
+
+			return ret;
+		}
 
 		template <class InputIterator>
 		void insert (InputIterator first, InputIterator last,
@@ -136,14 +176,14 @@ namespace ft {
 
 		iterator find (const key_type& k) {
 			for (iterator it = begin(); it != end(); ++it) {
-				if (it->first == k)
+				if (equal(k, it->first))
 					return it;
 			}
 			return end();
 		}
 		const_iterator find (const key_type& k) const {
 			for (iterator it = begin(); it != end(); ++it) {
-				if (it->first == k)
+				if (equal(k, it->first))
 					return it;
 			}
 			return end();
@@ -152,21 +192,28 @@ namespace ft {
 
 		void printBT() const {
 			printBT("", this->_root, true);
-			std::cerr << std::endl;
+			std::cout << std::endl;
 		}
 
 	private:
 
-		std::pair<iterator,bool> insertLeaf(node_pointer &x) {
-			node_pointer curr = _root;
-
+		std::pair<iterator,bool> insertLeaf(node_pointer &x, node_pointer pos = NULL) {
+			node_pointer curr;
+			if (!pos) {
+				curr = _root;
+			}
+			else {
+				curr = pos;
+			}
 			_first->_parent->_left = NULL; // Unlink first and last trackers
 			_last->_parent->_right = NULL;
 			while (curr) {
-				if (curr->_data.first == x->_data.first) {
-					return std::make_pair(curr, false);
+				if (equal(curr->_data.first, x->_data.first)) {
+					delete x;
+					resetOuter();
+					return std::make_pair(iterator(curr), false);
 				}
-				else if (curr->_data.first > x->_data.first) {
+				else if (key_comp()(x->_data.first, curr->_data.first)) {
 					if (curr->_left) {
 						curr = curr->_left;
 					}
@@ -190,7 +237,7 @@ namespace ft {
 			balanceTree(x);
 			resetOuter();
 			_size++;
-			return std::make_pair(x, true);
+			return std::make_pair(iterator(x), true);
 		}
 
 		void insertRoot(const node_pointer &x) {
