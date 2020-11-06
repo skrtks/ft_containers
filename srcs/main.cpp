@@ -54,7 +54,7 @@ int main ()
 	std::cout << std::endl;
 	ft::map<int, int>::iterator it2 = myMap.end();
 	it2--;
-	for (; it2 != --myMap.begin(); it2--) // todo !!!! skips 7 somehow !!!
+	for (; it2 != --myMap.begin(); it2--)
 		std::cout << it2->first << std::endl;
 
 	return 0;
