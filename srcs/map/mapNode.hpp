@@ -93,26 +93,6 @@ namespace ft {
 			}
 			return curr;
 		}
-
-		bool	operator==(const mapNode& other) {
-			return (this->_data == other._data);
-		}
-		bool	operator!=(const mapNode& other) {
-			return (this->_data != other._data);
-		}
-		bool	operator>(const mapNode& other) {
-			return (this->_data > other._data);
-		}
-		bool	operator<(const mapNode& other) {
-			return (this->_data < other._data);
-		}
-		bool 	operator<=(const mapNode& other) {
-			return (this->_data <= other._data);
-		}
-		bool 	operator>=(const mapNode& other) {
-			return (this->_data >= other._data);
-		}
-
 		void setParent(mapNode* parent) {
 			_parent = parent;
 		}
