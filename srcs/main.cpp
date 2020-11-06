@@ -25,7 +25,7 @@
 //#include <stack>
 //#include <iomanip>
 #include "map.hpp"
-
+#include <iostream>
 int main ()
 {
 	ft::map<int, int> myMap;

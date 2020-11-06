@@ -11,16 +11,16 @@
 # **************************************************************************** #
 
 NAME = ft_containers_tests
-FILES = catchMain listTest vectorTest
+FILES = catchMain listTest vectorTest mapTest
 SRCS = $(addsuffix .cpp, $(FILES))
 OBJS = $(SRCS:.cpp=.o)
 
 # Add the directories you need here:
-INCLUDE = -I../srcs/list -I../srcs -I../srcs/vector -I../srcs/stack -I../srcs/queue
+INCLUDE = -I../srcs/list -I../srcs -I../srcs/vector -I../srcs/stack -I../srcs/queue -I../srcs/map
 
-CXXFLAGS = -std=c++11 -Wall
+CXXFLAGS = -std=c++11
 ifdef asan
- CXXFLAGS += -g -fsanitize=address -fno-omit-frame-pointer -O1
+ CXXFLAGS += -g -fsanitize=address -fno-omit-frame-pointer -O0
 endif
 
 ifeq ($(shell uname), Linux)

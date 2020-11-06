@@ -16,6 +16,7 @@
 #include "mapNode.hpp"
 #include "BidirectionalIterator.hpp"
 #include "Traits.hpp"
+#include <iostream>
 
 # define _RED			"\x1b[31m"
 # define _END			"\x1b[0m"
@@ -158,6 +159,17 @@ namespace ft {
 			else {
 				ret = insertLeaf(new_node).first;
 			}
+
+//			void clear() {
+//
+//			}
+
+//			void erase (iterator position) {
+//
+//			}
+//			size_type erase (const key_type& k);
+//			void erase (iterator first, iterator last);
+
 
 			return ret;
 		}
@@ -322,11 +334,11 @@ namespace ft {
 			return x == x->_parent->_right;
 		}
 
-		//     y                               x
-		//    / \     Right Rotation          /  \
-		//   x   T3   - - - - - - - >        T1   y
-		//  / \       < - - - - - - -            / \
-		// T1  T2     Left Rotation            T2  T3
+		/*     y                               x
+		    / \     Right Rotation          /  \
+		   x   T3   - - - - - - - >        T1   y
+		  / \       < - - - - - - -            / \
+		 T1  T2     Left Rotation            T2  T3*/
 
 		void tree_left_rotate(node_pointer x)
 		{
@@ -361,7 +373,7 @@ namespace ft {
 			x->setParent(y);
 		}
 
-		void printBT(const std::string& prefix, const node_pointer trav, bool isLeft) const {
+		void printBT(const std::string& prefix, const node_pointer& trav, bool isLeft) const {
 			if (trav && trav != _first && trav != _last) {
 				std::cout << prefix;
 				std::cout << (isLeft ? "└L─" : "├R-" );
