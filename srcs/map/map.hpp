@@ -65,27 +65,26 @@ namespace ft {
 			_first->_parent = _last;
 		}
 
-//	explicit map(size_type n, const value_type& val = value_type()) {
-//	}
-//
-//	template<class InputIterator>
-//	map(InputIterator first, InputIterator last) {
-//
-//	}
-//
-//	map(map const& x) {
-//
-//	}
+	//	explicit map(size_type n, const value_type& val = value_type()) {
+	//	}
+	//
+	//	template<class InputIterator>
+	//	map(InputIterator first, InputIterator last) {
+	//
+	//	}
+	//
+	//	map(map const& x) {
+	//
+	//	}
 
-		// assignment operator overload
-//	map& operator=(map const& x) {
-//
-//	}
+			// assignment operator overload
+	//	map& operator=(map const& x) {
+	//
+	//	}
 
 		virtual ~map() {
+			// Clear() + delete _first and _last
 		}
-
-
 
 		// Iterators:
 		iterator begin() {
@@ -128,6 +127,11 @@ namespace ft {
 			else {
 				return insertLeaf(new_node);
 			}
+		}
+
+		void printBT() const {
+			printBT("", this->_root, true);
+			std::cerr << std::endl;
 		}
 
 	private:
@@ -304,12 +308,6 @@ namespace ft {
 				printBT( prefix + (!isLeft ? "│   " : "    "), trav->_right, false);
 				printBT( prefix + (!isLeft ? "│   " : "    "), trav->_left, true);
 			}
-		}
-
-	public:
-		void printBT() const {
-			printBT("", this->_root, true);
-			std::cerr << std::endl;
 		}
 	};
 } // end ft

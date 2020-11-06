@@ -76,8 +76,8 @@ namespace ft {
 			mapNode<T>* curr = this;
 			if (_left) {
 				curr = curr->_left;
-				if (curr->_right && (curr->_right->_data.first > curr->_data.first)) {
-					return curr->_right;
+				while (curr->_right && (curr->_right->_data.first > curr->_data.first)) {
+					curr = curr->_right;
 				}
 			}
 			else if (!_left) {
