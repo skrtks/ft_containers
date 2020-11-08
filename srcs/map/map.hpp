@@ -189,15 +189,22 @@ namespace ft {
 				}
 				else if (x->_left && x->_right) {
 					y = treeNext(x);
-					tree_is_left_child(y) ? y->_parent->_left = NULL : y->_parent->_right = NULL;
+					if (y->_parent) {
+						tree_is_left_child(y) ? y->_parent->_left = NULL : y->_parent->_right = NULL;
+					}
 					y->_parent = x->_parent;
 					if (x->_parent) {
-						tree_is_left_child(x) ? x->_parent->_left = y : x->_parent->_right = y;
+						tree_is_left_child(x) ? y->_parent->_left = y : y->_parent->_right = y;
 					}
-					y->_left = x->_left;
-					x->_left->_parent = y;
-					y->_right = x->_right;
-					x->_right->_parent = y;
+					if (x->_left && x->_left != y) {
+						y->_left = x->_left;
+						y->_left->_parent = y;
+					}
+					if (x->_right && x->_right != y) {
+						y->_right = x->_right;
+						y->_right->_parent = y;
+					}
+					if (x == _root) _root = y;
 					delete x;
 					--_size;
 				}
@@ -251,7 +258,8 @@ namespace ft {
 		node_pointer treeNext(node_pointer x) _NOEXCEPT
 		{
 			if (x->_right != NULL) {
-				while (x->_left != NULL)
+				x = x->_right;
+				while (x->_left != NULL && !x->_left->_nil)
 					x = x->_left;
 				return x;
 			}

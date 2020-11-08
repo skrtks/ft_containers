@@ -43,7 +43,7 @@ int main ()
 
 
 	myMap.printBT();
-	ft::map<int, int>::iterator it = myMap.find(8);
+	ft::map<int, int>::iterator it = myMap.find(3);
 	myMap.erase(it);
 	myMap.printBT();
 //	ft::map<int, int>::iterator it = myMap.begin();
