@@ -159,18 +159,6 @@ namespace ft {
 			else {
 				ret = insertLeaf(new_node).first;
 			}
-
-//			void clear() {
-//
-//			}
-
-//			void erase (iterator position) {
-//
-//			}
-//			size_type erase (const key_type& k);
-//			void erase (iterator first, iterator last);
-
-
 			return ret;
 		}
 
@@ -182,6 +170,52 @@ namespace ft {
 				++first;
 			}
 		}
+
+//		void clear() {
+//
+//			}
+
+			void erase (iterator position) {
+				node_pointer x = position.getPtr();
+				node_pointer y;
+//				bool wasBlack = x->_isBlack;
+				if (x->_nil)
+					return;
+				if (x->_left == NULL && x->_right == NULL && x->_parent != NULL) {
+					if (tree_is_left_child(x)) x->_parent->_left = NULL;
+					else if (tree_is_right_child(x)) x->_parent->_right = NULL;
+					delete x;
+					--_size;
+				}
+				else if (x->_left && x->_right) {
+					y = treeNext(x);
+					tree_is_left_child(y) ? y->_parent->_left = NULL : y->_parent->_right = NULL;
+					y->_parent = x->_parent;
+					if (x->_parent) {
+						tree_is_left_child(x) ? x->_parent->_left = y : x->_parent->_right = y;
+					}
+					y->_left = x->_left;
+					x->_left->_parent = y;
+					y->_right = x->_right;
+					x->_right->_parent = y;
+					delete x;
+					--_size;
+				}
+				else {
+					y = x->_left ? x->_left : x->_right;
+					if (tree_is_left_child(x)) {
+						x->_parent->_left = y;
+					}
+					else {
+						x->_parent->_right = y;
+					}
+					y->_parent = x->_parent;
+					delete x;
+					--_size;
+				}
+			}
+//			size_type erase (const key_type& k);
+//			void erase (iterator first, iterator last);
 
 		iterator find (const key_type& k) {
 			for (iterator it = begin(); it != end(); ++it) {
@@ -206,6 +240,26 @@ namespace ft {
 
 	private:
 
+//		void treeRemove(node_pointer z) {
+//			// __z will be removed from the tree.  Client still needs to destruct/deallocate it
+//			// __y is either __z, or if __z has two children, __tree_next(__z).
+//			// __y will have at most one child.
+//			// __y will be the initial hole in the tree (make the hole at a leaf)
+//
+//		}
+
+		node_pointer treeNext(node_pointer x) _NOEXCEPT
+		{
+			if (x->_right != NULL) {
+				while (x->_left != NULL)
+					x = x->_left;
+				return x;
+			}
+			while (!tree_is_left_child(x))
+				x = x->_parent;
+			return x->_parent;
+		}
+
 		std::pair<iterator,bool> insertLeaf(node_pointer &x, node_pointer pos = NULL) {
 			node_pointer curr;
 			if (!pos) {
@@ -214,8 +268,7 @@ namespace ft {
 			else {
 				curr = pos;
 			}
-			_first->_parent->_left = NULL; // Unlink first and last trackers
-			_last->_parent->_right = NULL;
+			unlinkOuter();
 			while (curr) {
 				if (equal(curr->_data.first, x->_data.first)) {
 					delete x;
@@ -271,6 +324,11 @@ namespace ft {
 			}
 			_last->_parent = tmp_node;
 			_last->_parent->_right = _last;
+		}
+
+		void unlinkOuter() {
+			_first->_parent->_left = NULL; // Unlink first and last trackers
+			_last->_parent->_right = NULL;
 		}
 
 		void balanceTree(node_pointer &x) {

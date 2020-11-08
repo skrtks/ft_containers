@@ -43,15 +43,17 @@ int main ()
 
 
 	myMap.printBT();
-
-	ft::map<int, int>::iterator it = myMap.begin();
-	for (; it != myMap.end(); it++)
-		std::cout << it->first << std::endl;
-	std::cout << std::endl;
-	ft::map<int, int>::iterator it2 = myMap.end();
-	it2--;
-	for (; it2 != --myMap.begin(); it2--)
-		std::cout << it2->first << std::endl;
+	ft::map<int, int>::iterator it = myMap.find(8);
+	myMap.erase(it);
+	myMap.printBT();
+//	ft::map<int, int>::iterator it = myMap.begin();
+//	for (; it != myMap.end(); it++)
+//		std::cout << it->first << std::endl;
+//	std::cout << std::endl;
+//	ft::map<int, int>::iterator it2 = myMap.end();
+//	it2--;
+//	for (; it2 != --myMap.begin(); it2--)
+//		std::cout << it2->first << std::endl;
 
 	return 0;
 }
