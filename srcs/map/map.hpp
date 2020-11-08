@@ -171,58 +171,20 @@ namespace ft {
 			}
 		}
 
-//		void clear() {
-//
-//			}
+		void clear() {
+			erase(begin(), end());
+		}
 
-			void erase (iterator position) {
-				node_pointer x = position.getPtr();
-				node_pointer y;
-//				bool wasBlack = x->_isBlack;
-				if (x->_nil)
-					return;
-				if (x->_left == NULL && x->_right == NULL && x->_parent != NULL) {
-					if (tree_is_left_child(x)) x->_parent->_left = NULL;
-					else if (tree_is_right_child(x)) x->_parent->_right = NULL;
-					delete x;
-					--_size;
-				}
-				else if (x->_left && x->_right) {
-					y = treeNext(x);
-					if (y->_parent) {
-						tree_is_left_child(y) ? y->_parent->_left = NULL : y->_parent->_right = NULL;
-					}
-					y->_parent = x->_parent;
-					if (x->_parent) {
-						tree_is_left_child(x) ? y->_parent->_left = y : y->_parent->_right = y;
-					}
-					if (x->_left && x->_left != y) {
-						y->_left = x->_left;
-						y->_left->_parent = y;
-					}
-					if (x->_right && x->_right != y) {
-						y->_right = x->_right;
-						y->_right->_parent = y;
-					}
-					if (x == _root) _root = y;
-					delete x;
-					--_size;
-				}
-				else {
-					y = x->_left ? x->_left : x->_right;
-					if (tree_is_left_child(x)) {
-						x->_parent->_left = y;
-					}
-					else {
-						x->_parent->_right = y;
-					}
-					y->_parent = x->_parent;
-					delete x;
-					--_size;
-				}
-			}
+		void erase (iterator position) {
+			treeRemove(position);
+		}
 //			size_type erase (const key_type& k);
-//			void erase (iterator first, iterator last);
+		void erase (iterator first, iterator last) {
+			while (first != last) {
+				printBT();
+				first = treeRemove(first);
+			}
+		}
 
 		iterator find (const key_type& k) {
 			for (iterator it = begin(); it != end(); ++it) {
@@ -247,13 +209,65 @@ namespace ft {
 
 	private:
 
-//		void treeRemove(node_pointer z) {
-//			// __z will be removed from the tree.  Client still needs to destruct/deallocate it
-//			// __y is either __z, or if __z has two children, __tree_next(__z).
-//			// __y will have at most one child.
-//			// __y will be the initial hole in the tree (make the hole at a leaf)
-//
-//		}
+		iterator treeRemove(iterator position) {
+			node_pointer x = position.getPtr();
+			node_pointer y;
+
+			bool wasBlack = x->_isBlack;
+			if (x->_nil)
+				return ++position;
+			unlinkOuter();
+			if (x->_left == NULL && x->_right == NULL) {
+				if (!x->_parent) {
+					delete x;
+					--_size;
+					return iterator (end());
+				}
+				if (tree_is_left_child(x)) x->_parent->_left = NULL;
+				else if (tree_is_right_child(x)) x->_parent->_right = NULL;
+				y = x->_parent;
+				delete x;
+				--_size;
+			}
+			else if (x->_left && x->_right) {
+				y = treeNext(x);
+				if (y->_parent) {
+					tree_is_left_child(y) ? y->_parent->_left = NULL : y->_parent->_right = NULL;
+				}
+				y->_parent = x->_parent;
+				if (x->_parent) {
+					tree_is_left_child(x) ? y->_parent->_left = y : y->_parent->_right = y;
+				}
+				if (x->_left && x->_left != y) {
+					y->_left = x->_left;
+					y->_left->_parent = y;
+				}
+				if (x->_right && x->_right != y) {
+					y->_right = x->_right;
+					y->_right->_parent = y;
+				}
+				delete x;
+				--_size;
+			}
+			else {
+				y = x->_left ? x->_left : x->_right;
+				if (x->_parent && tree_is_left_child(x)) {
+					x->_parent->_left = y;
+				}
+				else if (x->_parent) {
+					x->_parent->_right = y;
+				}
+				y->_parent = x->_parent;
+				delete x;
+				--_size;
+			}
+			if (!y->_parent) _root = y;
+			if (wasBlack && _root) {
+				balanceTree(y);
+			}
+			resetOuter();
+			return iterator(y);
+		}
 
 		node_pointer treeNext(node_pointer x) _NOEXCEPT
 		{
