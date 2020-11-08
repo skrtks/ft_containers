@@ -262,11 +262,25 @@ namespace ft {
 				--_size;
 			}
 			if (!y->_parent) _root = y;
-			if (wasBlack && _root) {
-				balanceTree(y);
-			}
+			if (wasBlack)
+				balanceAfterDelete(y);
 			resetOuter();
 			return iterator(y);
+		}
+
+		void balanceAfterDelete(node_pointer &x) {
+			if (x != _root && !x->_isBlack) {
+				if (tree_is_left_child(x)) {
+					if (x->_parent->_right && x->_parent->_right->_isBlack) {
+						x->_isBlack = true;
+					}
+				}
+				else {
+					if (x->_parent->_left && x->_parent->_left->_isBlack) {
+						x->_isBlack = true;
+					}
+				}
+			}
 		}
 
 		node_pointer treeNext(node_pointer x) _NOEXCEPT
@@ -356,7 +370,7 @@ namespace ft {
 		void balanceTree(node_pointer &x) {
 			x->_isBlack = x == _root;
 
-			while (x != _root && !x->_parent->_isBlack && x != _last && x != _first) {
+			while (x != _root && x->_parent->_parent && !x->_parent->_isBlack && x != _last && x != _first) {
 				if (tree_is_left_child(x->_parent)) {
 					node_pointer y = x->_parent->_parent->_right;
 					if (y != NULL && !y->_isBlack) {
