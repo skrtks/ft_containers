@@ -358,7 +358,7 @@ namespace ft {
 			x->_isBlack = true;
 		}
 
-		node_pointer treeNext(node_pointer x) _NOEXCEPT
+		node_pointer treeNext(node_pointer x)
 		{
 			if (x->_right != NULL) {
 				x = x->_right;
