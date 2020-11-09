@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "Catch2.h"
+
 #include "map.hpp"
 
 TEST_CASE("Map: Insert + empty + size", "[Map]") {

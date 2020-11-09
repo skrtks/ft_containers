@@ -12,7 +12,6 @@
 
 #include "Catch2.h"
 
-#include "vector.hpp"
 #include "stack.hpp"
 #include <list>
 #include <deque>

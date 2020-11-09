@@ -12,7 +12,6 @@
 
 #include "Catch2.h"
 
-#include "list.hpp"
 #include "queue.hpp"
 #include <deque>
 

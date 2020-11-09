@@ -13,12 +13,6 @@
 #ifndef STACK_HPP
 #define STACK_HPP
 
-#include "listNode.hpp"
-#include "BidirectionalIterator.hpp"
-#include "Traits.hpp"
-#include <memory>
-#include <iterator>
-#include <algorithm>
 #include "vector.hpp"
 
 namespace ft {
