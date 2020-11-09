@@ -31,25 +31,15 @@ int main ()
 	ft::map<int, int> myMap;
 
 	myMap.insert(std::make_pair(9, 9));
-	myMap.printBT();
 	myMap.insert(std::make_pair(3, 3));
-	myMap.printBT();
-	myMap.insert(std::make_pair(8, 8));
-	myMap.printBT();
-	myMap.insert(std::make_pair(0, 0));
-	myMap.printBT();
-	myMap.insert(std::make_pair(7, 7));
-	myMap.printBT();
-	myMap.insert(std::make_pair(6, 6));
-	myMap.printBT();
 	myMap.insert(std::make_pair(5, 5));
-	myMap.printBT();
-	myMap.insert(std::make_pair(4, 4));
-	myMap.printBT();
 	myMap.insert(std::make_pair(2, 2));
-	myMap.printBT();
+	myMap.insert(std::make_pair(8, 8));
+	myMap.insert(std::make_pair(7, 7));
 	myMap.insert(std::make_pair(1, 1));
-	myMap.printBT();
+	myMap.insert(std::make_pair(6, 6));
+	myMap.insert(std::make_pair(4, 4));
+	myMap.insert(std::make_pair(0, 0));
 
 
 //	myMap.printBT();

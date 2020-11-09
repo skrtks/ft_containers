@@ -43,9 +43,9 @@ namespace ft {
 		typedef ptrdiff_t										difference_type;
 		typedef size_t											size_type;
 		typedef BidirectionalIterator<value_type, node_pointer, Alloc> iterator;
-		typedef ConstBidirectionalIterator<value_type, node_pointer>	const_iterator;
-		typedef RevBidirectionalIterator<value_type, node_pointer>		reverse_iterator;
-		typedef ConstRevBidirectionalIterator<value_type, node_pointer>	const_reverse_iterator;
+		typedef ConstBidirectionalIterator<value_type, node_pointer, Alloc>	const_iterator;
+		typedef RevBidirectionalIterator<value_type, node_pointer, Alloc>		reverse_iterator;
+		typedef ConstRevBidirectionalIterator<value_type, node_pointer, Alloc>	const_reverse_iterator;
 
 		class value_compare: public std::binary_function<value_type,value_type,bool> {
 			friend class map;
@@ -187,18 +187,10 @@ namespace ft {
 		}
 
 		iterator find (const key_type& k) {
-			for (iterator it = begin(); it != end(); ++it) {
-				if (equal(k, it->first))
-					return it;
-			}
-			return end();
+			return recursiveFind(k, _root);
 		}
 		const_iterator find (const key_type& k) const {
-			for (iterator it = begin(); it != end(); ++it) {
-				if (equal(k, it->first))
-					return it;
-			}
-			return end();
+			return recursiveFind(k, _root);
 		}
 
 
@@ -208,6 +200,21 @@ namespace ft {
 		}
 
 	private:
+
+		iterator recursiveFind(const key_type& k, const node_pointer& x) {
+			if (x && !x->_nil) {
+				if (x->_data.first == k) {
+					return iterator(x);
+				}
+				else if (x->_data.first > k) {
+					return recursiveFind(k, x->_left);
+				}
+				else {
+					return recursiveFind(k, x->_right);
+				}
+			}
+			return iterator(end());
+		}
 
 		iterator treeRemove(iterator position) {
 			node_pointer x = position.getPtr();
@@ -224,63 +231,121 @@ namespace ft {
 					return iterator (end());
 				}
 				if (tree_is_left_child(x)) x->_parent->_left = NULL;
-				else if (tree_is_right_child(x)) x->_parent->_right = NULL;
+				else x->_parent->_right = NULL;
 				y = x->_parent;
 				delete x;
 				--_size;
 			}
-			else if (x->_left && x->_right) {
-				y = treeNext(x);
-				if (y->_parent) {
-					tree_is_left_child(y) ? y->_parent->_left = NULL : y->_parent->_right = NULL;
-				}
-				y->_parent = x->_parent;
-				if (x->_parent) {
-					tree_is_left_child(x) ? y->_parent->_left = y : y->_parent->_right = y;
-				}
-				if (x->_left && x->_left != y) {
-					y->_left = x->_left;
-					y->_left->_parent = y;
-				}
-				if (x->_right && x->_right != y) {
-					y->_right = x->_right;
-					y->_right->_parent = y;
-				}
-				delete x;
-				--_size;
-			}
 			else {
-				y = x->_left ? x->_left : x->_right;
-				if (x->_parent && tree_is_left_child(x)) {
-					x->_parent->_left = y;
+				if (x->_left && x->_right) {
+					y = treeNext(x);
+					if (y->_parent) {
+						tree_is_left_child(y) ? y->_parent->_left = NULL : y->_parent->_right = NULL;
+					}
+					y->_parent = x->_parent;
+					if (x->_parent) {
+						tree_is_left_child(x) ? y->_parent->_left = y : y->_parent->_right = y;
+					}
+					if (x->_left && x->_left != y) {
+						y->_left = x->_left;
+						y->_left->_parent = y;
+					}
+					if (x->_right && x->_right != y) {
+						y->_right = x->_right;
+						y->_right->_parent = y;
+					}
+					delete x;
+					--_size;
 				}
-				else if (x->_parent) {
-					x->_parent->_right = y;
+				else {
+					y = x->_left ? x->_left : x->_right;
+					if (x->_parent && tree_is_left_child(x)) {
+						x->_parent->_left = y;
+					}
+					else if (x->_parent) {
+						x->_parent->_right = y;
+					}
+					y->_parent = x->_parent;
+					delete x;
+					--_size;
 				}
-				y->_parent = x->_parent;
-				delete x;
-				--_size;
+				if (!y->_parent) _root = y;
+				if (wasBlack)
+					balanceAfterDelete(y);
 			}
-			if (!y->_parent) _root = y;
-			if (wasBlack)
-				balanceAfterDelete(y);
 			resetOuter();
 			return iterator(y);
 		}
 
 		void balanceAfterDelete(node_pointer &x) {
-			if (x != _root && !x->_isBlack) {
+			node_pointer w;
+			while (x != _root && x->_isBlack) {
 				if (tree_is_left_child(x)) {
-					if (x->_parent->_right && x->_parent->_right->_isBlack) {
-						x->_isBlack = true;
+					w = x->_parent->_right;
+					if (w && !w->_isBlack) {
+						w->_isBlack = true;
+						w->_parent->_isBlack = false;
+						tree_left_rotate(x->_parent);
+						w = x->_parent->_right;
+					}
+					if (w && w->_left && w->_left->_isBlack
+						&& w->_right && w->_right->_isBlack) {
+						w->_isBlack = false;
+						x = x->_parent;
+					}
+					else {
+						if (w && w->_right && w->_right->_isBlack) {
+							w->_left->_isBlack = true;
+							w->_isBlack = false;
+							tree_right_rotate(w);
+							w = x->_parent->_right;
+						}
+						if (w) {
+							w->_isBlack = w->_parent->_isBlack;
+							x->_parent->_isBlack = true;
+							if (w->_right) {
+								w->_right->_isBlack = true;
+							}
+							tree_left_rotate(x->_parent);
+							x = _root;
+						}
 					}
 				}
 				else {
-					if (x->_parent->_left && x->_parent->_left->_isBlack) {
-						x->_isBlack = true;
+					{
+						w = x->_parent->_left;
+						if (w && !w->_isBlack) {
+							w->_isBlack = true;
+							w->_parent->_isBlack = false;
+							tree_right_rotate(w->_parent);
+							w = x->_parent->_left;
+						}
+						if (w && w->_right && w->_right->_isBlack
+							&& w->_left && w->_left->_isBlack) {
+							w->_isBlack = false;
+							x = x->_parent;
+						}
+						else {
+							if (w && w->_left && w->_left->_isBlack) {
+								w->_right->_isBlack = true;
+								w->_isBlack = false;
+								tree_left_rotate(w);
+								w = x->_parent->_left;
+							}
+							if (w) {
+								w->_isBlack = w->_parent->_isBlack;
+								x->_parent->_isBlack = true;
+								if (w->_left) {
+									w->_left->_isBlack = true;
+								}
+								tree_right_rotate(x->_parent);
+								x = _root;
+							}
+						}
 					}
 				}
 			}
+			x->_isBlack = true;
 		}
 
 		node_pointer treeNext(node_pointer x) _NOEXCEPT
@@ -304,14 +369,14 @@ namespace ft {
 			else {
 				curr = pos;
 			}
+			if (find(x->_data.first) != end()) {
+				delete x;
+				resetOuter();
+				return std::make_pair(iterator(curr), false);
+			}
 			unlinkOuter();
 			while (curr) {
-				if (equal(curr->_data.first, x->_data.first)) {
-					delete x;
-					resetOuter();
-					return std::make_pair(iterator(curr), false);
-				}
-				else if (key_comp()(x->_data.first, curr->_data.first)) {
+				if (key_comp()(x->_data.first, curr->_data.first)) {
 					if (curr->_left) {
 						curr = curr->_left;
 					}
