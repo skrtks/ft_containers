@@ -42,8 +42,9 @@ int main ()
 	myMap.insert(std::make_pair(0, 0));
 
 
-//	myMap.printBT();
-	ft::map<int, int>::iterator it = myMap.find(7);
+	myMap.printBT();
+	myMap.erase(5);
+	myMap.printBT();
 	myMap.erase(myMap.begin(), myMap.end());
 	if (!myMap.empty())
 		myMap.printBT();

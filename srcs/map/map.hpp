@@ -178,7 +178,15 @@ namespace ft {
 		void erase (iterator position) {
 			treeRemove(position);
 		}
-//			size_type erase (const key_type& k);
+		size_type erase (const key_type& k) {
+			iterator pos;
+			size_type ret = 0;
+			while ((pos = find(k)) != end()) {
+				treeRemove(pos);
+				ret++;
+			}
+			return ret;
+		}
 		void erase (iterator first, iterator last) {
 			while (first != last) {
 				printBT();
