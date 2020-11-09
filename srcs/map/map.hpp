@@ -104,7 +104,9 @@ namespace ft {
 	//	}
 
 		virtual ~map() {
-			// Clear() + delete _first and _last
+			erase(begin(), end());
+			delete _last;
+			delete _first;
 		}
 
 		// Iterators:
@@ -189,7 +191,6 @@ namespace ft {
 		}
 		void erase (iterator first, iterator last) {
 			while (first != last) {
-				printBT();
 				first = treeRemove(first);
 			}
 		}
@@ -228,6 +229,7 @@ namespace ft {
 			node_pointer x = position.getPtr();
 			node_pointer y;
 
+			++position;
 			bool wasBlack = x->_isBlack;
 			if (x->_nil)
 				return ++position;
@@ -282,7 +284,7 @@ namespace ft {
 					balanceAfterDelete(y);
 			}
 			resetOuter();
-			return iterator(y);
+			return position;
 		}
 
 		void balanceAfterDelete(node_pointer &x) {

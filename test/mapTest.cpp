@@ -72,3 +72,31 @@ TEST_CASE("Map: Iterators", "[Map]") {
 		++it;
 	}
 }
+
+TEST_CASE("Map: Erase", "[Map]") {
+	ft::map<char,int> mymap;
+	ft::map<char,int>::iterator it;
+
+	// insert some values:
+	mymap.insert(std::make_pair('a', 10));
+	mymap.insert(std::make_pair('b', 20));
+	mymap.insert(std::make_pair('c', 30));
+	mymap.insert(std::make_pair('d', 40));
+	mymap.insert(std::make_pair('e', 50));
+	mymap.insert(std::make_pair('f', 60));
+
+	it=mymap.find('b');
+	mymap.erase (it);                   // erasing by iterator
+
+	mymap.erase ('c');                  // erasing by key
+
+	it=mymap.find ('e');
+	mymap.erase ( it, mymap.end() );    // erasing by range
+
+	// show content:
+	it=mymap.begin();
+	REQUIRE(mymap.size() == 2);
+	REQUIRE(it->second == 10);
+	++it;
+	REQUIRE(it->second == 40);
+}

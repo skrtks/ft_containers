@@ -28,34 +28,28 @@
 #include <iostream>
 int main ()
 {
-	ft::map<int, int> myMap;
+	ft::map<char,int> mymap;
+	ft::map<char,int>::iterator it;
 
-	myMap.insert(std::make_pair(9, 9));
-	myMap.insert(std::make_pair(3, 3));
-	myMap.insert(std::make_pair(5, 5));
-	myMap.insert(std::make_pair(2, 2));
-	myMap.insert(std::make_pair(8, 8));
-	myMap.insert(std::make_pair(7, 7));
-	myMap.insert(std::make_pair(1, 1));
-	myMap.insert(std::make_pair(6, 6));
-	myMap.insert(std::make_pair(4, 4));
-	myMap.insert(std::make_pair(0, 0));
+	// insert some values:
+	mymap.insert(std::make_pair('a', 10));
+	mymap.insert(std::make_pair('b', 20));
+	mymap.insert(std::make_pair('c', 30));
+	mymap.insert(std::make_pair('d', 40));
+	mymap.insert(std::make_pair('e', 50));
+	mymap.insert(std::make_pair('f', 60));
 
+	it=mymap.find('b');
+	mymap.erase (it);                   // erasing by iterator
 
-	myMap.printBT();
-	myMap.erase(5);
-	myMap.printBT();
-	myMap.erase(myMap.begin(), myMap.end());
-	if (!myMap.empty())
-		myMap.printBT();
-//	ft::map<int, int>::iterator it = myMap.begin();
-//	for (; it != myMap.end(); it++)
-//		std::cout << it->first << std::endl;
-//	std::cout << std::endl;
-//	ft::map<int, int>::iterator it2 = myMap.end();
-//	it2--;
-//	for (; it2 != --myMap.begin(); it2--)
-//		std::cout << it2->first << std::endl;
+	mymap.erase ('c');                  // erasing by key
+
+	it=mymap.find ('e');
+	mymap.erase ( it, mymap.end() );    // erasing by range
+
+	// show content:
+	for (it=mymap.begin(); it!=mymap.end(); ++it)
+		std::cout << it->first << " => " << it->second << '\n';
 
 	return 0;
 }

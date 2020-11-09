@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 NAME = ft_containers_tests
-FILES = catchMain listTest vectorTest mapTest
+FILES = catchMain mapTest listTest vectorTest queueTest stackTest
 SRCS = $(addsuffix .cpp, $(FILES))
 OBJS = $(SRCS:.cpp=.o)
 
@@ -42,7 +42,6 @@ $(NAME): $(OBJS)
 	./$(NAME)
 	@echo $(ECHO) "$(PREFIX)$(GREEN) Cleaning... $(END)$(OUT_DIR)"
 	@rm -f $(OBJS)
-	@rm -rf webservwebserv.dSYM *.a
 	@rm -rf $(NAME)
 
 %.o: %.cpp
@@ -55,7 +54,6 @@ clean:
 
 fclean: clean
 	@echo $(ECHO) "$(PREFIX)$(GREEN) Removing executable $(END)$(OUT_DIR)"
-	@rm -rf webservwebserv.dSYM *.a
 	@rm -rf $(NAME)
 
 re: fclean all
