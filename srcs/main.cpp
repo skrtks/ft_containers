@@ -31,11 +31,8 @@ int main ()
 	ft::map<char,int> mymap;
 
 	mymap['x'] = 100;
-	mymap.printBT();
 	mymap['y'] = 200;
-	mymap.printBT();
 	mymap['z'] = 300;
-	mymap.printBT();
 
 	// show content:
 	ft::map<char,int>::iterator it;

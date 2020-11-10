@@ -119,3 +119,15 @@ TEST_CASE("Map: Erase", "[Map]") {
 	++it;
 	REQUIRE(it->second == 40);
 }
+
+TEST_CASE("Map: [] overload", "[Map]") {
+	ft::map<char,int> mymap;
+
+	mymap['x'] = 100;
+	mymap['y'] = 200;
+	mymap['z'] = 300;
+
+	REQUIRE(mymap['x'] == 100);
+	REQUIRE(mymap['y'] == 200);
+	REQUIRE(mymap['z'] == 300);
+}
