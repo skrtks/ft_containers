@@ -62,11 +62,6 @@ namespace ft {
 			}
 		};
 
-		key_compare		key_comp() const { return _comp; }
-		value_compare	value_comp() const { return value_compare(_comp); }
-		bool equal(value_type const & x, value_type const & y) const { return (!value_comp()(x, y) && !value_comp()(y, x)); }
-		bool equal(key_type const & x, key_type const & y) const { return (!key_comp()(x, y) && !key_comp()(y, x)); }
-
 	private:
 		node_pointer 	_root;
 		node_pointer 	_first;
@@ -132,6 +127,10 @@ namespace ft {
 
 		size_type max_size() const {
 			return this->_allocator.max_size();
+		}
+
+		mapped_type& operator[] (const key_type& k) {
+			return (*((this->insert(std::make_pair(k,mapped_type()))).first)).second;
 		}
 
 		std::pair<iterator,bool> insert (const value_type& val) {
@@ -203,12 +202,18 @@ namespace ft {
 		}
 
 
+		key_compare		key_comp() const { return _comp; }
+		value_compare	value_comp() const { return value_compare(_comp); }
+
 		void printBT() const {
 			printBT("", this->_root, true);
 			std::cout << std::endl;
 		}
 
 	private:
+
+		bool equal(value_type const & x, value_type const & y) const { return (!value_comp()(x, y) && !value_comp()(y, x)); }
+		bool equal(key_type const & x, key_type const & y) const { return (!key_comp()(x, y) && !key_comp()(y, x)); }
 
 		iterator recursiveFind(const key_type& k, const node_pointer& x) {
 			if (x && !x->_nil) {
@@ -373,16 +378,16 @@ namespace ft {
 
 		std::pair<iterator,bool> insertLeaf(node_pointer &x, node_pointer pos = NULL) {
 			node_pointer curr;
+			iterator ret;
+			if ((ret = find(x->_data.first)) != end()) {
+				resetOuter();
+				return std::make_pair(ret, false);
+			}
 			if (!pos) {
 				curr = _root;
 			}
 			else {
 				curr = pos;
-			}
-			if (find(x->_data.first) != end()) {
-				delete x;
-				resetOuter();
-				return std::make_pair(iterator(curr), false);
 			}
 			unlinkOuter();
 			while (curr) {
@@ -407,10 +412,11 @@ namespace ft {
 					}
 				}
 			}
+			ret = iterator(x);
 			balanceTree(x);
 			resetOuter();
 			_size++;
-			return std::make_pair(iterator(x), true);
+			return std::make_pair(ret, true);
 		}
 
 		void insertRoot(const node_pointer &x) {

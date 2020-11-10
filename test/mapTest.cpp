@@ -13,6 +13,8 @@
 #include "Catch2.h"
 #include "map.hpp"
 
+#include <map>
+
 TEST_CASE("Map: Insert + empty + size", "[Map]") {
 	ft::map<char,int> mymap;
 	REQUIRE(mymap.empty() == true);
@@ -70,6 +72,23 @@ TEST_CASE("Map: Iterators", "[Map]") {
 	for (int i = 0; i < 10; ++i) {
 		REQUIRE(i == it->second);
 		++it;
+	}
+	it = myMap.end();
+	--it;
+	for (int i = 9; i != 0; --i) {
+		REQUIRE(i == it->second);
+		--it;
+	}
+	ft::map<int, int>::reverse_iterator rit = myMap.rbegin();
+	for (int i = 9; i != 0; --i) {
+		REQUIRE(i == rit->second);
+		++rit;
+	}
+	rit = myMap.rend();
+	--rit;
+	for (int i = 0; i < 10; ++i) {
+		REQUIRE(i == rit->second);
+		--rit;
 	}
 }
 
