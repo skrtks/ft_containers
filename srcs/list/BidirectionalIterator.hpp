@@ -98,8 +98,8 @@ namespace ft {
 		ConstBidirectionalIterator(): BidirectionalIterator<T, N>() {}
 		explicit ConstBidirectionalIterator(node_pointer node): BidirectionalIterator<T, N>(node) {}
 		virtual ~ConstBidirectionalIterator() {}
-		ConstBidirectionalIterator(const ConstBidirectionalIterator& obj) { *this = obj;}
-		ConstBidirectionalIterator(const BidirectionalIterator<T, N>& obj) { *this = obj;}
+		ConstBidirectionalIterator(const ConstBidirectionalIterator& obj): BidirectionalIterator<T,N>(obj) { *this = obj;}
+		ConstBidirectionalIterator(const BidirectionalIterator<T, N>& obj): BidirectionalIterator<T,N>(obj) { *this = obj;}
 		ConstBidirectionalIterator& operator=(const ConstBidirectionalIterator& obj) {
 			if (&obj != this) {
 				this->_ptr = obj.getPtr();
@@ -205,8 +205,8 @@ namespace ft {
 		ConstRevBidirectionalIterator(): RevBidirectionalIterator<T, N>() {}
 		explicit ConstRevBidirectionalIterator(node_pointer node): RevBidirectionalIterator<T, N>(node) {}
 		virtual ~ConstRevBidirectionalIterator() {}
-		ConstRevBidirectionalIterator(const ConstRevBidirectionalIterator& obj) { *this = obj;}
-		ConstRevBidirectionalIterator(const RevBidirectionalIterator<T, N>& obj) { *this = obj;}
+		ConstRevBidirectionalIterator(const ConstRevBidirectionalIterator& obj): RevBidirectionalIterator<T, N>(obj) { *this = obj;}
+		ConstRevBidirectionalIterator(const RevBidirectionalIterator<T, N>& obj): RevBidirectionalIterator<T, N>(obj) { *this = obj;}
 		ConstRevBidirectionalIterator& operator=(const ConstRevBidirectionalIterator& obj) {
 			if (&obj != this) {
 				this->_ptr = obj.getPtr();
