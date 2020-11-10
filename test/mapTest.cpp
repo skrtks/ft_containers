@@ -61,7 +61,6 @@ TEST_CASE("Map: Constructors", "[Map]") {
 
 	REQUIRE(fifth['b'] == 30);
 	REQUIRE(fifth['c'] == 50);
-
 }
 
 TEST_CASE("Map: Insert + empty + size", "[Map]") {
@@ -179,4 +178,42 @@ TEST_CASE("Map: [] overload", "[Map]") {
 	REQUIRE(mymap['x'] == 100);
 	REQUIRE(mymap['y'] == 200);
 	REQUIRE(mymap['z'] == 300);
+}
+
+TEST_CASE("Map: Swap", "[Map]") {
+	ft::map<char,int> foo,bar;
+	ft::map<char,int>::iterator it;
+
+	foo['x']=100;
+	foo['y']=200;
+
+	bar['a']=11;
+	bar['b']=22;
+	bar['c']=33;
+
+	foo.swap(bar);
+
+	REQUIRE(foo.size() == 3);
+	REQUIRE(foo['a'] == 11);
+	REQUIRE(foo['b'] == 22);
+	REQUIRE(foo['c'] == 33);
+	it = foo.begin();
+	REQUIRE(it->second == 11);
+
+	REQUIRE(bar.size() == 2);
+	REQUIRE(bar['x'] == 100);
+	REQUIRE(bar['y'] == 200);
+	it = bar.begin();
+	REQUIRE(it->second == 100);
+}
+
+TEST_CASE("Map: Count", "[Map]") {
+	ft::map<char,int> mymap;
+
+	mymap['x'] = 100;
+	mymap['y'] = 200;
+	mymap['z'] = 300;
+
+	REQUIRE(mymap.count('x') == 1);
+	REQUIRE(mymap.count('a') == 0);
 }

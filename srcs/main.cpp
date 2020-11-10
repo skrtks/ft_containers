@@ -27,30 +27,23 @@
 #include "map.hpp"
 #include <iostream>
 
-bool fncomp (char lhs, char rhs) {return lhs<rhs;}
-
-struct classcomp {
-	bool operator() (const char& lhs, const char& rhs) const
-	{return lhs<rhs;}
-};
-
 int main ()
 {
-	ft::map<char,int> first;
+	std::map<char,int> mymap;
+	char c;
 
-	first['a']=10;
-	first['b']=30;
-	first['c']=50;
-	first['d']=70;
+	mymap ['a']=101;
+	mymap ['c']=202;
+	mymap ['f']=303;
 
-	ft::map<char,int> second (first.begin(),first.end());
-
-	ft::map<char,int> third (second);
-
-	ft::map<char,int,classcomp> fourth;                 // class as Compare
-
-	bool(*fn_pt)(char,char) = fncomp;
-	ft::map<char,int,bool(*)(char,char)> fifth (fn_pt); // function pointer as Compare
+	for (c='a'; c<'h'; c++)
+	{
+		std::cout << c;
+		if (mymap.count(c)>0)
+			std::cout << " is an element of mymap.\n";
+		else
+			std::cout << " is not an element of mymap.\n";
+	}
 
 	return 0;
 }

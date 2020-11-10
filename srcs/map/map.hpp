@@ -202,13 +202,28 @@ namespace ft {
 			}
 		}
 
-		iterator find (const key_type& k) {
-			return recursiveFind(k, _root);
-		}
-		const_iterator find (const key_type& k) const {
-			return recursiveFind(k, _root);
+		void swap (map& x) {
+			itemSwap(_root, x._root);
+			itemSwap(_first, x._first);
+			itemSwap(_last, x._last);
+			itemSwap(_size, x._size);
 		}
 
+		size_type count (const key_type& k) const {
+			if (find(k) != end()) {
+				return 1;
+			}
+			return 0;
+		}
+
+		iterator find (const key_type& k) {
+			node_pointer n = recursiveFind(k, _root);
+			return (n ? iterator(n) : end());
+		}
+		const_iterator find (const key_type& k) const {
+			node_pointer n = recursiveFind(k, _root);
+			return (n ? const_iterator(n) : end());
+		}
 
 		key_compare		key_comp() const { return _comp; }
 		value_compare	value_comp() const { return value_compare(_comp); }
@@ -232,19 +247,19 @@ namespace ft {
 		bool equal(value_type const & x, value_type const & y) const { return (!value_comp()(x, y) && !value_comp()(y, x)); }
 		bool equal(key_type const & x, key_type const & y) const { return (!key_comp()(x, y) && !key_comp()(y, x)); }
 
-		iterator recursiveFind(const key_type& k, const node_pointer& x) {
+		node_pointer recursiveFind(const key_type& k, const node_pointer& x) const {
 			if (x && !x->_nil) {
-				if (x->_data.first == k) {
-					return iterator(x);
+				if (equal(x->_data.first, k)) {
+					return x;
 				}
-				else if (x->_data.first > k) {
+				else if (key_comp()(k, x->_data.first)) {
 					return recursiveFind(k, x->_left);
 				}
 				else {
 					return recursiveFind(k, x->_right);
 				}
 			}
-			return iterator(end());
+			return NULL;
 		}
 
 		iterator treeRemove(iterator position) {
@@ -577,6 +592,13 @@ namespace ft {
 				printBT( prefix + (!isLeft ? "│   " : "    "), trav->_right, false);
 				printBT( prefix + (!isLeft ? "│   " : "    "), trav->_left, true);
 			}
+		}
+
+		template< typename S >
+		void	itemSwap(S& var1, S& var2) {
+			S tmpvar = var1;
+			var1 = var2;
+			var2 = tmpvar;
 		}
 	};
 } // end ft
