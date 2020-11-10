@@ -39,14 +39,13 @@ all: $(NAME)
 $(NAME): $(OBJS)
 	@echo $(ECHO) "$(PREFIX)$(GREEN) Bundling executable... $(END)$(NAME)"
 	@$(CXX) $(CXXFLAGS) $(OBJS) $(INCLUDE) -o $@
-	./$(NAME)
-	@echo $(ECHO) "$(PREFIX)$(GREEN) Cleaning... $(END)$(OUT_DIR)"
-	@rm -f $(OBJS)
-	@rm -rf $(NAME)
 
 %.o: %.cpp
 	@echo $(ECHO) "$(PREFIX)$(GREEN) Compiling file $(END)$< $(GREEN)to $(END)$@"
 	@$(CXX) $(CXXFLAGS) $(INCLUDE) -c $< -o $@
+
+run: all
+	./$(NAME)
 
 clean:
 	@echo $(ECHO) "$(PREFIX)$(GREEN) Removing .o files $(END)$(OUT_DIR)"
@@ -57,8 +56,5 @@ fclean: clean
 	@rm -rf $(NAME)
 
 re: fclean all
-
-run: clean all
-	./$(NAME)
 
 .PHONY: clean fclean re all

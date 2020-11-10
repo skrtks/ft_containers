@@ -40,7 +40,7 @@ $(NAME): $(OBJS)
 
 test:
 	@echo $(ECHO) "$(PREFIX)$(GREEN) Running tests... $(END)$(NAME)"
-	@cd test && make asan=1
+	@cd test && make run asan=1
 
 %.a: %
 	@echo $(ECHO) "$(PREFIX)$(GREEN) Compiling file $(END)$< $(GREEN)to $(END)$@"
@@ -57,8 +57,8 @@ clean:
 
 fclean: clean
 	@echo $(ECHO) "$(PREFIX)$(GREEN) Removing executable $(END)$(OUT_DIR)"
-	@rm -rf webservwebserv.dSYM *.a
 	@rm -rf $(NAME)
+	@cd test && make fclean
 
 re: fclean all
 
