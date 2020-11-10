@@ -138,35 +138,33 @@ namespace ft {
 		}
 
 		mapped_type& operator[] (const key_type& k) {
-			return (*((this->insert(std::make_pair(k,mapped_type()))).first)).second;
+			return (*((this->insert(std::make_pair(k, mapped_type()))).first)).second;
 		}
 
 		std::pair<iterator,bool> insert (const value_type& val) {
-			node_pointer new_node = new node(val);
 			if (empty()) {
-				insertRoot(new_node);
+				insertRoot(val);
 				_size++;
 				return std::make_pair(iterator(_root), true);
 			}
 			else {
-				return insertLeaf(new_node);
+				return insertLeaf(val);
 			}
 		}
 
 		iterator insert (iterator position, const value_type& val) {
 			iterator ret;
-			node_pointer new_node = new node(val);
 			node_pointer hint_node = position.getPtr();
 			if (empty()) {
-				insertRoot(new_node);
+				insertRoot(val);
 				return iterator(_root);
 			}
 			else if ((!hint_node->_right && value_comp()(val, hint_node->_data))
 					|| (!hint_node->_left && value_comp()(hint_node->_data, val))) {
-				ret = insertLeaf(new_node, hint_node).first;
+				ret = insertLeaf(val, hint_node).first;
 			}
 			else {
-				ret = insertLeaf(new_node).first;
+				ret = insertLeaf(val).first;
 			}
 			return ret;
 		}
@@ -408,10 +406,12 @@ namespace ft {
 			return x->_parent;
 		}
 
-		std::pair<iterator,bool> insertLeaf(node_pointer &x, node_pointer pos = NULL) {
+		std::pair<iterator,bool> insertLeaf(const value_type& val, node_pointer pos = NULL) {
 			node_pointer curr;
 			iterator ret;
+			node_pointer x = new node(val);;
 			if ((ret = find(x->_data.first)) != end()) {
+				delete x;
 				resetOuter();
 				return std::make_pair(ret, false);
 			}
@@ -451,7 +451,8 @@ namespace ft {
 			return std::make_pair(ret, true);
 		}
 
-		void insertRoot(const node_pointer &x) {
+		void insertRoot(const value_type& val) {
+			node_pointer x = new node(val);
 			_root = x;
 			_root->_isBlack = true;
 			_first->_parent = _root;
