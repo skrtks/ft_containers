@@ -40,6 +40,7 @@ namespace ft {
 		typedef const T*										const_pointer;
 		typedef mapNode<value_type>*							node_pointer;
 		typedef mapNode<value_type>								node;
+		typedef Alloc											allocator_type;
 		typedef ptrdiff_t										difference_type;
 		typedef size_t											size_type;
 		typedef BidirectionalIterator<value_type, node_pointer, Alloc> iterator;
@@ -68,35 +69,42 @@ namespace ft {
 		node_pointer 	_last;
 		size_type		_size;
 		key_compare		_comp;
+		allocator_type 	_alloc;
 
 	public:
 
 		// Constructors/Destructor:
-		explicit map() : _root(), _size(0) {
-			_last = new node;
-			_first = new node;
-			_last->_nil = true;
-			_first->_nil = true;
-			_last->_parent = _first;
-			_first->_parent = _last;
+		explicit map(const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type())
+				: _root(), _size(0), _comp(comp), _alloc(alloc) {
+			init_outer();
 		}
 
-	//	explicit map(size_type n, const value_type& val = value_type()) {
-	//	}
-	//
-	//	template<class InputIterator>
-	//	map(InputIterator first, InputIterator last) {
-	//
-	//	}
-	//
-	//	map(map const& x) {
-	//
-	//	}
+		template <class InputIterator>
+		map (InputIterator first, InputIterator last,
+			 const key_compare& comp = key_compare(),
+			 const allocator_type& alloc = allocator_type())
+			 : _root(), _size(0), _comp(comp), _alloc(alloc) {
+			init_outer();
+			insert(first, last);
+		}
 
-			// assignment operator overload
-	//	map& operator=(map const& x) {
-	//
-	//	}
+		map(map const& x): _root(), _size(0) {
+			init_outer();
+			_alloc = x._alloc;
+			_comp = x._comp;
+			insert(x.begin(), x.end());
+		}
+
+		// assignment operator overload
+		map& operator=(map const& x) {
+			if (this != &x) {
+				clear();
+				_alloc = x._alloc;
+				_comp = x._comp;
+				insert(x.begin(), x.end());
+			}
+			return (*this);
+		}
 
 		virtual ~map() {
 			erase(begin(), end());
@@ -211,6 +219,15 @@ namespace ft {
 		}
 
 	private:
+
+		void init_outer() {
+			_last = new node;
+			_first = new node;
+			_last->_nil = true;
+			_first->_nil = true;
+			_last->_parent = _first;
+			_first->_parent = _last;
+		}
 
 		bool equal(value_type const & x, value_type const & y) const { return (!value_comp()(x, y) && !value_comp()(y, x)); }
 		bool equal(key_type const & x, key_type const & y) const { return (!key_comp()(x, y) && !key_comp()(y, x)); }

@@ -15,6 +15,55 @@
 
 #include <map>
 
+bool fncomp (char lhs, char rhs) {return lhs<rhs;}
+
+struct classcomp {
+	bool operator() (const char& lhs, const char& rhs) const
+	{return lhs<rhs;}
+};
+
+TEST_CASE("Map: Constructors", "[Map]") {
+	ft::map<char,int> first;
+
+	first['a']=10;
+	first['b']=30;
+	first['c']=50;
+	first['d']=70;
+
+	ft::map<char,int> second (first.begin(),first.end());
+
+	ft::map<char,int> third (second);
+
+	ft::map<char,int,classcomp> fourth;                 // class as Compare
+	fourth['a']=10;
+	fourth['b']=30;
+	fourth['c']=50;
+	fourth['d']=70;
+
+	bool(*fn_pt)(char,char) = fncomp;
+	ft::map<char,int,bool(*)(char,char)> fifth (fn_pt); // function pointer as Compare
+	fifth['a']=10;
+	fifth['b']=30;
+	fifth['c']=50;
+	fifth['d']=70;
+
+	REQUIRE(first['b'] == 30);
+	REQUIRE(first['c'] == 50);
+
+	REQUIRE(second['b'] == 30);
+	REQUIRE(second['c'] == 50);
+
+	REQUIRE(third['b'] == 30);
+	REQUIRE(third['c'] == 50);
+
+	REQUIRE(fourth['b'] == 30);
+	REQUIRE(fourth['c'] == 50);
+
+	REQUIRE(fifth['b'] == 30);
+	REQUIRE(fifth['c'] == 50);
+
+}
+
 TEST_CASE("Map: Insert + empty + size", "[Map]") {
 	ft::map<char,int> mymap;
 	REQUIRE(mymap.empty() == true);

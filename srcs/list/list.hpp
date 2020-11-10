@@ -79,19 +79,21 @@ public:
 		assign(x.begin(), x.end());
 	}
 
+	// assignment operator overload
+	list& operator=(list const& x) {
+		if (this != &x) {
+			clear();
+			_head->_next = _tail;
+			_tail->_previous = _head;
+			assign(x.begin(), x.end());
+		}
+		return *this;
+	}
+
 	virtual ~list() {
 		clear();
 		delete _head;
 		delete _tail;
-	}
-
-	// assignment operator overload
-	list& operator=(list const& x) {
-		clear();
-		_head->_next = _tail;
-		_tail->_previous = _head;
-		this->assign(x.begin(), x.end());
-		return *this;
 	}
 
 	// Iterators:
