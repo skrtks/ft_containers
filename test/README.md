@@ -28,6 +28,11 @@ _INCLUDE = -I../List -I../Vector -I../Vector/Whatever_
     └── ft_containers_tests/
 
 ##### Usage:
-- Go to ft_containers/ft_containers_tests/
-- make (will run all tests)
+- cd to ft_containers/ft_containers_tests/
+
+Normal test run:
+- make run (will run all tests)
+
+Check for memory problems (better on Linux, but works on Mac)
+- make run asan=1
 
