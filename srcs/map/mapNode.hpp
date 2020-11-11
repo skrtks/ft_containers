@@ -23,7 +23,6 @@ namespace ft {
 		typedef const T&	const_reference;
 		typedef	T*			pointer;
 		typedef	const T*	const_pointer;
-//		typedef	C			key_compare;
 
 		mapNode	*_parent;
 		mapNode	*_left;
