@@ -27,38 +27,23 @@
 #include "map.hpp"
 #include <iostream>
 
-bool fncomp (char lhs, char rhs) {return lhs<rhs;}
-
-struct classcomp {
-	bool operator() (const char& lhs, const char& rhs) const
-	{return lhs<rhs;}
-};
-
 int main ()
 {
-	ft::map<char,int> first;
+	ft::map<char,int> mymap;
 
-	first['a']=10;
-	first['b']=30;
-	first['c']=50;
-	first['d']=70;
+	mymap['a']=10;
+	mymap['b']=20;
+	mymap['c']=30;
 
-	ft::map<char,int> second (first.begin(),first.end());
+	std::pair<ft::map<char,int>::iterator,ft::map<char,int>::iterator> ret;
+	ret = mymap.equal_range('b');
 
-	ft::map<char,int> third (second);
+	std::cout << "lower bound points to: ";
+	std::cout << ret.first->first << " => " << ret.first->second << '\n';
 
-	ft::map<char,int,classcomp> fourth;                 // class as Compare
-	fourth['a']=10;
-	fourth['b']=30;
-	fourth['c']=50;
-	fourth['d']=70;
-
-	bool(*fn_pt)(char,char) = fncomp;
-	ft::map<char,int,bool(*)(char,char)> fifth (fn_pt); // function pointer as Compare
-	fifth['a']=10;
-	fifth['b']=30;
-	fifth['c']=50;
-	fifth['d']=70;
-
+	std::cout << "upper bound points to: ";
+	std::cout << ret.second->first << " => " << ret.second->second << '\n';
+	//lower bound points to: b => 20
+	//upper bound points to: c => 30
 	return 0;
 }

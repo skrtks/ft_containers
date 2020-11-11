@@ -23,6 +23,12 @@
 
 namespace ft {
 
+	enum findType {
+		EQUAL,
+		LOWER,
+		UPPER
+	};
+
 	template < class Key,
 			class T,
 			class Compare = std::less<Key>,
@@ -215,16 +221,43 @@ namespace ft {
 		}
 
 		iterator find (const key_type& k) {
-			node_pointer n = recursiveFind(k, _root);
+			node_pointer n = recursiveFind(k, _root, EQUAL);
 			return (n ? iterator(n) : end());
 		}
 		const_iterator find (const key_type& k) const {
-			node_pointer n = recursiveFind(k, _root);
+			node_pointer n = recursiveFind(k, _root, EQUAL);
 			return (n ? const_iterator(n) : end());
 		}
 
 		key_compare		key_comp() const { return _comp; }
 		value_compare	value_comp() const { return value_compare(_comp); }
+
+		iterator lower_bound (const key_type& k) {
+			node_pointer n = recursiveFind(k, _root, LOWER);
+			return (n ? iterator(n) : end());
+		}
+
+		const_iterator lower_bound (const key_type& k) const {
+			node_pointer n = recursiveFind(k, _root, LOWER);
+			return (n ? const_iterator(n) : end());
+		}
+
+		iterator upper_bound (const key_type& k) {
+			node_pointer n = recursiveFind(k, _root, UPPER);
+			return (n ? iterator(n) : end());
+		}
+
+		const_iterator upper_bound (const key_type& k) const {
+			node_pointer n = recursiveFind(k, _root, UPPER);
+			return (n ? const_iterator(n) : end());
+		}
+
+		std::pair<const_iterator,const_iterator> equal_range (const key_type& k) const {
+			return (std::make_pair(const_iterator(lower_bound(k)), const_iterator(upper_bound(k))));
+		}
+		std::pair<iterator,iterator>             equal_range (const key_type& k) {
+			return (std::make_pair(iterator(lower_bound(k)), iterator(upper_bound(k))));
+		}
 
 		void printBT() const {
 			printBT("", this->_root, true);
@@ -245,16 +278,18 @@ namespace ft {
 		bool equal(value_type const & x, value_type const & y) const { return (!value_comp()(x, y) && !value_comp()(y, x)); }
 		bool equal(key_type const & x, key_type const & y) const { return (!key_comp()(x, y) && !key_comp()(y, x)); }
 
-		node_pointer recursiveFind(const key_type& k, const node_pointer& x) const {
+		node_pointer recursiveFind(const key_type& k, const node_pointer& x, const findType& type) const {
 			if (x && !x->_nil) {
-				if (equal(x->_data.first, k)) {
+				if ((type == EQUAL && equal(x->_data.first, k)) ||
+					(type == LOWER && (equal(x->_data.first, k) || key_comp()(x->_data.first, k))) ||
+					(type == UPPER && key_comp()(k, x->_data.first))) {
 					return x;
 				}
 				else if (key_comp()(k, x->_data.first)) {
-					return recursiveFind(k, x->_left);
+					return recursiveFind(k, x->_left, type);
 				}
 				else {
-					return recursiveFind(k, x->_right);
+					return recursiveFind(k, x->_right, type);
 				}
 			}
 			return NULL;

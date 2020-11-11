@@ -217,3 +217,33 @@ TEST_CASE("Map: Count", "[Map]") {
 	REQUIRE(mymap.count('x') == 1);
 	REQUIRE(mymap.count('a') == 0);
 }
+
+TEST_CASE("Map: upper/lower bound", "[Map]") {
+	ft::map<char,int> mymap;
+	ft::map<char,int>::iterator itlow,itup;
+
+	mymap['a']=20;
+	mymap['b']=40;
+	mymap['c']=60;
+	mymap['d']=80;
+	mymap['e']=100;
+
+	itlow=mymap.lower_bound ('b');  // itlow points to b
+	itup=mymap.upper_bound ('d');   // itup points to e (not d!)
+	REQUIRE(itlow->first == 'b');
+	REQUIRE(itup->first == 'e');
+}
+
+TEST_CASE("Map: equal_range", "[Map]") {
+	ft::map<char,int> mymap;
+
+	mymap['a']=10;
+	mymap['b']=20;
+	mymap['c']=30;
+
+	std::pair<ft::map<char,int>::iterator,ft::map<char,int>::iterator> ret;
+	ret = mymap.equal_range('b');
+
+	REQUIRE(ret.first->first == 'b');
+	REQUIRE(ret.second->first == 'c');
+}
