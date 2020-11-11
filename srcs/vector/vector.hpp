@@ -282,11 +282,6 @@ namespace ft {
 			x._capacity = tmp;
 		}
 
-
-		pointer getArray() const {
-			return _array;
-		}
-
 	private:
 			pointer _array;
 			size_type _size;
