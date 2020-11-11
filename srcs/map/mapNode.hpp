@@ -36,7 +36,7 @@ namespace ft {
 		}
 		virtual ~mapNode() {};
 		mapNode& operator=(const mapNode& obj) {
-			if (obj == this) {
+			if (this != &obj) {
 				_data = obj._data;
 				_left = obj._left;
 				_right = obj._right;
