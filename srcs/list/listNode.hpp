@@ -26,9 +26,11 @@ public:
 	explicit listNode(T element): _next(NULL), _previous(NULL), _data(T(element)) {}
 	virtual ~listNode() {};
 	listNode& operator=(const listNode& obj) {
-		_data = obj._data;
-		_next = obj._next;
-		_previous = obj._previous;
+		if (this != &obj) {
+			_data = obj._data;
+			_next = obj._next;
+			_previous = obj._previous;
+		}
 		return *this;
 	}
 
