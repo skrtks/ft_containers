@@ -12,20 +12,8 @@
 
 #include <iostream>
 
-//#include "vector.hpp"
-//#include "list.hpp"
-//#include "stack.hpp"
-//#include "queue.hpp"
-//#include <list>
-//#include <vector>
 #include <map>
-//#include <cmath>
-//#include <deque>
-//#include <queue>
-//#include <stack>
-//#include <iomanip>
 #include "map.hpp"
-#include <iostream>
 
 int main ()
 {
@@ -43,7 +31,5 @@ int main ()
 
 	std::cout << "upper bound points to: ";
 	std::cout << ret.second->first << " => " << ret.second->second << '\n';
-	//lower bound points to: b => 20
-	//upper bound points to: c => 30
 	return 0;
 }

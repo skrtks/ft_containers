@@ -19,6 +19,7 @@ OBJS = $(SRCS:.cpp=.o)
 INCLUDE = -I../srcs/list -I../srcs -I../srcs/vector -I../srcs/stack -I../srcs/queue -I../srcs/map
 
 CXXFLAGS = -std=c++11
+
 ifdef asan
  CXXFLAGS += -g -fsanitize=address -fno-omit-frame-pointer -O0
 endif

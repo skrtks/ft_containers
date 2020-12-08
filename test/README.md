@@ -31,8 +31,19 @@ _INCLUDE = -I../List -I../Vector -I../Vector/Whatever_
 - cd to ft_containers/ft_containers_tests/
 
 Normal test run:
-- make run (will run all tests)
+- make && ./ft_containers_tests
 
-Check for memory problems (better on Linux, but works on Mac)
-- make run asan=1
+To run a subset of test, first make and then run with the tag of the subset you 
+want to run. It is possible to run multiple subsets by adding more tags separated
+ by a ',':
+- make && ./ft_containers_tests "[List]", "[Map]"
+
+You can also run a specific test by adding the name of the test as an argument:
+- make && ./ft_containers_tests "Map: Constructors"
+
+To stop testing on the first error / n errors:
+- make && ./ft_containers_tests -a / -x n
+
+For a more compact output run with -r compact. To get insights in memory problems 
+please compile with "make asan=1"
 
